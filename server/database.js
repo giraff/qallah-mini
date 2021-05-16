@@ -1,3 +1,4 @@
+/**database.js */
 const mysql = require('mysql');
 import config from './config/index';
 

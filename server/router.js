@@ -1,6 +1,6 @@
+/**router.js */
 // # express 모듈
 const express = require('express');
-// # os 모듈
 // express.Router의 인스턴스 router 생성
 const router = express.Router();
 // # database 가져오기
