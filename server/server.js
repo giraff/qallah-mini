@@ -2,7 +2,6 @@
 
 const express = require('express'); // http 모듈 처럼 사용할 수 있지만 훨씬 많은 기능을 가진 외부 모듈
 const path = require('path'); // 파일 및 디렉토리 경로 작업을 위한 utility 제공 모듈
-const router = require('./router'); // 라우터 파일 임포트
 var morgan = require('morgan'); // 웹 요청이 들어왔을 때 로그 출력
 var cors = require('cors'); // CORS 이슈 다루기
 var helmet = require('helmet'); // http 헤더 설정을 자동으로 바꾸어 잘 알려진 앱 취약성으로부터 앱 보호하는 패키지
