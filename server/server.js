@@ -16,6 +16,8 @@ const app = express();
 import config from './config/index';
 const { PORT } = config;
 
+app.use(express.urlencoded({extended:false}));
+app.use(express.json());
 app.use(express.static(path.join(__dirname, '..', 'public/')));
 app.use(cors()); // 모든 도메인에 대한 request 활성화 -> 좋지 않은 방식
 /** ex. products/:id에 대한 url 라우팅, 즉 특정 도메인에만 cors를 허용하는게 이상적
@@ -27,7 +29,6 @@ app.use(cors()); // 모든 도메인에 대한 request 활성화 -> 좋지 않�
 app.use(morgan('combined'));
 app.use(helmet());
 app.use(hpp());
-// '/'로 시작되는 모든 요청은 router.js로 넘겨주겠다는 의미
 
 app.use('/api/user', userRoutes);
 app.use('/api/auth', authRoutes);
