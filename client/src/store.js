@@ -6,14 +6,15 @@ import {routerMiddleware} from 'connected-react-router';
 import createRootReducer from './redux/reducers/index';
 import rootSaga from './redux/sagas/index';
 
-// 초기 상태
-const initialState = {}
 
 // history 내보내기
 export const history = createBrowserHistory();
 
 // saga 미들웨어
 const sagaMiddleware = createSagaMiddleware();
+
+// 초기 상태
+const initialState = {}
 
 // 미들웨어 배열
 const middlewares = [sagaMiddleware, routerMiddleware(history)]
