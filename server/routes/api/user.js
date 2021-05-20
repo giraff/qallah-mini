@@ -53,12 +53,13 @@ router.post('/login', (req, res, next) => {
   };
 
   // 3. 모두 채워졌다면 이미 존재하는 유저인지 검사 (존재한다면 반려)
-  mdbConn.query(`SELECT * FROM user where id=${email}`, (err, rows, field) => {
+  mdbConn.query(`SELECT * FROM user WHERE email="${email}"`, (err, rows, field) => {
     if(!err) {
       // 존재하는 유저
-      if(rows[0] != undefined) {
+      if(rows[0] != undefined) {        
+        res.send(`${rows[0]['email']}`);
         // return res.status(400).json({msg: '이미 가입한 유저입니다.'});
-        res.send(`id: : ${rows[0]['user_email']} <br> pw : ${rows[0]['pwd']}`);
+        // res.send(`id: : ${rows[0]['email']} pw : ${rows[0]['pwd']}`);
       } else {
         // 존재하지 않는 유저
         res.send('no data');
@@ -68,6 +69,35 @@ router.post('/login', (req, res, next) => {
     }
   })
   
+  router.get('/',(req, res, next) => {
+    res.render('register');
+  })
+
+  router.post('/register', (req, res, next) => {
+    const {name, email, password} = req.body;
+
+    if(!name || !email || !password) {
+      return res.status(400).json({msg: "모든 필드를 채워주세요"});
+    };
+
+    mdbConn.query(`SELECT * FROM user WHERE email="${email}"`, (err, rows, field) => {
+      if(!err){
+        if(rows[0] != undefined) {
+            return res.status(400).json({msg: '이미 가입한 유저입니다.'});
+        } else {
+          mdbConn.query(`INSERT INTO user (user_name, email, pwd) VALUES ("${name}", "${email}", "${password}")`, (err, rows, field) => {
+            if (!err){
+              res.send(`register Succes`);
+            } else {
+              res.send(`error: ${err}`);
+            }
+          })
+        }
+      } else {
+        res.send(`error: ${err}`);
+      }
+    })
+  })
 
 });
 export default router;
