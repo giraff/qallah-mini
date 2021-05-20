@@ -50,7 +50,8 @@ router.post('/', (req, res) => {
                 birth: rows[0].birth
               }
             })
-          })
+          });
+
         } else {
           // 6. 유저가 존재하지 않으면
           console.log('유저가 존재하지 않음')
@@ -62,5 +63,16 @@ router.post('/', (req, res) => {
     console.log(e);
   }
 });
+
+// @route   POST api/auth/logout
+// @desc    Logout
+// @access  public
+
+// LOGOUT
+// 서버에선 오로지 응답 (로그아웃 성공 메시지) 만 보내주고
+// 나머지 과정은 front 단에서 redux-saga를 이용해 처리.
+router.post('/logout', (req, res) => {
+  res.json('로그아웃 성공');
+}) 
 
 export default router;
