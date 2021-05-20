@@ -10,6 +10,7 @@ const initialState = {
   isLoading: false,
   user: "",
   userName: "",
+  errorMsg: ""
 }
 
 const authReducer = (state = initialState, action) => {
@@ -18,6 +19,7 @@ const authReducer = (state = initialState, action) => {
       console.log('2. authReducer 발동 : LOGIN_REQUEST');
       return {
         ...state,
+        errorMsg: "",
         isLoading: true
       }
     case LOGIN_SUCCESS:
@@ -30,6 +32,7 @@ const authReducer = (state = initialState, action) => {
         isLoading: false,
         isAuthenticated: true,
         userName: action.payload.user.name,
+        errorMsg: "",
       }
     case LOGIN_FAILURE:
       console.log('login_failure');
@@ -39,7 +42,9 @@ const authReducer = (state = initialState, action) => {
         ...action.payload,
         isLoading: false,
         isAuthenticated: false,
-        userName: null
+        token: null,
+        userName: null,
+        errorMsg: action.payload.data.msg
       }
     default:
       return state
