@@ -1,16 +1,24 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import regReducer from '../../redux/reducers/regReducer';
 import { REGISTER_REQUEST } from '../../redux/types'
+
+import { Link, useHistory } from 'react-router-dom';
+
 const Register = () => {
   const [form, setValues] = useState({
     email: "",
     name:"",
     password: ""
   })
+  // useSelector : isRegistied 현재 값을 참, 거짓 값으로 가져오기
+  const regResult = useSelector(state => state.reg.isRegistied);
 
   const { email, name, password } = form;
-
+   // dispatch : redux에 타입 (상태) 전달함으로써 상태 변화 일으키기 
   const dispatch = useDispatch();
+  // history : 회원가입 후 , login 페이지로 이동하기
+  const history = useHistory();
 
   const onChange = (e) => {
     const {name, value} = e.target;
@@ -32,6 +40,11 @@ const Register = () => {
       payload: user
     })
   }
+
+  useEffect(() => {
+      console.log('Reg Render', regResult);
+      if(regResult) history.push('/login')
+  }, [regResult]);
 
   
   return (

@@ -7,6 +7,7 @@ const Login = () => {
     email: "",
     password: ""
   });
+
   // dispatch : redux에 타입 (상태) 전달함으로써 상태 변화 일으키기 
   const dispatch = useDispatch();
 
