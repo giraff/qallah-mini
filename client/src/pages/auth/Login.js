@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector  } from 'react-redux';
-import { LOGIN_REQUEST } from '../../redux/types';
 import { useHistory } from 'react-router-dom';
+
+import { LOGIN_REQUEST } from '../../components/redux/types';
 
 const Login = () => {
   // 로그인 할 때 나타날 에러 메시지 등을 표시

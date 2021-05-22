@@ -1,7 +1,7 @@
 import React, { Fragment, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, NavLink } from 'react-router-dom';
-import { LOGOUT_REQUEST } from '../redux/types';
+import { LOGOUT_REQUEST } from '../components/redux/types';
 
 const Main = () => {
   const dispatch = useDispatch();

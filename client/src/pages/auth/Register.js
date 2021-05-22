@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import regReducer from '../../redux/reducers/regReducer';
-import { REGISTER_REQUEST } from '../../redux/types'
-
 import { Link, useHistory } from 'react-router-dom';
+
+import regReducer from '../../components/redux/reducers/regReducer';
+import { REGISTER_REQUEST } from '../../components/redux/types';
+
 
 const Register = () => {
   const [form, setValues] = useState({

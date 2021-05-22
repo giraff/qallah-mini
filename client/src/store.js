@@ -3,8 +3,8 @@ import createSagaMiddleware from 'redux-saga';
 import {createBrowserHistory} from 'history';
 import {routerMiddleware} from 'connected-react-router';
 
-import createRootReducer from './redux/reducers/index';
-import rootSaga from './redux/sagas/index';
+import createRootReducer from './components/redux/reducers/index';
+import rootSaga from './components/redux/sagas/index';
 
 
 // history 내보내기
