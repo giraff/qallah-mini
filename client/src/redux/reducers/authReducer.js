@@ -1,7 +1,10 @@
 import {
   LOGIN_REQUEST,
   LOGIN_SUCCESS,
-  LOGIN_FAILURE
+  LOGIN_FAILURE,
+  LOGOUT_REQUEST,
+  LOGOUT_SUCCESS,
+  LOGOUT_FAILURE
 } from '../types';
 
 const initialState = {
@@ -15,6 +18,7 @@ const initialState = {
 
 const authReducer = (state = initialState, action) => {
   switch(action.type) {
+    case LOGOUT_REQUEST:
     case LOGIN_REQUEST:
       console.log('2. authReducer 발동 : LOGIN_REQUEST');
       return {
@@ -34,8 +38,8 @@ const authReducer = (state = initialState, action) => {
         userName: action.payload.user.name,
         errorMsg: "",
       }
+    case LOGOUT_FAILURE:
     case LOGIN_FAILURE:
-      console.log('login_failure');
       localStorage.removeItem("token");
       return {
         ...state,
@@ -45,6 +49,16 @@ const authReducer = (state = initialState, action) => {
         token: null,
         userName: null,
         errorMsg: action.payload.data.msg
+      }
+    case LOGOUT_SUCCESS:
+      localStorage.removeItem("token");
+      return{
+        token: null,
+        isLoading: false,
+        isAuthenticated: false,
+        userName: null,
+        user: null,
+        errorMsg: ""
       }
     default:
       return state

@@ -1,7 +1,10 @@
 import {
   LOGIN_REQUEST,
   LOGIN_SUCCESS,
-  LOGIN_FAILURE
+  LOGIN_FAILURE,
+  LOGOUT_REQUEST,
+  LOGOUT_SUCCESS,
+  LOGOUT_FAILURE
 } from '../types';
 import { all, call, fork, put, takeEvery } from 'redux-saga/effects';
 import axios from 'axios';
@@ -41,12 +44,32 @@ function* loginUser(action) {
 
 // LoginUser 감시 함수 : LOGIN_REQUEST를 기다렸다가 오면 loginUser 함수 실행
 function* watchLoginUser() {
-  console.log('1.authSaga 발동 , LOGIN_REQ');
   yield takeEvery(LOGIN_REQUEST,loginUser);
+}
+
+/** LOGOUT
+ * 서버와 통신할 필요가 없다.
+ */
+function* logoutUser() {
+  try {
+    yield put({
+      type: LOGOUT_SUCCESS
+    })
+  } catch(e) {
+    yield put({
+      type: LOGOUT_FAILURE
+    })
+  }
+}
+
+
+function* watchLogoutUser() {
+  yield takeEvery(LOGOUT_REQUEST, logoutUser);
 }
 
 export default function* authSaga() {
   yield all([
-    fork(watchLoginUser)
+    fork(watchLoginUser),
+    fork(watchLogoutUser)
   ])
 }
