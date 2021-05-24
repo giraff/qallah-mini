@@ -4,14 +4,17 @@ import {
   LOGIN_FAILURE,
   LOGOUT_REQUEST,
   LOGOUT_SUCCESS,
-  LOGOUT_FAILURE
+  LOGOUT_FAILURE,
+  USER_LOADING_REQUEST,
+  USER_LOADING_SUCCESS,
+  USER_LOADING_FAILURE
 } from '../types';
 import { all, call, fork, put, takeEvery } from 'redux-saga/effects';
 import axios from 'axios';
 
 /** LOGIN : 서버와 통신 필요함 */
 const loginUserAPI = (loginData) => {
-  console.log('4. loginUserAPI 발동 -> axios.post 요청 보냄')
+  // console.log('4. loginUserAPI 발동 -> axios.post 요청 보냄')
   console.log(loginData, 'authSaga/loginData');
   const config = {
     headers: {
@@ -23,11 +26,10 @@ const loginUserAPI = (loginData) => {
 }
 
 function* loginUser(action) {
-  console.log('3. loginUser(action) 발동')
+  // console.log('3. loginUser(action) 발동')
   try{
     // loginUserAPI에 action.payload를 인자로 보내면서 실행 -> axios.post 결과 받아옴
     const result = yield call(loginUserAPI, action.payload);
-    console.log(result);
     yield put({
       type: LOGIN_SUCCESS,
       // server/routes/api/auth에서 res 에 넘긴 {token, user} 객체 data를 payload로 보냄
@@ -67,9 +69,47 @@ function* watchLogoutUser() {
   yield takeEvery(LOGOUT_REQUEST, logoutUser);
 }
 
+/** USER LOADING */
+const userLoadingAPI = (token) => {
+  const config = {
+    headers: {
+      "Content-type": "application/json"
+    }
+  }
+
+  if(token) {
+    config.headers['x-auth-token'] = token;
+  }
+
+  return axios.get('api/auth/user', config);
+}
+
+function* userLoading(action) {
+  try{
+    const result = yield call(userLoadingAPI, action.payload)
+
+    console.log('userLoading 후, result :', result)
+    yield put({
+      type: USER_LOADING_SUCCESS,
+      payload: result.data
+    })
+
+  }catch(e) {
+    console.log('userLoading 실패 ')
+    yield put({
+      type: USER_LOADING_FAILURE,
+      payload: e.response
+    })
+  }
+}
+
+function* watchuserLoading() {
+  yield takeEvery(USER_LOADING_REQUEST, userLoading)
+}
 export default function* authSaga() {
   yield all([
     fork(watchLoginUser),
-    fork(watchLogoutUser)
+    fork(watchLogoutUser),
+    fork(watchuserLoading),
   ])
 }

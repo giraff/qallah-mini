@@ -1,6 +1,7 @@
 import express from 'express';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
+import auth from '../../middleware/auth';
 import config from '../../config/index';
 const {JWT_SECRET} = config;
 
@@ -73,6 +74,31 @@ router.post('/', (req, res) => {
 // 나머지 과정은 front 단에서 redux-saga를 이용해 처리.
 router.post('/logout', (req, res) => {
   res.json('로그아웃 성공');
-}) 
+});
+
+//@route    GET api/auth/user
+//@desc     현재 인증된(token값이 가리키는) 유저의 정보를 가져옴.
+//@access   auth (인증된 사용자만)
+router.get('/user', auth, (req, res) => {
+  console.log('라우터 도착', req.user)
+  try{
+    // pwd 빼고 사용자 정보 모두 가져오기
+    mdbConn.query(`SELECT user_seq, user_name, email, create_at, birth FROM user WHERE email="${req.user.id}"`, (err, rows, field) => {
+      if(!err) {
+        if(rows[0] != undefined) {
+          console.log('유저 있어')
+          res.json(rows[0]);
+        } else {
+          throw Error("유저가 존재하지 않습니다.");
+        }
+      }
+    });
+
+  } catch(e) {
+    console.log(e);
+    res.status(400).json({msg: e.message});
+    
+  }
+})
 
 export default router;

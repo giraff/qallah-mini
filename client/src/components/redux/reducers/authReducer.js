@@ -4,7 +4,10 @@ import {
   LOGIN_FAILURE,
   LOGOUT_REQUEST,
   LOGOUT_SUCCESS,
-  LOGOUT_FAILURE
+  LOGOUT_FAILURE,
+  USER_LOADING_REQUEST,
+  USER_LOADING_SUCCESS,
+  USER_LOADING_FAILURE
 } from '../types';
 
 const initialState = {
@@ -16,11 +19,11 @@ const initialState = {
   errorMsg: ""
 }
 
+// reducing function
 const authReducer = (state = initialState, action) => {
   switch(action.type) {
     case LOGOUT_REQUEST:
     case LOGIN_REQUEST:
-      console.log('2. authReducer 발동 : LOGIN_REQUEST');
       return {
         ...state,
         errorMsg: "",
@@ -59,6 +62,27 @@ const authReducer = (state = initialState, action) => {
         userName: null,
         user: null,
         errorMsg: ""
+      }
+    case USER_LOADING_REQUEST: 
+      console.log('authReducer 발동 : USER_LOADING_REQUEST')
+      return{
+        ...state,
+        isLoading: true
+      }
+    case USER_LOADING_SUCCESS:
+      return{
+        ...state,
+        isAuthenticated: true,
+        isLoading: false,
+        user: action.payload,
+        userName: action.payload.user_name
+      }
+    case USER_LOADING_FAILURE:
+      return {
+        ...state,
+        isAuthenticated: false,
+        isLoading: false,
+        user: null,
       }
     default:
       return state
