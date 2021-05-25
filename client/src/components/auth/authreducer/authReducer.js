@@ -8,7 +8,7 @@ import {
   USER_LOADING_REQUEST,
   USER_LOADING_SUCCESS,
   USER_LOADING_FAILURE
-} from '../types';
+} from '../../redux/types';
 
 const initialState = {
   token: localStorage.getItem('token'),

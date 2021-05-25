@@ -8,7 +8,7 @@ import {
   USER_LOADING_REQUEST,
   USER_LOADING_SUCCESS,
   USER_LOADING_FAILURE
-} from '../types';
+} from '../../redux/types';
 import { all, call, fork, put, takeEvery } from 'redux-saga/effects';
 import axios from 'axios';
 

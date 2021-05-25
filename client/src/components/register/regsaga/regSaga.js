@@ -2,7 +2,7 @@ import {
     REGISTER_REQUEST,
     REGISTER_SUCCESS,
     REGISTER_FAILURE
-} from '../types';
+} from '../../redux/types';
 import { all, call, fork, put, takeEvery } from 'redux-saga/effects';
 import axios from 'axios';
 

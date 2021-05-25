@@ -2,7 +2,7 @@ import {
     REGISTER_REQUEST,
     REGISTER_SUCCESS,
     REGISTER_FAILURE
-} from '../types';
+} from '../../redux/types'
 
 const initialState = {
     isRegistied: false,

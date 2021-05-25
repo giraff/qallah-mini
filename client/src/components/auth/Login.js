@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector  } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
-import { LOGIN_REQUEST } from '../../components/redux/types';
+import { LOGIN_REQUEST } from '../redux/types';
 
 const Login = () => {
   // 로그인 할 때 나타날 에러 메시지 등을 표시
@@ -53,8 +53,7 @@ const Login = () => {
   }
 
   return (
-    <>
-      <h1>Login</h1>
+    <div>
       {localMsg ? <div style={{color: "red"}}>{localMsg}</div>: null}
       <form onSubmit={(e) => onSubmit(e)}>
         <label>email: </label>
@@ -75,7 +74,7 @@ const Login = () => {
         <br></br>
         <input type="submit" />
       </form>
-    </>
+    </div>
   );
 };
 

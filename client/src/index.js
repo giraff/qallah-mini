@@ -3,7 +3,7 @@ import React from 'react';
 // ReactDOM : UI를 브라우저에 렌더링할 때 사용하는 라이브러리
 import ReactDOM from 'react-dom';
 import App from './App';
-import loadUser from './components/auth/loadUser';
+import loadUser from './common/loadUser';
 
 loadUser();
 

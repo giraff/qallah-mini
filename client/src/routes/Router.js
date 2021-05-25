@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
-import Login from '../pages/auth/Login';
-import Register from '../pages/auth/Register';
+import Login from '../pages/Login';
+import Register from '../pages/Register';
 import Main from '../pages/Main';
 
 import { BrowserRouter, Redirect, Switch, Route } from 'react-router-dom';

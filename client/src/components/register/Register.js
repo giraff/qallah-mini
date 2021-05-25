@@ -2,8 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
 
-import regReducer from '../../components/redux/reducers/regReducer';
-import { REGISTER_REQUEST } from '../../components/redux/types';
+import { REGISTER_REQUEST } from '../redux/types';
 
 
 const Register = () => {
@@ -49,8 +48,7 @@ const Register = () => {
 
   
   return (
-    <>
-      <h1>Sign up</h1>
+    <div>
       <form onSubmit={(e) => onSubmit(e)}>
         <label>email: </label>
         <input id="email" type="email" name="email" value={email} onChange={onChange}></input>
@@ -63,7 +61,7 @@ const Register = () => {
         <br></br>
         <input type="submit" />
       </form>
-    </>
+    </div>
   );
 };
 

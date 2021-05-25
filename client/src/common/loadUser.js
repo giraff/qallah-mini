@@ -1,5 +1,5 @@
-import store from '../../store';
-import { USER_LOADING_REQUEST } from '../redux/types';
+import store from '../store';
+import { USER_LOADING_REQUEST } from '../components/redux/types';
 
 const loadUser = () => {
   console.log('loadUser 실행중')
