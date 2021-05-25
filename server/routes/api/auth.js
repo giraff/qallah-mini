@@ -34,10 +34,12 @@ router.post('/', (req, res) => {
         // 존재하는 유저라면 
         if(rows[0] != undefined) {
           // 4. 패스워드 검증
-          if(password != rows[0].pwd) {
-            console.log('비밀번호가 일치하지 않습니다.');
-            return res.status(400).json({msg: "비밀번호가 일치하지 않습니다."});
-          }
+          bcrypt.compare(password, rows[0].pwd).then((isMatch) => {
+            if(!isMatch) return res.status(400).json({msg: "비밀번호가 일치하지 않습니다."});
+          })
+          // if(password != rows[0].pwd) {
+          //   console.log('비밀번호가 일치하지 않습니다.');
+          // }
 
           // 5. 로그인 후 토큰 값 발행
           console.log('6. 토큰 값 발행 중..')
