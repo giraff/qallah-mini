@@ -1,22 +1,22 @@
-import React, { Fragment } from 'react';
-import Login from '../pages/Login';
-import Register from '../pages/Register';
-import Main from '../pages/Main';
+import React, { Fragment } from "react";
+import Main from "../pages/Main";
+import LoginRouter from "./login/LoginRoute";
+import RegisterRoute from "./register/RegisterRoute";
 
-import { BrowserRouter, Redirect, Switch, Route } from 'react-router-dom';
+import { BrowserRouter, Redirect, Switch, Route } from "react-router-dom";
 
 const AllRouter = () => {
-  return(
+  return (
     <Fragment>
       <BrowserRouter>
         <Switch>
-          <Route path="/" exact component={Main}/>
-          <Route path="/login" exact component={Login} />
-          <Route path="/register" exact component={Register} />        
+          <Route path="/" exact component={Main} />
+          <LoginRouter />
+          <RegisterRoute />
           <Redirect from="*" to="/"></Redirect>
         </Switch>
       </BrowserRouter>
-    </Fragment>  
+    </Fragment>
   );
 };
 

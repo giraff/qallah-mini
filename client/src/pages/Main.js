@@ -1,7 +1,7 @@
-import React, { Fragment, useCallback } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link, NavLink } from 'react-router-dom';
-import { LOGOUT_REQUEST } from '../components/redux/types';
+import React, { Fragment, useCallback } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, NavLink } from "react-router-dom";
+import { LOGOUT_REQUEST } from "../redux/types";
 
 const Main = () => {
   const dispatch = useDispatch();
@@ -9,8 +9,8 @@ const Main = () => {
   const onLogout = useCallback(() => {
     // 메모제이션된 콜백을 반환한다.
     dispatch({
-      type: LOGOUT_REQUEST
-    })
+      type: LOGOUT_REQUEST,
+    });
   }, [dispatch]);
 
   const authLink = (
@@ -24,7 +24,7 @@ const Main = () => {
       </nav>
     </Fragment>
   );
-  
+
   const guestLink = (
     <Fragment>
       <nav>
