@@ -2,8 +2,8 @@ import React from "react";
 import { Route } from "react-router-dom";
 import Login from "../../pages/Login";
 
-const LoginRouter = () => {
+const LoginRoute = () => {
   return <Route path="/login" exact component={Login} />;
 };
 
-export default LoginRouter;
+export default LoginRoute;
