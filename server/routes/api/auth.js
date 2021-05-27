@@ -20,7 +20,6 @@ router.post('/', (req, res) => {
   
   // 2. 모든 필드 채워졌는지 Simple validation
   if(!email || !password) {
-    console.log('모든 필드를 채우지 않음');
     return res.status(400).json({msg: "모든 필드를 채워주세요"});
   }
   
@@ -34,30 +33,34 @@ router.post('/', (req, res) => {
         // 존재하는 유저라면 
         if(rows[0] != undefined) {
           // 4. 패스워드 검증
-          bcrypt.compare(password, rows[0].pwd).then((isMatch) => {
-            if(!isMatch) return res.status(400).json({msg: "비밀번호가 일치하지 않습니다."});
+          bcrypt.compare(password, rows[0].pwd, function(err, result) {
+            if(!err) {
+              if(!result) return res.status(400).json({msg: "비밀번호 틀림"});
+              else {
+                jwt.sign({id: rows[0].email}, JWT_SECRET, {expiresIn: "2 days"}, (err, token) => {
+                  if(err) throw err;
+                  res.json({
+                    token,
+                    user: {
+                      email: rows[0].email,
+                      name: rows[0].user_name,
+                      birth: rows[0].birth
+                    }
+                  })
+                });
+              }
+            }
           })
+
           // if(password != rows[0].pwd) {
-          //   console.log('비밀번호가 일치하지 않습니다.');
+          //   return res.status(400).json({msg: "비밀번호가 일치하지 않습니다"});
           // }
 
           // 5. 로그인 후 토큰 값 발행
           console.log('6. 토큰 값 발행 중..')
-          jwt.sign({id: rows[0].email}, JWT_SECRET, {expiresIn: "2 days"}, (err, token) => {
-            if(err) throw err;
-            res.json({
-              token,
-              user: {
-                email: rows[0].email,
-                name: rows[0].user_name,
-                birth: rows[0].birth
-              }
-            })
-          });
 
         } else {
           // 6. 유저가 존재하지 않으면
-          console.log('유저가 존재하지 않음')
           return res.status(400).json({msg: "유저가 존재하지 않습니다."});
         }
       }
