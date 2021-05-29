@@ -9,7 +9,7 @@ var hpp = require('hpp'); // http 매개변수 공격으로부터 보호하기 �
 
 import userRoutes from './routes/api/user';
 import authRoutes from './routes/api/auth';
-
+import tomeRoutes from './routes/api/tome';
 const app = express();
 
 // env에 저장한 PORT 정보 가져오기
@@ -32,6 +32,7 @@ app.use(hpp());
 
 app.use('/api/user', userRoutes);
 app.use('/api/auth', authRoutes);
+app.use('/api/tome', tomeRoutes);
 
 //7000번 서버 포트로 서버 요청 받는다.
 app.listen(PORT, () => {

@@ -20,6 +20,9 @@ const Main = () => {
           <Link onClick={onLogout} to="#">
             <button>logout</button>
           </Link>
+          <Link to="/tome">
+            <button>내가 보는 나</button>
+          </Link>
         </form>
       </nav>
     </Fragment>
