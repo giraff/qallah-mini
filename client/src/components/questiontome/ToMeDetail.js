@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { TOME_REQUEST,TOME_SUCCESS } from "../../redux/types";
+import { TOME_REQUEST,TOME_ANSWER_RECEIVE_REQUEST } from "../../redux/types";
 
 const QuestionToMeDetail = () => {
     const ToMeObj = useSelector((state) => state.tomedetail.payload);
@@ -41,6 +41,13 @@ const QuestionToMeDetail = () => {
         }
     }, [ToMeChk]);
 
+    // 첫 번째 useEffect는 DB에서 질문을 조회하기 위한 것
+    useEffect(() => {
+        console.log("ToMeDetailAnswerReceive Render");
+        dispatch({
+            type: TOME_ANSWER_RECEIVE_REQUEST
+        });
+      }, []);  
 
     const { question_seq, question_context, question_answer } = form;
 
