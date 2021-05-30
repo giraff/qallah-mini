@@ -10,13 +10,13 @@ const QuestionToMeDetail = () => {
 
     const dispatch = useDispatch();
     
-    let next_button = false;
-    let prev_button = false;
 
     const [form,setValues] = useState({
         question_seq: 0,
         question_context: "",
-        question_answer: ""
+        question_answer: "",
+        next_button: false,
+        prev_button: true
     })
 
     // 첫 번째 useEffect는 DB에서 질문을 조회하기 위한 것
@@ -58,7 +58,9 @@ const QuestionToMeDetail = () => {
             ...form,
             question_seq : question_seq + 1,
             question_context : ToMeObj.data[question_seq + 1].question_content,
-            question_answer: ""
+            question_answer: "",
+            next_button: question_seq + 1 == ToMeObj.data.length - 1 ? true : false,
+            prev_button: false
         })
         console.log("다음질문", form);
 
@@ -70,7 +72,9 @@ const QuestionToMeDetail = () => {
             ...form,
             question_seq : question_seq - 1,
             question_context : ToMeObj.data[question_seq - 1].question_content,
-            question_answer: ""
+            question_answer: "",
+            next_button: false,
+            prev_button: question_seq - 1 == 0 ? true : false
         })
         console.log("이전질문", form);
 
@@ -78,10 +82,10 @@ const QuestionToMeDetail = () => {
  
     return (
         <form>
-            <label>{form.question_seq+1}. {form.question_context}</label><br/>
+            <div>{form.question_seq+1}. {form.question_context}</div><br/>
             <input onChange={onChange}  value={form.question_answer} placeholder="답변을 입력해 주세요"></input>
-            <button onClick={next_question} disabled={next_button}>Next</button>
-            <button onClick={prev_question} disabled={prev_button}>Prev</button>
+            <button onClick={next_question} disabled={form.next_button}>Next</button>
+            <button onClick={prev_question} disabled={form.prev_button}>Prev</button>
         </form>
     );
 };
