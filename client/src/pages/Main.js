@@ -15,15 +15,22 @@ const Main = () => {
 
   const authLink = (
     <Fragment>
+      <Link onClick={onLogout} to="#">
+        <button>logout</button>
+      </Link>
       <nav>
-        <form>
-          <Link onClick={onLogout} to="#">
-            <button>logout</button>
-          </Link>
-          <Link to="/tome">
-            <button>내가 보는 나</button>
-          </Link>
-        </form>
+        <ul>
+          <li>
+            <Link to="/tome">
+              <button>내가 보는 나</button>
+            </Link>
+          </li>
+          <li>
+            <Link to="/byother">
+              <button>남이 보는 나</button>
+            </Link>
+          </li>
+        </ul>
       </nav>
     </Fragment>
   );
