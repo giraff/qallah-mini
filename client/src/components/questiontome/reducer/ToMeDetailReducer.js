@@ -2,10 +2,14 @@ import {
     TOME_REQUEST,
     TOME_SUCCESS,
     TOME_FAILURE,
+    TOME_ANSWER_RECEIVE_REQUEST,
+    TOME_ANSWER_RECEIVE_SUCCESS,
+    TOME_ANSWER_RECEIVE_FAILURE
   } from "../../../redux/types";
   
   const initialState = {
     isToMe: false,
+    isToMeAnswerReceive: false,
     payload: ""
   };
   
@@ -32,6 +36,24 @@ import {
           ...state,
           isToMe: false,
         };
+      case TOME_ANSWER_RECEIVE_REQUEST:
+        console.log("ToMeDetailReducer 발동 : TOME_ANSWER_RECEIVE_REQ");
+        return {
+          ...state,
+        };
+      case TOME_ANSWER_RECEIVE_SUCCESS:
+        console.log(action.payload, "TOME_ANSWER_RECEIVE_SUCCESS");
+        return {
+          ...state,
+          isToMeAnswerReceive: true,
+          payload: action.payload
+        };
+      case TOME_ANSWER_RECEIVE_FAILURE:
+        console.log("TOME_ANSWER_RECEIVE_FAILURE");
+        return {
+          ...state,
+          isToMeAnswerReceive: false
+        }
       default:
         return state;
     }

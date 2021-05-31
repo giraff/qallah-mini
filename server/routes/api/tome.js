@@ -3,6 +3,7 @@
 /**api/tome 주소 다음에 슬래쉬로 들어가면 아래 라우터를 사용 */
 import express from 'express';
 import bcrypt from 'bcryptjs';
+import auth from '../../middleware/auth';
 
 // 입력 정보 저장하기 위해 전역 선언 db 객체 불러오기
 const mdbConn = require('../../database');
@@ -53,26 +54,44 @@ router.get('/detail', (req, res, next) => {
             res.send(`error: ${err}`);
           }
         })
+
     } catch(e) {
     console.log(e);
     res.status(400).json({msg: e.message});
     }
 })
 
-// @routes  GET api/tome/detail/answer
+// @routes  GET api/tome/detail
 // @desc    GET all answerbyme date 
 // @access  public 
-router.get('/detail/answer', (req,res,next) => {
+
+router.get('/detail/answer', auth, (req,res,next) => {
   try{
-       console.log('/detail/answer 도착[답변 가져오기]');
-       mdbConn.query(`SELECT (me_answer_seq, me_question_seq, user_seq, answer_content, answer_time) FROM answerbyme`, (err, rows, field) => {
+       console.log('/detail 도착[답변 가져오기]');
+       mdbConn.query(`SELECT (user_seq) FROM user WHERE email=${req.user.id}`, (err, rows, field) => {
          if(!err) {
+           // 로그인한 사용자의 데이터가 존재 하지 않으면
            if(rows[0] == undefined) {
-             return res.status(400).json({msg: '답변 데이터가 존재하지 않습니다.'});
+             return res.status(400).json({msg: '사용자가 존재하지 않습니다.'});
            } else {
-             res.json({
-               data: rows
-             })
+             // 로그인한 사용자의 데이터가 존재 하면
+             // user_seq = 로그인 한 유저의 시퀀스 넘버
+              const user_seq = rows[0];
+              mdbConn.query(`SELECT (me_question_seq, user_seq, answer_content) FROM answerbyme WHERE user_seq=${user_seq}`, (err,rows, field) => {
+                if(!err) {
+                  // 사용자의 답변 데이터가 존재 하지 않으면
+                  if(rows[0] == undefined) {
+                    return res.status(400).json({msg: '답변 데이터가 존재하지 않습니다.'});
+                  } else {
+                    // 사용자의 답변 데이터가 존재 하면
+                    res.json({
+                      answerdata: rows
+                    })
+                  }
+                } else {
+                  res.send(`error: ${err}`);
+                }
+              })
            }
          } else {
            res.send(`error: ${err}`)
@@ -82,6 +101,6 @@ router.get('/detail/answer', (req,res,next) => {
     console.log(e);
     res.status(400).json({msg: e.message});
   }
-})
+}) 
 
 export default router;
