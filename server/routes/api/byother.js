@@ -42,8 +42,8 @@ router.get('/detail/:id', (req, res) => {
 
 router.post('/answer', auth, (req, res, next) => {
   try{
-    const { answers } = req.body;
-    console.log(answers);
+    const { result } = req.body;
+    console.log(result);
   } catch(e) {
     res.json({ msg: "답변을 저장하는 도중 에러가 났습니다."});
   }

@@ -5,12 +5,7 @@ import { useDispatch } from 'react-redux';
 import { BYOTHER_UPLOAD_REQUEST } from '../../redux/types';
 
 // 전역변수
-const answers = [
-  {
-    answer_seq: 1,
-    answer_content: ""
-  }
-]
+const answers = []
 
 const ByOtherQuestion = ({req}) => {  
   const dispatch = useDispatch();
@@ -102,9 +97,12 @@ const ByOtherQuestion = ({req}) => {
     } else if (name === "finish") {
       // 누른 버튼이 답변 완료 버튼
       // 로컬 스토리지에서 받아온 토큰을 답변 객체와 같이 UPLOAD 요청으로 보냄
-      console.log(answers);
+      // const result = [];
+      // answers.forEach((val) => {result.push(val);})
+      const result = answers.map((val) => val);
+
       const token = localStorage.getItem("token");
-      const body = { answers, token };
+      const body = { result, token };
 
       dispatch({
         type: BYOTHER_UPLOAD_REQUEST,
@@ -113,7 +111,8 @@ const ByOtherQuestion = ({req}) => {
       // 질문 완료 페이지로 이동
       history.push('/byother/done');
 
-      console.log(answers);
+      answers.splice(0)
+
     }
   }
 
