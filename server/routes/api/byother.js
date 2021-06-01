@@ -2,6 +2,7 @@ import express from 'express';
 
 const mdbConn = require('../../database');
 const router = express.Router();
+import auth from '../../middleware/auth';
 
 //@routes   GET api/byother/detail
 //@desc     get all questions (question by others 남이 보는 나)
@@ -29,7 +30,6 @@ router.get('/detail/:id', (req, res) => {
   try{
     mdbConn.query(`SELECT * FROM questionbyothers WHERE other_question_seq=${req.params.id}`, (err, rows, field) => {
       if(!err) {
-        console.log(rows);
         res.json(rows[0]);
       }
     })
@@ -39,4 +39,13 @@ router.get('/detail/:id', (req, res) => {
     return;
   }
 })
+
+router.post('/answer', auth, (req, res, next) => {
+  try{
+    const { defaultProps } = req.body;
+    console.log(defaultProps);
+  } catch(e) {
+    res.json({ msg: "답변을 저장하는 도중 에러가 났습니다."});
+  }
+});
 export default router;

@@ -1,7 +1,10 @@
 import {
   BYOTHER_DETAIL_LOADING_REQUEST,
   BYOTHER_DETAIL_LOADING_SUCCESS,
-  BYOTHER_DETAIL_LOADING_FAILURE
+  BYOTHER_DETAIL_LOADING_FAILURE,
+  BYOTHER_UPLOAD_REQUEST,
+  BYOTHER_UPLOAD_SUCCESS,
+  BYOTHER_UPLOAD_FAILURE
 } from "../../../redux/types";
 
 const initialState = {
@@ -16,7 +19,6 @@ const initialState = {
 const byotherReducer = (state = initialState, action) => {
   switch(action.type) {
     case BYOTHER_DETAIL_LOADING_REQUEST:
-
       return{
         ...state,
         questions:[],
@@ -40,6 +42,9 @@ const byotherReducer = (state = initialState, action) => {
         error: action.payload,
         isLoading: false,
       }
+    case BYOTHER_UPLOAD_REQUEST:
+    case BYOTHER_UPLOAD_SUCCESS:
+    case BYOTHER_UPLOAD_FAILURE:
     default:
       return state;
   }
