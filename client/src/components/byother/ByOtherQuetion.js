@@ -53,7 +53,8 @@ const ByOtherQuestion = ({req}) => {
     const { name } = e.target;
     // 이미 답변을 저장한 질문인 경우, alreadySaved(flag)는 true가 된다.
     let alreadySaved = false;
-
+    let inputFlag = false;
+    
     // defaultProps의 각 배열 훑으며 
     answers.forEach((val, idx) => {
       // 해당 질문에 이미 작성한 답변 있다면
@@ -78,11 +79,32 @@ const ByOtherQuestion = ({req}) => {
         // 1 ~ 끝 페이지 직전 페이지로 이동 (이전 질문으로)
         history.push(`/byother/detail/${currentPage - 1}`);
         setCurrentPage(currentPage - 1);
+        // 예전에 작성해둔 답변 있으면, 이전 질문 페이지 input에 그 답변 표시
+        answers.forEach((val, idx) => {
+          if(val.answer_seq === currentPage - 1) {
+            setAnswerContent(val.answer_content);
+            inputFlag = true;
+          }
+        })
+
+        if(!inputFlag) {
+          setAnswerContent("")
+        }
       }
-      // 예전에 작성해둔 답변 있으면, 이전 질문 페이지 input에 그 답변 표시
-      setAnswerContent(answers[currentPage-2] !== undefined ? 
-        answers[currentPage-2].answer_content : 
-        "");
+      if(currentPage === 1) {
+        answers.forEach((val) => {
+          if(val.answer_seq === currentPage) {
+            setAnswerContent(val.answer_content);
+            inputFlag = true;
+          }
+        })
+        if(!inputFlag) {
+          setAnswerContent("")
+        }
+      }
+      // setAnswerContent(answers[currentPage-2] !== undefined ? 
+      //   answers[currentPage-2].answer_content : 
+      //   "");
     } else if (name === "next") {
       // 누른 버튼이 next
       if(currentPage < qlength) {
@@ -90,16 +112,30 @@ const ByOtherQuestion = ({req}) => {
         history.push(`/byother/detail/${currentPage + 1}`);
         setCurrentPage(currentPage + 1);
         // 예전에 작성해둔 답변이 있다면 다음 질문 페이지 input에 그 답변 표시
-        setAnswerContent(answers[currentPage] !== undefined ? 
-          answers[currentPage].answer_content : 
-          "");
+        // setAnswerContent(answers[currentPage] !== undefined ? 
+        //   answers[currentPage].answer_content : 
+        //   "");
+        answers.forEach((val) => {
+          if(val.answer_seq === currentPage + 1) {
+            setAnswerContent(val.answer_content);
+            inputFlag = true;
+          }
+        })
+        if(!inputFlag) {
+          setAnswerContent("");
+        }
       }
     } else if (name === "finish") {
       // 누른 버튼이 답변 완료 버튼
       // 로컬 스토리지에서 받아온 토큰을 답변 객체와 같이 UPLOAD 요청으로 보냄
-      // const result = [];
-      // answers.forEach((val) => {result.push(val);})
-      const result = answers.map((val) => val);
+      let result = [];
+      answers.forEach((val) => {
+        result.push({
+          answer_seq : val.answer_seq,
+          answer_content: val.answer_content
+        })
+      })
+      // const result = answers.map((val) => val);
 
       const token = localStorage.getItem("token");
       const body = { result, token };
@@ -110,8 +146,8 @@ const ByOtherQuestion = ({req}) => {
       })
       // 질문 완료 페이지로 이동
       history.push('/byother/done');
+      answers.splice(0);
 
-      answers.splice(0)
 
     }
   }
@@ -147,7 +183,7 @@ const ByOtherQuestion = ({req}) => {
               </div>
               <div>
                 <input 
-                      value={answerContent === "" ? (answers[currentPage-1] !== undefined ? answers[currentPage - 1].answer_content : ""): answerContent} 
+                      value={answerContent} 
                       onChange={onChange} 
                       placeholder="답변을 입력해주세요">
                 </input>

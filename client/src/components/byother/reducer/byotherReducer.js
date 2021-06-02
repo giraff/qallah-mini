@@ -13,6 +13,7 @@ const initialState = {
   questionDetail: "",
   questionSeq: "",
   isLoading: false,
+  answers : [],
   error: ""
 };
 
@@ -22,6 +23,7 @@ const byotherReducer = (state = initialState, action) => {
       return{
         ...state,
         questions:[],
+        answers: [],
         questionDetail: "",
         questionSeq:"",
         isLoading: true
