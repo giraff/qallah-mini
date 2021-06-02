@@ -102,9 +102,6 @@ const ByOtherQuestion = ({req}) => {
           setAnswerContent("")
         }
       }
-      // setAnswerContent(answers[currentPage-2] !== undefined ? 
-      //   answers[currentPage-2].answer_content : 
-      //   "");
     } else if (name === "next") {
       // 누른 버튼이 next
       if(currentPage < qlength) {
@@ -112,9 +109,6 @@ const ByOtherQuestion = ({req}) => {
         history.push(`/byother/detail/${currentPage + 1}`);
         setCurrentPage(currentPage + 1);
         // 예전에 작성해둔 답변이 있다면 다음 질문 페이지 input에 그 답변 표시
-        // setAnswerContent(answers[currentPage] !== undefined ? 
-        //   answers[currentPage].answer_content : 
-        //   "");
         answers.forEach((val) => {
           if(val.answer_seq === currentPage + 1) {
             setAnswerContent(val.answer_content);
