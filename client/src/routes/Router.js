@@ -12,32 +12,37 @@ import ByOtherMain from "../pages/byother/ByOtherMain";
 import ByOtherDetail from "../pages/byother/ByOtherDetail";
 import ByOtherDone from "../pages/byother/ByOtherDone";
 import ByOtherHistory from "../pages/byother/ByOtherHistory";
+import Footer from "../components/layout/Footer";
+import Header from "../components/layout/Header";
 
 import { BrowserRouter, Redirect, Switch, Route } from "react-router-dom";
-import ByOtherQuestion from '../components/byother/ByOtherQuetion';
 
 const AllRouter = () => {
   return (
     <Fragment>
-      <BrowserRouter>
-        <Switch>
-          <Route path="/" exact component={Main} />
-          { /*<LoginRoute />
-          <RegisterRoute />
-         <QuestiontomeRoute /> */ }
-          <Route path="/login" exact component={props => <Login {...props} />} />
-          <Route path="/register" exact component={props => <Register {...props} />} />
-          <Route path="/tome" exact component={props => <ToMeMain {...props} />} />
-          <Route path="/tome/detail" exact component={props => <ToMeDetail {...props} />} />
-          <Route path="/tome/history" exact component={props => <ToMeHistory {...props} />} />
-          <Route path="/tome/done" exact component={props => <ToMeDone {...props} />} />
-          <Route path="/byother/detail/:id" exact component={props => <ByOtherDetail {...props} />} />
-          <Route path="/byother" exact component={props => <ByOtherMain {...props} />} />
-          <Route path="/byother/done" exact component={props => <ByOtherDone {...props} />} />
-          <Route path="/byother/history" exact component={props => <ByOtherHistory {...props} />} />
-          <Redirect from="*" to="/"></Redirect>
-        </Switch>
-      </BrowserRouter>
+        <BrowserRouter>
+          <div id="wrapper">
+            <Header />
+            <Switch>
+              <Route path="/" exact component={Main} />
+              { /*<LoginRoute />
+              <RegisterRoute />
+            <QuestiontomeRoute /> */ }
+              <Route path="/login" exact component={props => <Login {...props} />} />
+              <Route path="/register" exact component={props => <Register {...props} />} />
+              <Route path="/tome" exact component={props => <ToMeMain {...props} />} />
+              <Route path="/tome/detail" exact component={props => <ToMeDetail {...props} />} />
+              <Route path="/tome/history" exact component={props => <ToMeHistory {...props} />} />
+              <Route path="/tome/done" exact component={props => <ToMeDone {...props} />} />
+              <Route path="/byother/detail/:id" exact component={props => <ByOtherDetail {...props} />} />
+              <Route path="/byother" exact component={props => <ByOtherMain {...props} />} />
+              <Route path="/byother/done" exact component={props => <ByOtherDone {...props} />} />
+              <Route path="/byother/history" exact component={props => <ByOtherHistory {...props} />} />
+              <Redirect from="*" to="/"></Redirect>
+            </Switch>
+            <Footer/> 
+          </div>
+        </BrowserRouter>
     </Fragment>
   );
 };
