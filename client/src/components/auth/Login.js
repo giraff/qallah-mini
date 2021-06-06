@@ -55,23 +55,29 @@ const Login = () => {
     <div>
       {localMsg ? <div style={{ color: "red" }}>{localMsg}</div> : null}
       <form onSubmit={(e) => onSubmit(e)}>
-        <label>email: </label>
         <input
+          className="login-field"
           id="email"
           type="email"
           name="email"
+          placeholder="email"
           onChange={(e) => onChange(e)}
         ></input>
         <br></br>
-        <label>pwd: </label>
         <input
+          className="login-field"
           id="password"
           type="password"
           name="password"
+          placeholder="password"
           onChange={(e) => onChange(e)}
         ></input>
         <br></br>
-        <input type="submit" />
+        <input
+          className="login-button lang-eng"
+          type="submit"
+          value="LogIn"
+        />
       </form>
     </div>
   );

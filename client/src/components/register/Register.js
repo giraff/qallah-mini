@@ -50,34 +50,40 @@ const Register = () => {
   return (
     <div>
       <form onSubmit={(e) => onSubmit(e)}>
-        <label>email: </label>
         <input
+          className="register-field lang-eng"
           id="email"
           type="email"
           name="email"
+          placeholder="email"
           value={email}
           onChange={onChange}
         ></input>
         <br></br>
-        <label>name: </label>
         <input
+          className="register-field lang-eng"
           id="name"
           type="name"
           name="name"
+          placeholder="name"
           value={name}
           onChange={onChange}
         ></input>
         <br></br>
-        <label>pwd: </label>
         <input
+          className="register-field lang-eng"
           id="password"
           type="password"
           name="password"
+          placeholder="password"
           value={password}
           onChange={onChange}
         ></input>
         <br></br>
-        <input type="submit" />
+        <input
+          className="register-button lang-eng" 
+          type="submit"
+          value="Sign Up" />
       </form>
     </div>
   );
