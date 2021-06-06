@@ -5,6 +5,8 @@ import ReactDOM from "react-dom";
 import App from "./App";
 import loadUser from "./common/loadUser";
 
+import './common.scss';
+
 loadUser();
 
 // 브라우저에 렌더링하는 도구(ReactDOM)에서 render를 가져와
