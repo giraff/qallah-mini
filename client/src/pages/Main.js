@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+// ../assets/double-quotation.png 이렇게 사용하거나 assets/double-quotation.png 이렇게 사용
 import quote_l from "../assets/double-quotation.png"
 import quote_r from '../assets/double-quotation2.png';
 import q_tome from '../assets/나-icon.png';
@@ -8,7 +9,7 @@ import q_exp from "../assets/경험-icon.png";
 import q_ref from "../assets/성찰-icon.png";
 
 const Main = () => {
-    console.log(__filename);
+
   return (
     <div class="main">
         <section class="main-banner-container">
