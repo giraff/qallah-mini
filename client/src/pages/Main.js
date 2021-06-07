@@ -1,13 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
-// import quote_l from "../assets/double-quotation1.png"
-// import quote_r from '../assets/double-quotation2.png';
-// import q_tome from '../assets/나-icon.png';
-// import q_byothers from '../assets/남-icon.png';
-// import q_exp from "../assets/경험-icon.png";
-// import q_ref from "../assets/성찰-icon.png";
+import quote_l from "../assets/double-quotation.png"
+import quote_r from '../assets/double-quotation2.png';
+import q_tome from '../assets/나-icon.png';
+import q_byothers from '../assets/남-icon.png';
+import q_exp from "../assets/경험-icon.png";
+import q_ref from "../assets/성찰-icon.png";
 
 const Main = () => {
+    console.log(__filename);
   return (
     <div class="main">
         <section class="main-banner-container">
@@ -20,10 +21,10 @@ const Main = () => {
                         <div class="banner-desc">나는 나를 안다고 말할 수 있을까?</div>
                     </div>
                     <div class="double-quotation double-quotation-l">
-                        {/* <img src={quote_l} alt="quote"></img> */}
+                        <img src={quote_l} alt="quote"></img>
                     </div>
                     <div class="double-quotation double-quotation-r">
-                        {/* <img src={quote_r} alt="quote"></img> */}
+                        <img src={quote_r} alt="quote"></img>
                     </div>
                 </div>
             </div>
@@ -36,22 +37,22 @@ const Main = () => {
                     <ul>
                         <li>
                             <Link to="/questiontome">
-                                {/* <img class="q_img" src={q_tome} alt=""></img> */}
+                                <img class="q_img" src={q_tome} alt=""></img>
                             </Link>
                         </li>
                         <li>
                             <Link to="questionbyothers">
-                                {/* <img class="q_img" src={q_byothers} alt=""></img> */}
+                                <img class="q_img" src={q_byothers} alt=""></img>
                             </Link>
                         </li>
                         <li>
                             <Link to="experience">
-                                {/* <img class="q_img" src={q_exp} alt=""></img> */}
+                                <img class="q_img" src={q_exp} alt=""></img>
                             </Link>
                         </li>
                         <li>
                             <Link to="reflection">
-                                {/* <img class="q_img" src={q_ref} alt=""></img> */}
+                                <img class="q_img" src={q_ref} alt=""></img>
                             </Link>
                         </li>
                     </ul>
