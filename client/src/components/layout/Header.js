@@ -18,23 +18,33 @@ const Header = () => {
       <nav className="header-nav">
         <ul>
           <li className="nav-item">
-            <Link to="/tome">
-              <button>내가 보는 나</button>
-            </Link>
-          </li>
-          <li className="nav-item">
             <Link to="/">
               <h1 className="logo">Qallah</h1>
             </Link>          
           </li>
-          <li className="nav-item">
+          <li className="nav-item lang-kor">
+            <Link to="/tome">
+              내가 보는 나
+            </Link>
+          </li>
+          <li className="nav-item lang-kor">
             <Link to="/byother">
-              <button>남이 보는 나</button>
+              남이 보는 나
+            </Link>
+          </li>
+          <li className="nav-item lang-kor">
+            <Link to="/">
+              내가 한 경험
+            </Link>
+          </li>
+          <li className="nav-item lang-kor">
+            <Link to="/">
+              인생의 성찰
             </Link>
           </li>
           <li className="nav-item-gnb">
             <Link onClick={onLogout} to="#">
-              <button>logout</button>
+              <div id="nav-logout">logout</div>
             </Link>
           </li>
         </ul>
