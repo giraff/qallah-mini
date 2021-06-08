@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { BYOTHER_UPLOAD_REQUEST } from '../../redux/types';
+import { Fragment } from 'react';
 
 // 전역변수
 const answers = []
@@ -49,8 +50,8 @@ const ByOtherQuestion = ({req}) => {
     setAnswerContent(value);
   }
   // prev, next 버튼 클릭때마다 실행
-  const onClickEvent = (e) => {
-    const { name } = e.target;
+  const onClickEvent = (name) => {
+
     // 이미 답변을 저장한 질문인 경우, alreadySaved(flag)는 true가 된다.
     let alreadySaved = false;
     let inputFlag = false;
@@ -148,20 +149,28 @@ const ByOtherQuestion = ({req}) => {
 
   // 이동 버튼 
   const bottomNav = (
-    <>
+    <Fragment>
       {currentPage === qlength ? (
-          <div>
-            <button name="prev" onClick={onClickEvent}>Prev</button>  
-            <button name="finish" onClick={onClickEvent}>답변완료</button>
-          </div>
+        <>
+          <button className="move move-pre" onClick={()=>onClickEvent("prev")}>
+            <i className="fas fa-chevron-left fa-3x"></i>
+          </button>  
+          <button className="move move-next" onClick={() => onClickEvent("finish")}>
+            <i class="fas fa-check fa-3x"></i>
+          </button>
+        </>
         ) : (
-          <div>
-            <button name="prev" onClick={onClickEvent}>Prev</button>  
-            <button name="next" onClick={onClickEvent}>Next</button>
-          </div>
+          <>
+            <button className="move move-pre" onClick={()=>onClickEvent("prev")}>
+              <i className="fas fa-chevron-left fa-3x"></i>
+            </button>  
+            <button className="move move-next" onClick={()=>onClickEvent("next")}>
+              <i className="fas fa-chevron-right fa-3x"></i>
+            </button>
+          </>
         )
       }
-    </>
+    </Fragment>
   )
 
   const Body = (
@@ -169,20 +178,33 @@ const ByOtherQuestion = ({req}) => {
       <div>
         {(() => {
           return(
-            <div>
-              <div>
-                <h3>
-                  {questions !== "" && questions.other_question_seq}. {questions.other_question_content}
-                </h3>
-              </div>
-              <div>
-                <input 
+            <div className="list-container byother-list-container">
+                <div className="move-wrap">
+                  <div className="list-page-count">{questions.other_question_seq}/15</div>
+                  {bottomNav}
+                </div>
+                <div className="progress-on">
+                  <div className="progress-bar" style={{width: `${(questions.other_question_seq / 15) * 100}%`, backgroundColor: '#9e8d5e'}}></div>
+                </div>
+                <div className="byother-qna">
+                  <div className="byother-question-field">
+                    <div className="byother-question-num">{questions !== "" && questions.other_question_seq}.</div>
+                    <div className="byother-question-title">{questions !== "" && questions.other_question_content}</div>
+                  </div>
+                  <div className="byother-answer-field">
+                    <input 
+                      className="answer-input"
+                      type="text"
                       value={answerContent} 
                       onChange={onChange} 
                       placeholder="답변을 입력해주세요">
-                </input>
-              </div>
-              {bottomNav}
+                    </input>
+                    <i className="fas fa-trash"></i>
+                  </div>
+                  <div className="answer-add-btn">
+                    <i className="fas fa-plus"></i>
+                  </div>
+                </div>
             </div>
           )
         })()}     

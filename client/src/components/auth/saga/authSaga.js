@@ -8,6 +8,9 @@ import {
   USER_LOADING_REQUEST,
   USER_LOADING_SUCCESS,
   USER_LOADING_FAILURE,
+  CLEAR_ERROR_REQUEST,
+  CLEAR_ERROR_SUCCESS,
+  CLEAR_ERROR_FAILURE
 } from "../../../redux/types";
 import { all, call, fork, put, takeEvery } from "redux-saga/effects";
 import axios from "axios";
@@ -104,10 +107,29 @@ function* userLoading(action) {
 function* watchuserLoading() {
   yield takeEvery(USER_LOADING_REQUEST, userLoading);
 }
+
+function* clearError() {
+  try{
+    yield put({
+      type: CLEAR_ERROR_SUCCESS,
+    });
+  }catch(e) {
+    yield put({
+      type: CLEAR_ERROR_FAILURE,
+    });
+    console.error(e);
+  }
+}
+
+function* watchclearError() {
+  yield takeEvery(CLEAR_ERROR_REQUEST, clearError);
+}
+
 export default function* authSaga() {
   yield all([
     fork(watchLoginUser),
     fork(watchLogoutUser),
     fork(watchuserLoading),
+    fork(watchclearError)
   ]);
 }

@@ -86,14 +86,43 @@ const QuestionToMeDetail = () => {
         console.log("이전질문", form);
 
     }
- 
+
     return (
-        <form>
-            <div>{form.question_seq+1}. {form.question_context}</div><br/>
-            <input onChange={onChange}  value={form.question_answer} placeholder="답변을 입력해 주세요"></input>
-            <button onClick={next_question} disabled={form.next_button}>Next</button>
-            <button onClick={prev_question} disabled={form.prev_button}>Prev</button>
-        </form>
+        <div className="list-container tome-list-container">
+          {/* <div>{form.question_seq+1}. {form.question_context}</div><br/> */}
+          {/* <input onChange={onChange}  value={form.question_answer} placeholder="답변을 입력해 주세요"></input> */}
+          <div className="move-wrap">
+            <div className="list-page-count">{`${form.question_seq + 1}`}/20</div>
+            <button className="move move-pre" onClick={prev_question} disabled={form.prev_button}>
+              <i className="fas fa-chevron-left fa-3x"></i>
+            </button>
+            <button className="move move-next" onClick={next_question} disabled={form.next_button}>
+              <i className="fas fa-chevron-right fa-3x"></i>
+            </button>
+          </div>
+          <div className="progress-on">
+            <div className="progress-bar" style={{width: `${((form.question_seq + 1) / 20) * 100}%`, backgroundColor: "#7b5e9e"}}></div>
+          </div>
+          <div className="tome-qna">
+            <div className="tome-question-field">
+              <div className="tome-question-num">{form.question_seq+1}.&nbsp;</div>
+              <div className="tome-question-title">{form.question_context}</div>
+            </div>
+            <div class="tome-answer-field">
+              <input 
+                className="answer-input" 
+                type="text" 
+                onChange={onChange}  
+                value={form.question_answer} 
+                placeholder="답변을 입력해 주세요"
+              />
+              <i className="fas fa-trash"></i>
+            </div>
+            <div class="answer-add-btn">
+              <i className="fas fa-plus"></i>
+            </div>
+          </div>
+        </div>
     );
 };
 

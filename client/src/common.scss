@@ -63,6 +63,10 @@ body {
   font-family: var(--font-eng);
 }
 
+.lang-kor {
+  font-family: var(--font-kor);
+}
+
 .eng-title {
   font-family: var(--font-eng-title);
 }
@@ -90,6 +94,7 @@ img {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  // background: var(--image-bg) no-repeat center/cover;
 }
 
 #header {
@@ -117,7 +122,20 @@ img {
     }
 
     .nav-item-gnb {
-      margin-left: auto;
+      margin: auto 0px auto auto;
+    }
+
+    li:not(:first-child, :last-child) {
+      margin: 15px 30px;
+      font-size: 16px;
+      padding: 3px;
+    }
+
+    li:not(:last-child) {
+      &:hover {
+        transition: 0.1s;
+        color: var(--color-main-gray);
+      }
     }
   }
 }
@@ -153,7 +171,8 @@ img {
 // }
 
 /* logout 상태 - 로그인 버튼 표시 */
-#nav-login {
+#nav-login,
+#nav-logout {
   display: flex;
   align-items: center;
   border: 2px solid var(--color-main-white);
@@ -168,6 +187,22 @@ img {
     transition: 0.1s;
   }
 }
+
+// #nav-logout {
+//   display: flex;
+//   align-items: center;
+//   border: 2px solid var(--color-main-white);
+//   border-radius: 10px;
+//   min-height: 40px;
+//   height: 40px;
+//   padding: 0 15px;
+
+//   &:hover {
+//     border: 2px solid var(--color-main-gray);
+//     color: var(--color-main-gray);
+//     transition: 0.1s;
+//   }
+// }
 
 // .nav_login:hover {
 //   border: 2px solid var(--color-main-gray);
@@ -528,16 +563,23 @@ input:-webkit-autofill:active {
   align-items: center;
 }
 
-.q-main-header {
+.q-main-container > div {
+  margin: 20px 0px;
+}
+
+.q-main-title {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
-.q-main-container > div {
-  margin: 20px 0px;
-}
+// .q-main-header {
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: center;
+//   align-items: center;
+// }
 
 .q-main-content {
   background-color: var(--color-overlay-black);
@@ -549,19 +591,34 @@ input:-webkit-autofill:active {
 .q-main-content > div {
   line-height: 30px;
 }
-.q-main-footer {
+
+.q-main-nav {
   width: 300px;
   /* space-between 값이 적용되려면 width가 필요했다. */
   display: flex;
   justify-content: space-between;
 }
 
-.q-main-footer > div {
+.q-main-nav > div {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
+
+// .q-main-footer {
+//   width: 300px;
+//   /* space-between 값이 적용되려면 width가 필요했다. */
+//   display: flex;
+//   justify-content: space-between;
+// }
+
+// .q-main-footer > div {
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: center;
+//   align-items: center;
+// }
 
 .move-pre {
   /* next, pre 페이지 넘어가기 버튼 */
@@ -572,13 +629,12 @@ input:-webkit-autofill:active {
 
 .move i {
   text-align: center;
-  padding: 10px 20px;
 }
 
-.move i:hover {
-  background-color: rgba(99, 42, 119, 0.082);
-  transition: 0.2s;
-}
+// .move i:hover {
+//   background-color: rgba(99, 42, 119, 0.082);
+//   transition: 0.2s;
+// }
 .move-next {
   position: absolute;
   top: 45%;
@@ -589,7 +645,7 @@ input:-webkit-autofill:active {
 .list-container {
   position: relative;
   width: 700px;
-  margin: 200px auto auto auto;
+  margin: auto;
 }
 
 /* question 진행 상태 */
