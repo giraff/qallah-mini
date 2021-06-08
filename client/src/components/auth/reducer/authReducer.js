@@ -8,6 +8,9 @@ import {
   USER_LOADING_REQUEST,
   USER_LOADING_SUCCESS,
   USER_LOADING_FAILURE,
+  CLEAR_ERROR_REQUEST,
+  CLEAR_ERROR_SUCCESS,
+  CLEAR_ERROR_FAILURE
 } from "../../../redux/types";
 
 const initialState = {
@@ -84,6 +87,20 @@ const authReducer = (state = initialState, action) => {
         isLoading: false,
         user: null,
       };
+    case CLEAR_ERROR_REQUEST:
+      return{
+        ...state,
+      }
+    case CLEAR_ERROR_SUCCESS: //에러를 모두 날려보낸다
+      return{
+        ...state,
+        errorMsg: ""
+      }
+    case CLEAR_ERROR_FAILURE:
+      return{
+        ...state,
+        errorMsg: "Clear Error Fail"
+      }
     default:
       return state;
   }
