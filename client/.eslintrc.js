@@ -3,7 +3,7 @@ module.exports = {
         browser: true,
         es2020: true,
     },
-    extends: ['airbnb', 'eslint:recommended', 'plugin:react/recommended'],
+    extends: ['airbnb', 'eslint:recommended', 'plugin:react/recommended', 'prettier'],
     parserOptions: {
         ecmaFeatures: {
             jsx: true,
@@ -32,6 +32,7 @@ module.exports = {
         'no-restricted-syntax': ['warn', 'WithStatement'], // for in 사용
         'react/jsx-props-no-spreading': ['warn'], // props로 받은 것 바로 props로 넘기기 허용
         'class-methods-use-this': 2,
+        'import/no-unresolved': 'off',
         'prettier/prettier': [
             'error',
             {
@@ -46,7 +47,7 @@ module.exports = {
         },
         'import/resolver': {
             node: {
-                paths: ['src'],
+                extensions: ['.js', '.jsx', '.ts', '.tsx'],
             },
         },
     },
