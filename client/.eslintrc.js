@@ -28,11 +28,12 @@ module.exports = {
         'react/prop-types': ['off'], // props의 타입체크를 처리에 proptypes가 아닌 typescript 사용 예정
         'react/jsx-wrap-multilines': 0, // jsx에서 여러 줄에 걸쳐서 정의할 때 복잡한 rule 해제
         'import/extensions': 0, // ts 파일을 불러오기 위해,
-        camelcase: [0, { ignoreGlobals: false }], // 카멜케이스아닌 변수도 허용
+        camelcase: [0, { ignoreGlobals: true }], // 카멜케이스아닌 변수도 허용
         'no-restricted-syntax': ['warn', 'WithStatement'], // for in 사용
         'react/jsx-props-no-spreading': ['warn'], // props로 받은 것 바로 props로 넘기기 허용
         'class-methods-use-this': 2,
         'import/no-unresolved': 'off',
+        'no-shadow': ['error', { builtinGlobals: false, hoist: 'functions', allow: [] }],
         'prettier/prettier': [
             'error',
             {
@@ -40,7 +41,7 @@ module.exports = {
             },
         ],
     },
-    ignorePatterns: ['node_modules/', '*.config.js'],
+    ignorePatterns: ['node_modules/', '*.config.js', 'config/', 'scripts/'],
     settings: {
         react: {
             version: 'detect',
