@@ -4,13 +4,12 @@ import ByOtherQuestion from '../../components/byother/ByOtherQuetion';
 
 
 const ByOtherDetail = (req) => {
-  return(  
-    <Fragment>
-      <h1>ByOtherDetail</h1>
-      <ByOtherQuestion 
-        req={req}
-      />
-    </Fragment>
+  return(
+    <section className="sections">
+        <div className="sections-overlay">
+          <ByOtherQuestion req={req}/>
+        </div>
+    </section>
   )
 }
 

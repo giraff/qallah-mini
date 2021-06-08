@@ -1,27 +1,43 @@
 import React from 'react';
-import { Fragment } from 'react';
 import { Link } from "react-router-dom";
 
 const ByOtherMain = () => {
-
   return (
-    <Fragment>
-      <h1>ByOtherMain</h1>
-      <nav>  
-        <li>
-          <Link to="/byother/detail/1">답변 시작</Link>
-        </li>
-        <li>
-          <Link to="/">메인 홈</Link>
-        </li>
-        <li>
-          <Link to="/byother/history">히스토리</Link>
-        </li>
-      </nav>
-    </Fragment>
+  <section className="sections">
+        <div className="sections-overlay">
+          <div className="q-main-container">
+            <div className="q-main-title">
+              <h1>남이 보는 나</h1>
+            </div>
+            <div className="q-main-content">
+              <div>예상 소요 시간 : 20분 ~ 1시간</div>
+              <div>질문 수 : 15</div>
+              <div>지금 곁에 있는 다른 이에게 '나'에 대해 질문하세요.</div>
+            </div>
+            <div className="q-main-nav">
+              <div className="link-start">
+                <Link to="/byother/detail/1">
+                  <i className="fas fa-play fa-2x"></i>
+                </Link>
+                <label>시작하기</label>
+              </div>
+              <div className="link-history">
+                <Link to="/byother/history">
+                  <i className="fas fa-history fa-2x"></i>
+                </Link>
+                <label>이전답변</label>
+              </div>
+              <div className="link-home">
+                <Link to="/">
+                  <i className="fas fa-home fa-2x"></i>
+                </Link>
+                <label>메인홈</label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
   )
-}
-
-
+};
 
 export default ByOtherMain;
