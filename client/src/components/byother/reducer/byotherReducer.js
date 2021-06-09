@@ -5,6 +5,9 @@ import {
     BYOTHER_UPLOAD_REQUEST,
     BYOTHER_UPLOAD_SUCCESS,
     BYOTHER_UPLOAD_FAILURE,
+    BYOTHER_ANSWER_LOADING_REQUEST,
+    BYOTHER_ANSWER_LOADING_SUCCESS,
+    BYOTHER_ANSWER_LOADING_FAILURE,
 } from '../../../redux/types';
 
 const initialState = {
@@ -13,7 +16,8 @@ const initialState = {
     questionDetail: '',
     questionSeq: '',
     isLoading: false,
-    answers: [],
+    answers: '',
+    answer: '',
     error: '',
 };
 
@@ -45,8 +49,46 @@ const byotherReducer = (state = initialState, action) => {
                 isLoading: false,
             };
         case BYOTHER_UPLOAD_REQUEST:
+            return {
+                ...state,
+                isLoading: true,
+                error: '',
+            };
         case BYOTHER_UPLOAD_SUCCESS:
+            return {
+                ...state,
+                isLoading: false,
+                answers: action.payload.answerData,
+            };
         case BYOTHER_UPLOAD_FAILURE:
+            return {
+                ...state,
+                isLoading: false,
+                answers: '',
+                error: action.payload,
+            };
+        case BYOTHER_ANSWER_LOADING_REQUEST:
+            return {
+                ...state,
+                isLoading: true,
+                answer: '',
+                error: '',
+            };
+        case BYOTHER_ANSWER_LOADING_SUCCESS:
+            console.log('REDUCER', action);
+            return {
+                ...state,
+                isLoading: false,
+                answer: action.payload !== '' ? action.payload.answer_content : action.payload,
+                error: '',
+            };
+        case BYOTHER_ANSWER_LOADING_FAILURE:
+            return {
+                ...state,
+                isLoading: false,
+                answer: '',
+                error: action.payload,
+            };
         default:
             return state;
     }

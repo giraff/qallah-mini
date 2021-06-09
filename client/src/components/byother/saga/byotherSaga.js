@@ -7,6 +7,9 @@ import {
     BYOTHER_UPLOAD_REQUEST,
     BYOTHER_UPLOAD_SUCCESS,
     BYOTHER_UPLOAD_FAILURE,
+    BYOTHER_ANSWER_LOADING_REQUEST,
+    BYOTHER_ANSWER_LOADING_SUCCESS,
+    BYOTHER_ANSWER_LOADING_FAILURE,
 } from '../../../redux/types';
 
 const loadQuestionsAPI = () => axios.get(`/api/byother/detail`);
@@ -32,24 +35,24 @@ function* watchLoadQuestion() {
 }
 
 /** BYOTHER UPLOAD  */
-const uploadAnswerAPI = payload => {
+const uploadAnswerAPI = data => {
     const config = {
         headers: {
             'Content-type': 'application/json',
         },
     };
-    const { token } = payload;
+
+    const { token, page } = data;
 
     if (token) {
         config.headers['x-auth-token'] = token;
     }
-    return axios.post(`/api/byother/answer`, payload, config);
+
+    return axios.post(`/api/byother/detail/answer/${page}`, data, config);
 };
 
 function* uploadAnswer(action) {
-    console.log('UploadAnswer 리듀서');
     try {
-        console.log(action);
         const result = yield call(uploadAnswerAPI, action.payload);
 
         yield put({
@@ -68,6 +71,45 @@ function* watchUploadAnswer() {
     yield takeEvery(BYOTHER_UPLOAD_REQUEST, uploadAnswer);
 }
 
+/** BYOTHER ANSWER LOAD  */
+const loadAnswerAPI = data => {
+    const config = {
+        headers: {
+            'Content-type': 'application/json',
+        },
+    };
+
+    const { token, page } = data;
+
+    console.log(data);
+    if (token) {
+        config.headers['x-auth-token'] = token;
+    }
+
+    return axios.get(`/api/byother/answer/${parseInt(page, 10)}`, config);
+};
+
+function* loadAnswer(action) {
+    try {
+        console.log('saga도착', action);
+        const result = yield call(loadAnswerAPI, action.payload);
+        console.log('loadAnswer', result);
+        yield put({
+            type: BYOTHER_ANSWER_LOADING_SUCCESS,
+            payload: result.data,
+        });
+    } catch (e) {
+        yield put({
+            type: BYOTHER_ANSWER_LOADING_FAILURE,
+            payload: e,
+        });
+    }
+}
+
+function* watchLoadAnswer() {
+    yield takeEvery(BYOTHER_ANSWER_LOADING_REQUEST, loadAnswer);
+}
+
 export default function* byotherSaga() {
-    yield all([fork(watchUploadAnswer), fork(watchLoadQuestion)]);
+    yield all([fork(watchUploadAnswer), fork(watchLoadQuestion), fork(watchLoadAnswer)]);
 }
