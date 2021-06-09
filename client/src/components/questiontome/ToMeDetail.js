@@ -1,7 +1,5 @@
-import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
 import { TOME_REQUEST, TOME_ANSWER_RECEIVE_REQUEST } from '../../redux/types';
 
 const QuestionToMeDetail = () => {
@@ -47,10 +45,10 @@ const QuestionToMeDetail = () => {
         });
     }, []);
 
-    const { question_seq, question_context, question_answer } = form;
+    const { question_seq } = form;
 
     const onChange = e => {
-        const { name, value } = e.target;
+        const { value } = e.target;
         console.log(value);
         setValues({
             ...form,
