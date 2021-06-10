@@ -1,1 +1,1 @@
-{ "compilerOptions": { "baseUrl": "./src" }, "include": ["src"] }
+{ "compilerOptions": { "module": "commonjs", "target": "es2016", "baseUrl": "./src" }, "include": ["src"] }
