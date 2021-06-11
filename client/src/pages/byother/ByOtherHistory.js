@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 const ByOtherHistory = () => {
-    const [date, setDate] = useState([]);
+    const [history, setHistory] = useState([]);
 
     const getHistoryAPI = async () => {
         try {
@@ -24,9 +24,7 @@ const ByOtherHistory = () => {
         }
     };
     useEffect(() => {
-        console.log('history Effect =>');
-        getHistoryAPI().then(data => setDate(data));
-        console.log(date);
+        getHistoryAPI().then(data => setHistory(data));
     }, []);
     return (
         <section className="sections answer-section">
@@ -51,7 +49,7 @@ const ByOtherHistory = () => {
                             <div className="star" />
                         </div>
                         {(() =>
-                            date.map(val => (
+                            history.map(val => (
                                 <div key={val.seq} className="history-elem">
                                     <div className="bar" />
                                     <div className="circle">
@@ -63,36 +61,6 @@ const ByOtherHistory = () => {
                                     </div>
                                 </div>
                             )))()}
-                        {/* <div className="history-elem">
-                            <div className="bar" />
-                            <div className="circle">
-                                <div className="sub-circle" />
-                            </div>
-                        </div>
-                        <div className="history-elem">
-                            <div className="bar" />
-                            <div className="circle">
-                                <div className="sub-circle" />
-                            </div>
-                        </div>
-                        <div className="history-elem">
-                            <div className="bar" />
-                            <div className="circle">
-                                <div className="sub-circle" />
-                            </div>
-                        </div>
-                        <div className="history-elem">
-                            <div className="bar" />
-                            <div className="circle">
-                                <div className="sub-circle" />
-                            </div>
-                        </div>
-                        <div className="history-elem">
-                            <div className="bar" />
-                            <div className="circle">
-                                <div className="sub-circle" />
-                            </div>
-                        </div> */}
                         {/* <div className="history-elem last">
                             <div className="bar" />
                             <div className="circle">
