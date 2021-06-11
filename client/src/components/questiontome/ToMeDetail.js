@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link, useHistory } from 'react-router-dom';
 import { TOME_REQUEST, TOME_ANSWER_RECEIVE_REQUEST } from '../../redux/types';
 
 const QuestionToMeDetail = () => {
@@ -7,6 +8,7 @@ const QuestionToMeDetail = () => {
     const ToMeChk = useSelector(state => state.tomedetail.isToMe);
 
     const dispatch = useDispatch();
+    const history = useHistory();
 
     const [form, setValues] = useState({
         question_seq: 0,
@@ -14,6 +16,7 @@ const QuestionToMeDetail = () => {
         question_answer: '',
         next_button: false,
         prev_button: true,
+        question_length: 0,
     });
 
     // 첫 번째 useEffect는 DB에서 질문을 조회하기 위한 것
@@ -31,6 +34,7 @@ const QuestionToMeDetail = () => {
             setValues({
                 ...form,
                 question_context: ToMeObj.data[question_seq].question_content,
+                question_length: ToMeObj.data.length,
             });
         } else {
             console.log(ToMeChk);
@@ -62,7 +66,7 @@ const QuestionToMeDetail = () => {
             question_seq: question_seq + 1,
             question_context: ToMeObj.data[question_seq + 1].question_content,
             question_answer: '',
-            next_button: question_seq + 1 === ToMeObj.data.length - 1,
+            next_button: false,
             prev_button: false,
         });
         console.log('다음질문', form);
@@ -81,18 +85,38 @@ const QuestionToMeDetail = () => {
         console.log('이전질문', form);
     };
 
+    const done = e => {
+        e.preventDefault();
+        console.log('접근');
+        // eslint-disable-next-line no-unused-expressions
+        history.push(`/tome/done`);
+    };
+
+    const done_phr = (
+        <button className="move move-next" type="button" onClick={done} disabled={form.next_button}>
+            <i className="fas fa-chevron-right fa-3x" />
+        </button>
+    );
+
+    const next_phr = (
+        <button className="move move-next" type="button" onClick={next_question} disabled={form.next_button}>
+            <i className="fas fa-chevron-right fa-3x" />
+        </button>
+    );
+
+    const prev_phr = (
+        <button className="move move-pre" type="button" onClick={prev_question} disabled={form.prev_button}>
+            <i className="fas fa-chevron-left fa-3x" />
+        </button>
+    );
     return (
         <div className="list-container tome-list-container">
             {/* <div>{form.question_seq+1}. {form.question_context}</div><br/> */}
             {/* <input onChange={onChange}  value={form.question_answer} placeholder="답변을 입력해 주세요"></input> */}
             <div className="move-wrap">
                 <div className="list-page-count">{`${form.question_seq + 1}`}/20</div>
-                <button className="move move-pre" type="button" onClick={prev_question} disabled={form.prev_button}>
-                    <i className="fas fa-chevron-left fa-3x" />
-                </button>
-                <button className="move move-next" type="button" onClick={next_question} disabled={form.next_button}>
-                    <i className="fas fa-chevron-right fa-3x" />
-                </button>
+                {form.question_seq + 1 === 1 ? null : prev_phr}
+                {form.question_seq + 1 === form.question_length ? done_phr : next_phr}
             </div>
             <div className="progress-on">
                 <div className="progress-bar" style={{ width: `${((form.question_seq + 1) / 20) * 100}%`, backgroundColor: '#7b5e9e' }} />
