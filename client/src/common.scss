@@ -761,11 +761,21 @@ input:-webkit-autofill:active {
     left: 50px;
     bottom: 0px;
     width: fit-content;
+
+    & div {
+        min-width: 100px;
+        padding: 3px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .history-desc-date {
+        font-size: 16px;
+        color: var(--color-main-gray);
+    }
 }
 
-.history-desc-title {
-    width: 100px;
-}
 /* byother */
 
 .byother-question-field {

@@ -185,15 +185,15 @@ router.post("/detail/answer/:id", auth, async (req, res) => {
 //@router   GET api/byother/history
 //@desc     답변의 날짜 데이터 가져오기
 //@access   auth
-router.get("/history/date", auth, (req, res) => {
+router.get("/history", auth, (req, res) => {
   try {
     mdbConn.query(
       `SELECT 
-          DATE_FORMAT(answer_time, '%Y-%m-%d') 
-        FROM 
-          answerbyothers 
-        GROUP BY 
-          DATE_FORMAT(answer_time, '%Y-%m-%d');`,
+        other_answer_seq AS seq, DATE_FORMAT(answer_time, '%Y-%m-%d') AS time
+      FROM 
+        answerbyothers 
+      GROUP BY 
+        DATE_FORMAT(answer_time, '%Y-%m-%d')`,
       (err, rows) => {
         if (!err) {
           return res.status(200).json(rows);
