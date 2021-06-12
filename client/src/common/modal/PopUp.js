@@ -18,7 +18,7 @@ const PopUp = ({ modal, setModal, FirstPageLink, routerLink }) => {
                 config.headers['x-auth-token'] = token;
             }
 
-            await axios.delete(`${routerLink}/answer/detail`, config);
+            await axios.delete(`${routerLink}`, config);
         }
         history.push(`${FirstPageLink}`);
     };

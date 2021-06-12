@@ -8,7 +8,8 @@ const ByOtherMain = () => {
     const history = useHistory();
     const linkObject = {
         byotherFirstPage: `/byother/detail/1`,
-        byotherRouter: `/api/byother`,
+        byotherRootRouter: `/api/byother`,
+        byotherAnswerDetailRouter: `/api/byother/answer/detail`,
     };
 
     const clickEvent = async () => {
@@ -23,7 +24,7 @@ const ByOtherMain = () => {
             config.headers['x-auth-token'] = token;
         }
 
-        const result = await axios.get(`${linkObject.byotherRouter}/answer`, config);
+        const result = await axios.get(`${linkObject.byotherRootRouter}/answer`, config);
 
         if (result.data.length > 0) {
             setModal(true);
@@ -35,7 +36,12 @@ const ByOtherMain = () => {
     return (
         <section className="sections">
             <div className="sections-overlay">
-                <PopUp modal={modal} setModal={setModal} FirstPageLink={linkObject.byotherFirstPage} routerLink={linkObject.byotherRouter} />
+                <PopUp
+                    modal={modal}
+                    setModal={setModal}
+                    FirstPageLink={linkObject.byotherFirstPage}
+                    routerLink={linkObject.byotherAnswerDetailRouter}
+                />
                 <div className="q-main-container">
                     <div className="q-main-title">
                         <h1>남이 보는 나</h1>
