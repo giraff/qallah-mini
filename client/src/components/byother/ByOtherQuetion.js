@@ -142,21 +142,19 @@ const ByOtherQuestion = ({ req }) => {
                         </div>
                         <div className="byother-qna">
                             <div className="byother-question-field">
-                                <div className="byother-question-num">{questionContent !== '' && questionContent.other_question_seq}.</div>
-                                <div className="byother-question-title">{questionContent !== '' && questionContent.other_question_content}</div>
+                                <div className="byother-question-num">{questionContent !== '' && questionContent.other_question_seq}.&nbsp;</div>
+                                <div className="byother-question-title lang-kor">
+                                    {questionContent !== '' && questionContent.other_question_content}
+                                </div>
                             </div>
                             <div className="byother-answer-field">
                                 <input
-                                    className="answer-input"
+                                    className="answer-input lang-kor"
                                     type="text"
                                     value={answerContent}
                                     onChange={onChange}
                                     placeholder="답변을 입력해주세요"
                                 />
-                                <i className="fas fa-trash" />
-                            </div>
-                            <div className="answer-add-btn">
-                                <i className="fas fa-plus" />
                             </div>
                         </div>
                     </div>

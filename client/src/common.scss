@@ -568,14 +568,15 @@ input:-webkit-autofill:active {
 
 /* 답변 입력창 design */
 .answer-input {
-    height: 30px;
+    line-height: 50px;
     border-radius: 10px;
-    width: 85%;
+    width: 100%;
     margin: 10px 0px;
     outline: none;
     background-color: var(--color-main-white);
     border: none;
-    padding: 0px 10px;
+    padding: 0px 15px;
+    font-size: medium;
 }
 
 .answer-input:focus {
@@ -794,9 +795,9 @@ input:-webkit-autofill:active {
     font-size: x-large;
 }
 
-.byother-answer-field > i {
-    margin-left: 10px;
-}
+// .byother-answer-field > i {
+//     margin-left: 10px;
+// }
 
 // modal
 .modal-overlay {
@@ -875,4 +876,173 @@ input:-webkit-autofill:active {
     background-color: white;
     color: var(--color-main-black);
     border: 1px solid var(--color-main-black);
+}
+
+/* ExpMain */
+
+.exp-container {
+    margin-top: 40px;
+}
+.exp-header {
+    line-height: 50px;
+}
+
+.exp-header > h1 {
+    padding: 10px;
+}
+
+.exp-container {
+    width: 90%;
+}
+
+.exp-start {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.exp-button {
+    text-align: center;
+    background-color: var(--exp-btn-tarquoise);
+    border-radius: 30px;
+    padding: 15px;
+    width: 500px;
+    font-size: 20px;
+}
+
+.exp-button:hover {
+    transition: 0.3s;
+    background-color: var(--exp-btn-heavy-tarquoise);
+}
+
+.expr-wrap {
+    color: var(--color-main-white);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    max-width: 900px;
+    padding: 10px;
+}
+
+.expr-header {
+    line-height: 40px;
+    font-size: 2em;
+    font-weight: 900;
+    color: var(--color-main-white);
+}
+
+.expr-content {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--color-overlay-black);
+    width: 100%;
+    height: fit-content;
+    padding: 20px;
+    color: var(--color-main-white);
+}
+
+/* input */
+.input-field {
+    font-family: var(--font-kor);
+    padding: 5px;
+    width: 99%;
+    margin: 5px 0px;
+    border: 1px solid transparent;
+}
+
+.title-field input {
+    line-height: 10px;
+    font-weight: 800;
+    font-size: x-large;
+    background-color: var(--color-e2);
+    font-family: var(--font-kor);
+}
+.expr-text textarea {
+    font-size: 15px;
+}
+
+.input-field:focus {
+    transition: 0.3s;
+    outline: none;
+    background-color: var(--color-main-white);
+}
+
+.expr-text {
+    overflow: auto;
+}
+
+textarea {
+    min-width: 300px;
+    width: 100%;
+    max-width: 99%;
+    min-height: 100px;
+    max-height: 300px;
+}
+
+.header-field {
+    font-weight: 900;
+}
+
+.file-wrapper {
+    display: flex;
+}
+
+.file-input {
+    width: 80px;
+    height: 80px;
+    background-color: var(--color-e2);
+    margin: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 25px;
+}
+.date-input {
+    display: flex;
+    align-items: center;
+}
+
+.date-input i {
+    margin: 5px;
+    color: var(--color-btn-contrast-bg);
+}
+
+.date-input i:hover {
+    color: var(--color-main-purple);
+}
+
+.date-input input {
+    margin: 5px 5px;
+    border: none;
+}
+
+.date-input input:focus {
+    border: none;
+}
+
+.theme-input input,
+.link-input input {
+    padding: 6px 5px;
+}
+
+.expr-add-btn {
+    background-color: var(--color-main-purple);
+    line-height: 40px;
+    text-align: center;
+    border-radius: 5px;
+    color: var(--color-main-white);
+    font-weight: 900;
+}
+
+.expr-add-btn:hover {
+    transition: 0.3s;
+    color: var(--color-main-white);
+    background-color: var(--color-main-heavy-purple);
+}
+
+/* ExprDone */
+
+.expr-done-btns {
+    justify-content: space-around;
 }

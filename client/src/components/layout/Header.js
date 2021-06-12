@@ -29,7 +29,7 @@ const Header = () => {
                         <Link to="/byother">남이 보는 나</Link>
                     </li>
                     <li className="nav-item lang-kor">
-                        <Link to="/">내가 한 경험</Link>
+                        <Link to="/experience">내가 한 경험</Link>
                     </li>
                     <li className="nav-item lang-kor">
                         <Link to="/">인생의 성찰</Link>
