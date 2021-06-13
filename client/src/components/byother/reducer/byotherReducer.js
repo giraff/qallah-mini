@@ -79,7 +79,7 @@ const byotherReducer = (state = initialState, action) => {
             return {
                 ...state,
                 isLoading: false,
-                answer: action.payload !== '' ? action.payload.answer_content : action.payload,
+                answer: action.payload === '' ? '' : action.payload.answer_content,
                 error: '',
             };
         case BYOTHER_ANSWER_LOADING_FAILURE:
