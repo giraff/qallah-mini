@@ -7,6 +7,9 @@ import {
     TOME_ANSWER_RECEIVE_REQUEST,
     TOME_ANSWER_RECEIVE_SUCCESS,
     TOME_ANSWER_RECEIVE_FAILURE,
+    TOME_ANSWER_UPLOAD_SUCCESS,
+    TOME_ANSWER_UPLOAD_FAILURE,
+    TOME_ANSWER_UPLOAD_REQUEST,
 } from '../../../redux/types';
 
 /** ToMeDetail : 서버와 통신 필요함 */
@@ -56,16 +59,22 @@ const ToMeAnswerReceiveAPI = ToMeAnswerData => {
             'Content-type': 'application/json',
         },
     };
-    // server측으로 get 요청 (express가 받고 router 처리)
-    return axios.get('/api/tome/detail/answer', ToMeAnswerData, config);
+    const { token } = ToMeAnswerData;
+
+    if (token) {
+        config.headers['x-auth-token'] = token;
+    }
+
+    return axios.get('/api/tome/answer/receive', ToMeAnswerData, config);
 };
 
 function* ToMeAnswerReceive(action) {
     console.log('ToMeAnswerReceive(action) 발동');
     try {
+        console.log('tome Answer Receive => ', action);
         // ToMeAnswerReceiveAPI에 action.payload를 인자로 보내면서 실행 -> axios.get 결과 받아옴
         const result = yield call(ToMeAnswerReceiveAPI, action.payload);
-        console.log('api/tome/detail/answer 에서 받아온 결과값', result);
+        console.log('api/tome/answer/receive 에서 받아온 결과값', result);
         yield put({
             type: TOME_ANSWER_RECEIVE_SUCCESS,
             // server/routes/tome/detail/answer 에서 res 에 넘긴 {user} 객체 data를 payload로 보냄
@@ -87,5 +96,44 @@ function* watchToMeAnswerReceive() {
 }
 
 export default function* ToMeDetailSaga() {
-    yield all([fork(watchToMeDetail), fork(watchToMeAnswerReceive)]);
+    yield all([fork(watchToMeDetail), fork(watchToMeAnswerReceive), fork(watchToMeAnswerUpload)]);
+}
+
+/** ToMeAnswerUpload */
+const ToMeAnswerUploadAPI = ToMeUploadData => {
+    console.log('ToMeAnswerUploadAPI 발동 -> axios.post 요청보냄');
+    console.log(ToMeUploadData, 'ToMeUploadData/ToMeUploadData');
+    const config = {
+        headers: {
+            'Content-type': 'application/json',
+        },
+    };
+    const { token, seq } = ToMeUploadData;
+
+    if (token) {
+        config.headers['x-auth-token'] = token;
+    }
+    return axios.post('/api/tome/detail/answer/store', ToMeUploadData, config);
+};
+
+function* ToMeAnswerUpload(action) {
+    console.log('ToMeAnswerUpload(action) 발동');
+    try {
+        const result = yield call(ToMeAnswerUploadAPI, action.payload);
+        console.log('데이터 넘어왔냐?', result);
+        yield put({
+            type: TOME_ANSWER_UPLOAD_SUCCESS,
+            payload: result.data,
+        });
+    } catch (e) {
+        yield put({
+            type: TOME_ANSWER_UPLOAD_FAILURE,
+            payload: e.response,
+        });
+    }
+}
+
+function* watchToMeAnswerUpload() {
+    console.log('ToMeAnswerUpload 발동, TOME_ANS_UPL_REQ');
+    yield takeEvery(TOME_ANSWER_UPLOAD_REQUEST, ToMeAnswerUpload);
 }

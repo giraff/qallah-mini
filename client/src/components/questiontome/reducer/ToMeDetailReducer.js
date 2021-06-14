@@ -5,11 +5,15 @@ import {
     TOME_ANSWER_RECEIVE_REQUEST,
     TOME_ANSWER_RECEIVE_SUCCESS,
     TOME_ANSWER_RECEIVE_FAILURE,
+    TOME_ANSWER_UPLOAD_REQUEST,
+    TOME_ANSWER_UPLOAD_SUCCESS,
+    TOME_ANSWER_UPLOAD_FAILURE,
 } from '../../../redux/types';
 
 const initialState = {
     isToMe: false,
     isToMeAnswerReceive: false,
+    isToMeAnswerUpload: false,
     payload: '',
 };
 
@@ -53,6 +57,24 @@ const tomeReducer = (state = initialState, action) => {
             return {
                 ...state,
                 isToMeAnswerReceive: false,
+            };
+        case TOME_ANSWER_UPLOAD_REQUEST:
+            console.log('ToMeDetailReducer 발동: TOME_ANSWER_UPLOAD_REQ');
+            return {
+                ...state,
+            };
+        case TOME_ANSWER_UPLOAD_SUCCESS:
+            console.log('ToMeDetailReducer 발동: TOME_ANSWER_UPLOAD_SUCCRESS');
+            console.log('답변 입력 성공?', action.payload);
+            return {
+                ...state,
+                isToMeAnswerUpload: true,
+            };
+        case TOME_ANSWER_UPLOAD_FAILURE:
+            console.log('ToMeDetailReducer 발동: TOME_ANSWER_UPLOAD_FAILURE');
+            return {
+                ...state,
+                isToMeAnswerUpload: false,
             };
         default:
             return state;

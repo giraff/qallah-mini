@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
-import { TOME_REQUEST, TOME_ANSWER_RECEIVE_REQUEST } from '../../redux/types';
+import { TOME_REQUEST, TOME_ANSWER_RECEIVE_REQUEST, TOME_ANSWER_UPLOAD_REQUEST } from '../../redux/types';
 
 const QuestionToMeDetail = () => {
     const ToMeObj = useSelector(state => state.tomedetail.payload);
@@ -41,12 +41,18 @@ const QuestionToMeDetail = () => {
         }
     }, [ToMeChk]);
 
-    // 첫 번째 useEffect는 DB에서 질문을 조회하기 위한 것
+    // 세 번째 useEffect는 질문이 바뀔 때 마다, 이전 답변내용들 DB에서 가져오기 위한 것
     useEffect(() => {
         console.log('ToMeDetailAnswerReceive Render');
+        const body = {
+            question_seq: question_seq + 1,
+            token: localStorage.getItem('token'),
+        };
         dispatch({
             type: TOME_ANSWER_RECEIVE_REQUEST,
+            payload: body,
         });
+        console.log('ToMeReceive useEffect 발동', ToMeObj);
     }, []);
 
     const { question_seq } = form;
@@ -61,6 +67,15 @@ const QuestionToMeDetail = () => {
     };
     const next_question = e => {
         e.preventDefault();
+        const body = {
+            question_seq: question_seq + 1,
+            answer_context: form.question_answer,
+            token: localStorage.getItem('token'),
+        };
+        dispatch({
+            type: TOME_ANSWER_UPLOAD_REQUEST,
+            payload: body,
+        });
         setValues({
             ...form,
             question_seq: question_seq + 1,
@@ -74,6 +89,15 @@ const QuestionToMeDetail = () => {
 
     const prev_question = e => {
         e.preventDefault();
+        const body = {
+            question_seq: question_seq - 1,
+            answer_context: form.question_answer,
+            token: localStorage.getItem('token'),
+        };
+        dispatch({
+            type: TOME_ANSWER_UPLOAD_REQUEST,
+            payload: body,
+        });
         setValues({
             ...form,
             question_seq: question_seq - 1,
@@ -87,7 +111,6 @@ const QuestionToMeDetail = () => {
 
     const done = e => {
         e.preventDefault();
-        console.log('접근');
         // eslint-disable-next-line no-unused-expressions
         history.push(`/tome/done`);
     };
