@@ -54,18 +54,37 @@ function* watchToMeDetail() {
 const ToMeAnswerReceiveAPI = ToMeAnswerData => {
     console.log('ToMeAnswerReceiveAPI 발동 -> axios.get 요청 보냄');
     console.log(ToMeAnswerData, 'ToMeAnswerReceive/ToMeAnswerData');
+
+    /**
+     * 서충식 Comment
+     * 1. ToMeAnswerData에서 token이랑 질문seq를 꺼냄
+     * 2. 파라미터로 보낼꺼기 때문에 config객체에 params속성을 사용해서 질문 seq만 따로 실음 (이렇게하면 Header가 아닌 쿼리스트링으로 날라감)
+     *    GET 방식은 request body에 실어보내는게 아니라 쿼리 스트링으로 보내야하기 때문
+     *    쿼리스트링은 /api/test?seq=1234 이런 방식
+     * 3. 토큰이 존재하면 토큰도 config객체에 추가
+     *    => 얘는 header에 실어 보내야하기때문에 params에 추가하면 안됨
+     *
+     */
+
+    // 1번
+    const { token, question_seq } = ToMeAnswerData;
+
+    // 2번
     const config = {
         headers: {
             'Content-type': 'application/json',
         },
+        params: {
+            question_seq,
+        },
     };
-    const { token } = ToMeAnswerData;
 
+    // 3번
     if (token) {
         config.headers['x-auth-token'] = token;
     }
 
-    return axios.get('/api/tome/answer/receive', ToMeAnswerData, config);
+    return axios.get('/api/tome/answer/receive', config);
 };
 
 function* ToMeAnswerReceive(action) {
