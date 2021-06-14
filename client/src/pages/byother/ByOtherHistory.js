@@ -27,7 +27,7 @@ const ByOtherHistory = () => {
         getHistoryAPI().then(data => setHistory(data));
     }, []);
     return (
-        <section className="sections answer-section">
+        <section className="sections">
             <div className="sections-overlay">
                 <div className="history-container byother-history-container">
                     {/* <div className="history-overlay">

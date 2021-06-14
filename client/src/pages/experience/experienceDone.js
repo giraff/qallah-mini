@@ -15,7 +15,7 @@ const experienceDone = () => {
                     <div className="q-main-content">
                         <div className="expr-done-text">경험이 저장되었습니다.</div>
                     </div>
-                    <div className="q-main-nav expr-done-btns">
+                    <div className="expr-done-btns">
                         <div className="expr-start">
                             <Link to="/experience">
                                 <i className="fas fa-play fa-2x" />

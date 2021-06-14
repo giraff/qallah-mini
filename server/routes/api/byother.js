@@ -101,8 +101,8 @@ router.get("/answer", auth, (req, res) => {
   }
 });
 
-//@routes GET api/byother/answer
-//@resc   모든 답변 불러오기
+//@routes GET api/byother/answer/detail
+//@resc   당일 답변 모두 삭제
 //@access public
 router.delete("/answer/detail", auth, (req, res) => {
   console.log("delete 라우터 => ", req.user.id);
