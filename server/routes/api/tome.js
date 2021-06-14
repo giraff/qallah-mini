@@ -69,13 +69,14 @@ router.get("/detail", (req, res, next) => {
 router.get("/answer/receive", auth, (req, res, next) => {
   try {
     console.log("/answer/receive 도착 [답변불러오기]");
+    console.log("req.params >> ", req.query.question_seq);
     mdbConn.query(
       `SELECT
           answer_content
         FROM
           answerbyme
         WHERE
-          me_question_seq = ${req.body.question_seq}
+          me_question_seq = ${req.query.question_seq}
         AND
           user_seq = 
           (
@@ -92,7 +93,7 @@ router.get("/answer/receive", auth, (req, res, next) => {
       (err, rows) => {
         if (!err) {
           res.json({
-            data: rows,
+            data: rows[0],
           });
         } else {
           return res.status(400).json({ msg: "error " });

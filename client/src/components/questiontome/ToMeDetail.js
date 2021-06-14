@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
-import { TOME_REQUEST, TOME_ANSWER_RECEIVE_REQUEST, TOME_ANSWER_UPLOAD_REQUEST } from '../../redux/types';
+import { TOME_REQUEST, TOME_ANSWER_RECEIVE_REQUEST, TOME_ANSWER_UPLOAD_REQUEST, TOME_INIT } from '../../redux/types';
 
 const QuestionToMeDetail = () => {
     const ToMeObj = useSelector(state => state.tomedetail.payload);
     const ToMeChk = useSelector(state => state.tomedetail.isToMe);
-
+    const ToMeReceiveChk = useSelector(state => state.tomedetail.isToMeAnswerReceive);
     const dispatch = useDispatch();
     const history = useHistory();
-
+    // 처음렌더링 됬을때만 state에 질문들을 넣어두고,
+    // 다음 렌더링부터는 이전 답변내용을 불러온 값들이 state에 저장되어있어서 Question 객체를 따로 만듬
+    const [QuestionObj, setQuestionValues] = useState();
     const [form, setValues] = useState({
         question_seq: 0,
         question_context: '',
@@ -26,6 +28,12 @@ const QuestionToMeDetail = () => {
             type: TOME_REQUEST,
         });
         console.log('렌더 종료', ToMeChk);
+        return () => {
+            console.log('창 사라짐');
+            dispatch({
+                type: TOME_INIT,
+            });
+        };
     }, []);
 
     // 두 번째 useEffect는 첫 화면에서 첫 질문이 로딩되지 않는 이슈의 해결을 위한 것
@@ -39,6 +47,7 @@ const QuestionToMeDetail = () => {
         } else {
             console.log(ToMeChk);
         }
+        setQuestionValues(ToMeObj);
     }, [ToMeChk]);
 
     // 세 번째 useEffect는 질문이 바뀔 때 마다, 이전 답변내용들 DB에서 가져오기 위한 것
@@ -52,8 +61,29 @@ const QuestionToMeDetail = () => {
             type: TOME_ANSWER_RECEIVE_REQUEST,
             payload: body,
         });
-        console.log('ToMeReceive useEffect 발동', ToMeObj);
-    }, []);
+        console.log('ToMeReceive useEffect 발동', body);
+        console.log('상태엔 뭐가있나', ToMeObj.data);
+    }, [form.question_seq]);
+
+    // 네 번째 useEffect는 state에 저장된 답변이 잘 도착했는지 확인하는 것
+    useEffect(() => {
+        console.log('지금의 ToMeObj는?? >> ', ToMeObj.data);
+        if (ToMeObj.data !== undefined) {
+            setValues({
+                ...form,
+                question_answer: ToMeObj.data.answer_content,
+            });
+        } else {
+            setValues({
+                ...form,
+                question_answer: '',
+            });
+        }
+        /* setValues({
+            ...form,
+            question_answer: ToMeObj.data.answer_content,
+        }); */
+    }, [ToMeReceiveChk]);
 
     const { question_seq } = form;
 
@@ -76,10 +106,11 @@ const QuestionToMeDetail = () => {
             type: TOME_ANSWER_UPLOAD_REQUEST,
             payload: body,
         });
+        console.log('잠깐 확인', QuestionObj.data);
         setValues({
             ...form,
             question_seq: question_seq + 1,
-            question_context: ToMeObj.data[question_seq + 1].question_content,
+            question_context: QuestionObj.data[question_seq + 1].question_content,
             question_answer: '',
             next_button: false,
             prev_button: false,
@@ -90,7 +121,7 @@ const QuestionToMeDetail = () => {
     const prev_question = e => {
         e.preventDefault();
         const body = {
-            question_seq: question_seq - 1,
+            question_seq: question_seq + 1,
             answer_context: form.question_answer,
             token: localStorage.getItem('token'),
         };
@@ -101,7 +132,7 @@ const QuestionToMeDetail = () => {
         setValues({
             ...form,
             question_seq: question_seq - 1,
-            question_context: ToMeObj.data[question_seq - 1].question_content,
+            question_context: QuestionObj.data[question_seq - 1].question_content,
             question_answer: '',
             next_button: false,
             prev_button: question_seq - 1 === 0,
@@ -112,6 +143,15 @@ const QuestionToMeDetail = () => {
     const done = e => {
         e.preventDefault();
         // eslint-disable-next-line no-unused-expressions
+        const body = {
+            question_seq: question_seq + 1,
+            answer_context: form.question_answer,
+            token: localStorage.getItem('token'),
+        };
+        dispatch({
+            type: TOME_ANSWER_UPLOAD_REQUEST,
+            payload: body,
+        });
         history.push(`/tome/done`);
     };
 

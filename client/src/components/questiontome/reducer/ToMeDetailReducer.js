@@ -1,4 +1,5 @@
 import {
+    TOME_INIT,
     TOME_REQUEST,
     TOME_SUCCESS,
     TOME_FAILURE,
@@ -44,6 +45,7 @@ const tomeReducer = (state = initialState, action) => {
             console.log('ToMeDetailReducer 발동 : TOME_ANSWER_RECEIVE_REQ');
             return {
                 ...state,
+                isToMeAnswerReceive: false,
             };
         case TOME_ANSWER_RECEIVE_SUCCESS:
             console.log(action.payload, 'TOME_ANSWER_RECEIVE_SUCCESS');
@@ -75,6 +77,14 @@ const tomeReducer = (state = initialState, action) => {
             return {
                 ...state,
                 isToMeAnswerUpload: false,
+            };
+        case TOME_INIT:
+            console.log('ToMeDetail State를 초기화 합니다.');
+            return {
+                isToMe: false,
+                isToMeAnswerReceive: false,
+                isToMeAnswerUpload: false,
+                payload: '',
             };
         default:
             return state;
