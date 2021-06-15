@@ -14,6 +14,10 @@ import ByOtherHistory from '../pages/byother/ByOtherHistory';
 import experienceMain from '../pages/experience/experienceMain';
 import experienceForm from '../pages/experience/experienceForm';
 import experienceDone from '../pages/experience/experienceDone';
+import ReflectionMain from '../pages/reflection/reflectionMain';
+import ReflectionDetail from '../pages/reflection/reflectionDetail';
+import ReflectionDone from '../pages/reflection/reflectionDone';
+import ReflectionHistory from '../pages/reflection/reflectionHistory';
 import Footer from '../components/layout/Footer';
 import Header from '../components/layout/Header';
 
@@ -37,10 +41,10 @@ const AllRouter = () => (
                     <Route path="/experience" exact component={experienceMain} />
                     <Route path="/experience/form" exact component={experienceForm} />
                     <Route path="/experience/done" exact component={experienceDone} />
-                    <Route path="/reflection" exact component={ByOtherHistory} />
-                    <Route path="/reflection/detail" exact component={ByOtherHistory} />
-                    <Route path="/reflection/done" exact component={ByOtherHistory} />
-                    <Route path="/reflection/history" exact component={ByOtherHistory} />
+                    <Route path="/refl" exact component={ReflectionMain} />
+                    <Route path="/refl/detail" exact component={ReflectionDetail} />
+                    <Route path="/refl/done" exact component={ReflectionDone} />
+                    <Route path="/refl/history" exact component={ReflectionHistory} />
                     <Redirect from="*" to="/" />
                 </Switch>
                 <Footer />

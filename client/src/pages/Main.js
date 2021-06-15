@@ -50,7 +50,7 @@ const Main = () => (
                             </Link>
                         </li>
                         <li>
-                            <Link to="reflection">
+                            <Link to="refl">
                                 <img className="q_img" src={q_ref} alt="" />
                             </Link>
                         </li>

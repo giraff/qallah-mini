@@ -32,7 +32,7 @@ const Header = () => {
                         <Link to="/experience">내가 한 경험</Link>
                     </li>
                     <li className="nav-item lang-kor">
-                        <Link to="/">인생의 성찰</Link>
+                        <Link to="/refl">인생의 성찰</Link>
                     </li>
                     <li className="nav-item-gnb">
                         <Link onClick={onLogout} to="/">
