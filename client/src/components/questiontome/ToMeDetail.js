@@ -28,6 +28,7 @@ const QuestionToMeDetail = () => {
             type: TOME_REQUEST,
         });
         console.log('렌더 종료', ToMeChk);
+        // 내가 보는 나 컴포넌트 종료 시, 상태값 초기화
         return () => {
             console.log('창 사라짐');
             dispatch({
@@ -102,10 +103,12 @@ const QuestionToMeDetail = () => {
             answer_context: form.question_answer,
             token: localStorage.getItem('token'),
         };
-        dispatch({
-            type: TOME_ANSWER_UPLOAD_REQUEST,
-            payload: body,
-        });
+        if (body.answer_context !== '') {
+            dispatch({
+                type: TOME_ANSWER_UPLOAD_REQUEST,
+                payload: body,
+            });
+        }
         console.log('잠깐 확인', QuestionObj.data);
         setValues({
             ...form,
@@ -125,10 +128,12 @@ const QuestionToMeDetail = () => {
             answer_context: form.question_answer,
             token: localStorage.getItem('token'),
         };
-        dispatch({
-            type: TOME_ANSWER_UPLOAD_REQUEST,
-            payload: body,
-        });
+        if (body.answer_context !== '') {
+            dispatch({
+                type: TOME_ANSWER_UPLOAD_REQUEST,
+                payload: body,
+            });
+        }
         setValues({
             ...form,
             question_seq: question_seq - 1,
@@ -148,10 +153,12 @@ const QuestionToMeDetail = () => {
             answer_context: form.question_answer,
             token: localStorage.getItem('token'),
         };
-        dispatch({
-            type: TOME_ANSWER_UPLOAD_REQUEST,
-            payload: body,
-        });
+        if (body.answer_context !== '') {
+            dispatch({
+                type: TOME_ANSWER_UPLOAD_REQUEST,
+                payload: body,
+            });
+        }
         history.push(`/tome/done`);
     };
 
@@ -191,10 +198,6 @@ const QuestionToMeDetail = () => {
                 </div>
                 <div className="tome-answer-field">
                     <input className="answer-input" type="text" onChange={onChange} value={form.question_answer} placeholder="답변을 입력해 주세요" />
-                    <i className="fas fa-trash" />
-                </div>
-                <div className="answer-add-btn">
-                    <i className="fas fa-plus" />
                 </div>
             </div>
         </div>

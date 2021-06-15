@@ -1,7 +1,7 @@
 /**routes > api > tome.js */
 
 /**api/tome 주소 다음에 슬래쉬로 들어가면 아래 라우터를 사용 */
-import express from "express";
+import express, { response } from "express";
 import bcrypt from "bcryptjs";
 import auth from "../../middleware/auth";
 
@@ -62,6 +62,35 @@ router.get("/detail", (req, res, next) => {
   }
 });
 
+// @routes  GET api/tome/answer
+// @desc    모든 답변 가져오기
+// @access  public
+
+router.get("/answer", auth, (req, res) => {
+  console.log("answer 라우터 => ", req.user.id);
+  try {
+    mdbConn.query(
+      `SELECT
+      *
+      FROM
+        answerbyme
+      WHERE
+        DATE_FORMAT(answer_time, '%Y-%m-%d') = DATE_FORMAT(NOW(), '%Y-%m-%d')
+      AND
+        user_seq=(SELECT user_seq FROM user WHERE email="${req.user.id}")`,
+      (err, rows) => {
+        if (!err) {
+          return res.status(200).json(rows);
+        } else {
+          return res.status(400).json({ msg: "모든 답변 불러오기 도중 err" });
+        }
+      }
+    );
+  } catch (e) {
+    console.log(e);
+  }
+});
+
 // @routes  GET api/tome/answer/receive
 // @desc    GET all answerbyme date
 // @access  public
@@ -104,6 +133,10 @@ router.get("/answer/receive", auth, (req, res, next) => {
     return res.status(400).json({ msg: e.message });
   }
 });
+
+// @routes  POST api/tome/answer/store
+// @desc    답변 넣을때마다 저장
+// @access  public
 
 router.post("/detail/answer/store", auth, async (req, res, next) => {
   try {
@@ -162,6 +195,72 @@ router.post("/detail/answer/store", auth, async (req, res, next) => {
           return res.status(200).json({ msg: "success" });
         } else {
           return res.status(400).json({ msg: "error" });
+        }
+      }
+    );
+  } catch (e) {
+    return res.status(400).json({ msg: e.message });
+  }
+});
+
+// @routes  GET api/tome/answer/delete
+// @desc    당일 답변 모두 삭제
+// @access  public
+
+router.delete("/detail/answer/delete", auth, (req, res) => {
+  console.log("/detail/answer/delete 도착 [답변 삭제하기]");
+  try {
+    mdbConn.query(
+      `DELETE FROM
+                answerbyme
+              WHERE
+                user_seq = (
+                  SELECT 
+                    user_seq
+                  FROM
+                    user
+                  WHERE
+                    email = "${req.user.id}"
+                )
+                AND
+                  DATE_FORMAT(answer_time, '%Y-%m-%d') = DATE_FORMAT(NOW(), '%Y-%m-%d')`,
+      (err) => {
+        if (!err) {
+          return res.status(200).json({ msg: "답변 삭제 완료" });
+        } else {
+          return res.status(400).json({ msg: "답변 삭제 쿼리 에러" });
+        }
+      }
+    );
+  } catch (e) {
+    return res.status(400).json({ msg: e.message });
+  }
+});
+
+router.get("/detail/history", auth, (req, res) => {
+  console.log("/detail/history 도착 [히스토리 불러오기]");
+  try {
+    mdbConn.query(
+      `SELECT
+          me_answer_seq AS seq, DATE_FORMAT(answer_time, '%Y-%m-%d') AS history
+        FROM
+          answerbyme
+        WHERE
+          user_seq = (
+            SELECT
+              user_seq
+            FROM
+              user
+            WHERE
+              email = "${req.user.id}"
+          )
+          GROUP BY
+            DATE_FORMAT(answer_time, '%Y-%m-%d')`,
+      (err, rows) => {
+        if (!err) {
+          return res.status(200).json(rows);
+        } else {
+          return res.status(400).json({ msg: "히스토리 불러오기 실패" });
         }
       }
     );
