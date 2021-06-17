@@ -1,4 +1,6 @@
 import React, { useEffect } from 'react';
+// import useScript from 'hooks/useScript';
+
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
@@ -6,8 +8,43 @@ const experienceMain = () => {
     const { userName } = useSelector(state => state.auth);
 
     useEffect(() => {
-        console.log('내가 한 경험 이름 => ', userName);
+        const dataObject = {
+            timeline: {
+                headline: 'The Main Timeline Headline Goes here',
+                type: 'default',
+                date: [
+                    {
+                        startDate: '2011,12,10',
+                        headline: 'Headline Goes Here22',
+                    },
+                ],
+                era: [
+                    {
+                        startDate: '2011,12,10',
+                        endDate: '2011,12,11',
+                        headline: 'Headline Goes Here33',
+                    },
+                ],
+            },
+        };
+        console.log(dataObject);
+        console.log(`${JSON.stringify(dataObject)}`);
+        const script = document.createElement('script');
+        console.log(script);
+        script.text = `
+        $(document).ready(() => {
+          createStoryJS({
+              type: 'timeline',
+              width: '100%',
+              height: '700',
+              source: ${JSON.stringify(dataObject)},
+              embed_id: 'timeline-embed',
+          });
+        });`;
+
+        document.body.appendChild(script);
     }, []);
+
     return (
         <section className="sections">
             <div className="sections-overlay">
@@ -16,16 +53,9 @@ const experienceMain = () => {
                         <h1>{`"${userName}"`}님의 경험</h1>
                     </div>
                     <div className="exp-content">
-                        <iframe
-                            title="timelineJS"
-                            src="https://cdn.knightlab.com/libs/timeline3/latest/embed/index.html?source=1GVhbgIfz82DTdoNBFM7HW0z4GaBWWRur20Wmi3vlTDo&font=Default&lang=en&initial_zoom=2&height=700"
-                            width="100%"
-                            height="700"
-                            webkitallowfullscreen="true"
-                            mozallowfullscreen="true"
-                            allowFullScreen
-                            frameBorder="0"
-                        />
+                        <div id="timeline-embed" />
+
+                        <script type="text/javascript" src="https://cdn.knightlab.com/libs/timeline/latest/js/storyjs-embed.js" />
                     </div>
                     <div className="exp-footer">
                         <div className="exp-start">
