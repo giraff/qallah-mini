@@ -35,7 +35,7 @@ const ReflectionHistory = () => {
                     </div>  */}
                     <div className="history-header">
                         <div className="history-home">
-                            <a className="history-pre-btn" href="ToMeMain.html">
+                            <a className="history-pre-btn" href="/refl">
                                 <i style={{ color: 'white' }} className="fas fa-chevron-left fa-2x" />
                             </a>
                         </div>
