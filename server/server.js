@@ -12,6 +12,7 @@ import authRoutes from "./routes/api/auth";
 import tomeRoutes from "./routes/api/tome";
 import byotherRoutes from "./routes/api/byother";
 import reflRoutes from "./routes/api/refl";
+import myaccountRoutes from "./routes/api/myaccount";
 const app = express();
 
 // env에 저장한 PORT 정보 가져오기
@@ -37,6 +38,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/tome", tomeRoutes);
 app.use("/api/byother", byotherRoutes);
 app.use("/api/refl", reflRoutes);
+app.use("/api/myaccount", myaccountRoutes);
 
 //7000번 서버 포트로 서버 요청 받는다.
 app.listen(PORT, () => {

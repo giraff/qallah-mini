@@ -99,6 +99,7 @@ router.get("/answer/receive", auth, (req, res, next) => {
   try {
     console.log("/answer/receive 도착 [답변불러오기]");
     console.log("req.params >> ", req.query.question_seq);
+    console.log("테스트 req.user 객체 " >> req.user.id);
     mdbConn.query(
       `SELECT
           answer_content
