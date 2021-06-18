@@ -1026,3 +1026,231 @@ input:-webkit-autofill:active {
         align-items: center;
     }
 }
+
+/* Account 계정 페이지 메인 */
+
+.account-section {
+    color: var(--color-main-black);
+}
+
+.account-logo {
+    color: var(--color-main-black);
+}
+
+.account-container {
+    margin: 100px auto;
+    min-width: 850px;
+    max-width: 850px;
+    min-height: 700px;
+    border: 1px solid var(--color-e2);
+    display: flex;
+    background-color: var(--color-main-white);
+}
+
+/* MyAccount */
+.sidebar {
+    width: 240px;
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid var(--color-e2);
+}
+
+.profile {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 30px 0px;
+
+    .img-profile {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        border: 1px solid var(--color-e2);
+        background: var(--image-profile) no-repeat center/cover;
+    }
+
+    .profile-infos {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 20px 0px;
+
+        .profile-info {
+            font-family: var(--font-kor);
+            line-height: 30px;
+        }
+        .profile-name {
+            font-size: 1.3em;
+        }
+    }
+}
+
+.profile-tabs {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+
+    .profile-tab {
+        padding: 10px;
+        border-bottom: 1px solid var(--color-e2);
+
+        &:first-child {
+            border-top: 1px solid var(--color-e2);
+        }
+    }
+}
+
+.logout-button {
+    margin-top: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+}
+/* MyAccount-본문 */
+
+.account-wrapper {
+    width: calc(100% - 230px);
+
+    .acc-title {
+        margin: 10px;
+        font-weight: 900;
+        font-size: 2em;
+    }
+}
+
+.acc-header {
+    font-size: large;
+    color: var(--color-main-heavy-gray);
+    font-weight: 900;
+    padding: 15px;
+    border-bottom: 1px solid var(--color-ee);
+    width: 100%;
+}
+
+.modify-field {
+    display: flex;
+    align-items: center;
+}
+
+.user-avatar-img {
+    background: var(--image-profile) no-repeat center/cover;
+    border: 1px solid var(--color-e2);
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+    position: relative;
+    margin: 20px 0 0 30px;
+
+    .ab-avatar {
+        position: absolute;
+        bottom: 0px;
+        background-color: var(--color-main-white);
+        border: 1px solid var(--color-e2);
+        border-radius: 50%;
+        padding: 10px;
+        cursor: pointer;
+    }
+
+    .user-avatar-edit {
+        right: 0px;
+    }
+}
+
+.modify-user-info {
+    margin: 0px 30px;
+}
+
+.info-detail {
+    margin: 30px 0px;
+    position: relative;
+
+    & > input {
+        background-color: var(--color-input-contrast-bg);
+        border: 1px solid var(--color-e2);
+        width: 200px;
+        height: 30px;
+        border-radius: 5px;
+        font-family: var(--font-kor);
+        line-height: 20px;
+        padding-left: 5px;
+
+        &:focus {
+            background-color: var(--color-main-white);
+            outline: none;
+            box-shadow: 0px 1px 0 rgba(225, 228, 232, 0.2);
+        }
+    }
+}
+
+.info-label {
+    font-size: 14px;
+    padding-bottom: 3px;
+}
+
+/* MyAccount - pwd */
+.modify-pwd {
+    border-top: 1px solid var(--color-ee);
+    margin: 10px;
+    padding: 10px;
+
+    .pwd-title {
+        font-size: large;
+        color: var(--color-main-heavy-gray);
+        font-weight: 900;
+    }
+    .pwd-fields {
+        display: flex;
+        flex-direction: column;
+        margin-top: 20px;
+
+        & > div {
+            margin: 15px 5px;
+        }
+    }
+}
+
+.pwd-input {
+    background-color: var(--color-input-contrast-bg);
+    border: 1px solid var(--color-e2);
+    width: 180px;
+    height: 30px;
+    border-radius: 5px;
+    margin-top: 5px;
+    line-height: 20px;
+    padding-left: 5px;
+
+    &:focus {
+        background-color: var(--color-main-white);
+        outline: none;
+        box-shadow: 0px 1px 0 rgba(225, 228, 232, 0.2);
+    }
+}
+
+/* err msg */
+
+.err-wrap {
+    position: absolute;
+    bottom: -15px;
+    width: 500px;
+
+    .err-msg {
+        color: var(--color-main-red);
+        font-size: 14px;
+        font-weight: 500;
+    }
+}
+
+.acc-save {
+    display: flex;
+    width: 100px;
+    height: 35px;
+    align-items: center;
+    justify-content: center;
+    color: #cecece;
+    border: 1px solid var(--color-e2);
+    background-color: var(--color-main-white);
+    margin: auto 20px 20px auto;
+    font-size: 15px;
+}

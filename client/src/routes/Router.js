@@ -18,6 +18,9 @@ import ReflectionMain from '../pages/reflection/reflectionMain';
 import ReflectionDetail from '../pages/reflection/reflectionDetail';
 import ReflectionDone from '../pages/reflection/reflectionDone';
 import ReflectionHistory from '../pages/reflection/reflectionHistory';
+import Profile from '../pages/account/profile';
+import AnswerMain from '../pages/account/answermain';
+import AnswerDetail from '../pages/account/answerdetail';
 import Footer from '../components/layout/Footer';
 import Header from '../components/layout/Header';
 
@@ -45,6 +48,9 @@ const AllRouter = () => (
                     <Route path="/refl/detail" exact component={ReflectionDetail} />
                     <Route path="/refl/done" exact component={ReflectionDone} />
                     <Route path="/refl/history" exact component={ReflectionHistory} />
+                    <Route path="/profile" exact component={Profile} />
+                    <Route path="/profile/answer" exact component={AnswerMain} />
+                    <Route path="/profile/answer/:id" exact component={AnswerDetail} />
                     <Redirect from="*" to="/" />
                 </Switch>
                 <Footer />
