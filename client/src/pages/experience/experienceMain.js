@@ -6,29 +6,28 @@ import { Link } from 'react-router-dom';
 
 const experienceMain = () => {
     const { userName } = useSelector(state => state.auth);
+    const dataObject = {
+        timeline: {
+            headline: 'The Main Timeline Headline Goes here',
+            type: 'default',
+            date: [
+                {
+                    startDate: '2011,12,10',
+                    headline: 'Headline Goes Here22',
+                    text: 'Hello EveryOne',
+                },
+            ],
+            era: [
+                {
+                    startDate: '2011,12,10',
+                    endDate: '2011,12,11',
+                    headline: 'Headline Goes Here33',
+                },
+            ],
+        },
+    };
 
     useEffect(() => {
-        const dataObject = {
-            timeline: {
-                headline: 'The Main Timeline Headline Goes here',
-                type: 'default',
-                date: [
-                    {
-                        startDate: '2011,12,10',
-                        headline: 'Headline Goes Here22',
-                    },
-                ],
-                era: [
-                    {
-                        startDate: '2011,12,10',
-                        endDate: '2011,12,11',
-                        headline: 'Headline Goes Here33',
-                    },
-                ],
-            },
-        };
-        console.log(dataObject);
-        console.log(`${JSON.stringify(dataObject)}`);
         const script = document.createElement('script');
         console.log(script);
         script.text = `
@@ -43,6 +42,10 @@ const experienceMain = () => {
         });`;
 
         document.body.appendChild(script);
+
+        return () => {
+            document.body.removeChild(script);
+        };
     }, []);
 
     return (
@@ -54,7 +57,6 @@ const experienceMain = () => {
                     </div>
                     <div className="exp-content">
                         <div id="timeline-embed" />
-
                         <script type="text/javascript" src="https://cdn.knightlab.com/libs/timeline/latest/js/storyjs-embed.js" />
                     </div>
                     <div className="exp-footer">
