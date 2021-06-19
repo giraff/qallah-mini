@@ -50,7 +50,7 @@ const AllRouter = () => (
                     <Route path="/refl/history" exact component={ReflectionHistory} />
                     <Route path="/profile" exact component={Profile} />
                     <Route path="/profile/answer" exact component={AnswerMain} />
-                    <Route path="/profile/answer/:id" exact component={AnswerDetail} />
+                    <Route path="/profile/answer/view" exact component={AnswerDetail} />
                     <Redirect from="*" to="/" />
                 </Switch>
                 <Footer />
