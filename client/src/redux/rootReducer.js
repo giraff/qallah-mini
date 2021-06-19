@@ -6,6 +6,7 @@ import ToMeDetailReducer from '../components/questiontome/reducer/ToMeDetailRedu
 import byotherReducer from '../components/byother/reducer/byotherReducer';
 import reflReducer from '../components/reflection/reducer/reflectionDetailReducer';
 import myacReducer from '../components/profile/reducer/myaccountReducer';
+import experienceReducer from '../components/experience/reducer/experienceReducer';
 
 // combineReducer는 redux store 내부의 여러 상태를 가진 리듀서를 관리하기 위해 사용
 // 반환값 : reducer 함수
@@ -18,6 +19,7 @@ const rootReducer = history =>
         byother: byotherReducer,
         refl: reflReducer,
         myac: myacReducer,
+        experience: experienceReducer,
     });
 
 export default rootReducer;
