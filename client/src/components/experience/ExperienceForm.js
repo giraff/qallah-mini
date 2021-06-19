@@ -1,6 +1,12 @@
+import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router';
+import { EXPERIENCE_UPLOAD_REQUEST } from 'redux/types';
 
 const ExperienceForm = () => {
+    const history = useHistory();
+    const dispatch = useDispatch();
     const [form, setValues] = useState({
         headline: '',
         text: '',
@@ -13,12 +19,17 @@ const ExperienceForm = () => {
             [name]: value,
         });
     };
-    const onSubmit = e => {
-        console.log('sumbit', e.target);
-        // dispatch({
-        //   type: EXPERIENCE_UPLOAD_REQUEST,
-        //   payload: body
-        // });
+    const onSubmit = () => {
+        const token = localStorage.getItem('token');
+        const { headline, text, startdate } = form;
+        const body = { headline, text, startdate, token };
+
+        dispatch({
+            type: EXPERIENCE_UPLOAD_REQUEST,
+            payload: body,
+        });
+
+        history.push('/experience/done');
     };
 
     useEffect(() => {
