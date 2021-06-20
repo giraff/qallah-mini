@@ -19,13 +19,9 @@ import {
 const loginUserAPI = loginData => {
     // console.log('4. loginUserAPI 발동 -> axios.post 요청 보냄')
     console.log(loginData, 'authSaga/loginData');
-    const config = {
-        headers: {
-            'Content-type': 'application/json',
-        },
-    };
+
     // server측으로 post 요청 (express가 받고 router 처리)
-    return axios.post('api/auth', loginData, config);
+    return axios.post('api/auth', loginData);
 };
 
 function* loginUser(action) {
