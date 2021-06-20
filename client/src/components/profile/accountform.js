@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
-import { MYAC_RECEIVE_REQUEST } from 'redux/types';
+import { MYAC_RECEIVE_REQUEST, MYAC_SEND_PREVPW_REQUEST, MYAC_UPDATE_REQUEST } from 'redux/types';
 
 const AccountForm = () => {
     const myaccountObj = useSelector(state => state.myac.payload);
     const myaccountChk = useSelector(state => state.myac.isMyAccountReceive);
     const dispatch = useDispatch();
     const history = useHistory();
-    const [name, setName] = useState(myaccountObj.user_name);
-    const [email, setEmail] = useState(myaccountObj.email);
-
+    const [name, setName] = useState();
+    const [email, setEmail] = useState();
+    const [prevpw, setPrevPw] = useState();
+    const [newpw, setNewPw] = useState();
+    const [re_newpw, setReNewPw] = useState();
     // DB에서 현재 로그인중인 계정정보 불러오기
     useEffect(() => {
         console.log('계정정보 불러오기');
@@ -29,14 +31,50 @@ const AccountForm = () => {
         setEmail(myaccountObj.email);
     }, [myaccountChk]);
 
+    // 이전 비밀번호가 일치한다면, 새로운 이름과 비밀번호로 업데이트 하기
+    useEffect(() => {
+        console.log('myaccountObj 객체의 상태값이 바뀌었습니다');
+        if (myaccountObj === true) {
+            const body = {
+                token: localStorage.getItem('token'),
+                new_name: name,
+                new_pw: newpw,
+            };
+            dispatch({
+                type: MYAC_UPDATE_REQUEST,
+                payload: body,
+            });
+        }
+    }, [myaccountObj]);
+
     const onChange = e => {
         const { className } = e.target;
         if (className === 'user-name-input') {
             setName(e.target.value);
         } else if (className === 'user-email-input') {
             setEmail(e.target.value);
+        } else if (className === 'pwd-input') {
+            setPrevPw(e.target.value);
+        } else if (className === 'new-pwd-input') {
+            setNewPw(e.target.value);
+        } else if (className === 're-new-pwd-input') {
+            setReNewPw(e.target.value);
         }
     };
+
+    const onClick = e => {
+        e.preventDefault();
+        console.log('이전 비밀번호 일치여부 확인 -> 비밀번호 변경');
+        const body = {
+            pw: prevpw,
+            token: localStorage.getItem('token'),
+        };
+        dispatch({
+            type: MYAC_SEND_PREVPW_REQUEST,
+            payload: body,
+        });
+    };
+
     return (
         <>
             <div className="acc-title">나의 계정</div>
@@ -64,7 +102,7 @@ const AccountForm = () => {
                         </div>
                         <div className="info-detail user-email">
                             <div className="info-label user-email-label">이메일</div>
-                            <input className="user-email-input" type="text" value={email} onChange={onChange} />
+                            <input className="user-email-input" type="text" value={email} onChange={onChange} disabled="disabled" />
                             {/* <div className="err-wrap">
                             <div className="err-msg">이메일 형식에 맞게 작성해주세요</div>
                         </div> */}
@@ -77,7 +115,7 @@ const AccountForm = () => {
                     <div className="pwd-fields">
                         <div className="info-detail current-pwd">
                             <div className="cnt-pwd-label">현재 비번</div>
-                            <input className="pwd-input" type="password" />
+                            <input className="pwd-input" type="password" onChange={onChange} />
 
                             <div className="err-wrap">
                                 <div className="err-msg">적절하지 않은 비밀번호입니다(영문+숫자 포함 8자리 이상)</div>
@@ -87,15 +125,20 @@ const AccountForm = () => {
                         </div>
                         <div className="new-pwd">
                             <div className="new-pwd-label">새 비번</div>
-                            <input className="pwd-input" type="password" />
+                            <input className="new-pwd-input" type="password" onChange={onChange} />
                         </div>
                         <div className="retype-pwd">
                             <div className="re-pwd-label">새 비번 (Retype)</div>
-                            <input className="pwd-input" type="password" />
+                            <input className="re-new-pwd-input" type="password" onChange={onChange} />
+                            {newpw === re_newpw ? null : <div className="err-msg">새 비밀번호가 서로 일치하지 않습니다.</div>}
                         </div>
                     </div>
                 </div>
-                <div className="acc-save">저장</div>
+                <div>
+                    <button className="acc-save" type="button" onClick={onClick}>
+                        저장
+                    </button>
+                </div>
             </div>
         </>
     );
