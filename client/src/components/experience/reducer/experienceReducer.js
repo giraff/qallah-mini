@@ -5,6 +5,9 @@ import {
     EXPERIENCE_UPLOAD_REQUEST,
     EXPERIENCE_UPLOAD_SUCCESS,
     EXPERIENCE_UPLOAD_FAILURE,
+    EXPR_CLEAR_ERROR_REQUEST,
+    EXPR_CLEAR_ERROR_SUCCESS,
+    EXPR_CLEAR_ERROR_FAILURE,
 } from '../../../redux/types';
 
 const initialState = {
@@ -21,6 +24,7 @@ const experienceReducer = (state = initialState, action) => {
             return {
                 ...state,
                 isLoading: true,
+                isUploaded: false,
                 errorMsg: '',
             };
         case EXPERIENCE_LOAD_SUCCESS:
@@ -29,6 +33,7 @@ const experienceReducer = (state = initialState, action) => {
                 ...state,
                 isLoading: false,
                 experience: action.payload,
+                isUploaded: false,
                 errorMsg: '',
             };
         case EXPERIENCE_LOAD_FAILURE:
@@ -36,6 +41,8 @@ const experienceReducer = (state = initialState, action) => {
             return {
                 ...state,
                 isLoading: false,
+                isUploaded: false,
+
                 experience: [],
                 errorMsg: action.payload.data,
             };
@@ -62,6 +69,20 @@ const experienceReducer = (state = initialState, action) => {
                 isLoading: false,
                 isUploaded: false,
                 errorMsg: action.payload.data.msg,
+            };
+        case EXPR_CLEAR_ERROR_REQUEST:
+            return {
+                ...state,
+            };
+        case EXPR_CLEAR_ERROR_SUCCESS: // 에러를 모두 날려보낸다
+            return {
+                ...state,
+                errorMsg: '',
+            };
+        case EXPR_CLEAR_ERROR_FAILURE:
+            return {
+                ...state,
+                errorMsg: 'Clear Error Fail',
             };
         default:
             return state;

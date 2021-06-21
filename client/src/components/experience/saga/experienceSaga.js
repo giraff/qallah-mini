@@ -7,6 +7,9 @@ import {
     EXPERIENCE_UPLOAD_REQUEST,
     EXPERIENCE_UPLOAD_SUCCESS,
     EXPERIENCE_UPLOAD_FAILURE,
+    EXPR_CLEAR_ERROR_REQUEST,
+    EXPR_CLEAR_ERROR_SUCCESS,
+    EXPR_CLEAR_ERROR_FAILURE,
 } from '../../../redux/types';
 
 /** EXPERIENCE LOAD */
@@ -19,7 +22,7 @@ const experienceLoadAPI = token => {
     if (token) {
         config.headers['x-auth-token'] = token;
     }
-    return axios.get('api/experience/', config);
+    return axios.get('api/experience', config);
 };
 
 function* experienceLoad(action) {
@@ -64,6 +67,7 @@ function* experienceUpload(action) {
     console.log('experience Upload [Saga] => ', action.payload);
     try {
         const result = yield call(experienceUploadAPI, action.payload);
+        console.log('EXPERIENCE_UPLOAD_SUCCESS[SAGA]', result);
         yield put({
             type: EXPERIENCE_UPLOAD_SUCCESS,
             payload: result.data,
@@ -81,6 +85,22 @@ function* watchExperienceUpload() {
     yield takeEvery(EXPERIENCE_UPLOAD_REQUEST, experienceUpload);
 }
 
+function* clearError() {
+    try {
+        yield put({
+            type: EXPR_CLEAR_ERROR_SUCCESS,
+        });
+    } catch (e) {
+        yield put({
+            type: EXPR_CLEAR_ERROR_FAILURE,
+        });
+    }
+}
+
+function* watchexprClearError() {
+    yield takeEvery(EXPR_CLEAR_ERROR_REQUEST, clearError);
+}
+
 export default function* experienceSaga() {
-    yield all([fork(watchExperienceLoad), fork(watchExperienceUpload)]);
+    yield all([fork(watchExperienceLoad), fork(watchExperienceUpload), fork(watchexprClearError)]);
 }
