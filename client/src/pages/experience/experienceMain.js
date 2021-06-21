@@ -1,66 +1,105 @@
 import axios from 'axios';
 import React, { useEffect } from 'react';
-// import useScript from 'hooks/useScript';
-
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { EXPERIENCE_LOAD_REQUEST } from 'redux/types';
 
+let script = null;
 const experienceMain = () => {
-    const dispatch = useDispatch();
     const { userName } = useSelector(state => state.auth);
-    const { experience } = useSelector(state => state.experience);
-
-    useEffect(() => {
+    const { isUploaded } = useSelector(state => state.experience);
+    const dispatch = useDispatch();
+    useEffect(async () => {
         const token = localStorage.getItem('token');
         dispatch({
             type: EXPERIENCE_LOAD_REQUEST,
             payload: token,
         });
-    }, []);
+        console.log('Main에서의 isUploaded', isUploaded);
+        const config = {
+            headers: {
+                'Content-type': 'application/json',
+            },
+        };
+        if (token) {
+            config.headers['x-auth-token'] = token;
+        }
+        const result = await axios.get('api/experience', config);
 
-    useEffect(() => {
+        const ObjectArray = [];
+        const eraArray = [];
+        if (result.data.length === 0) {
+            ObjectArray.push({
+                headline: 'The Main Timeline Headline Goes here',
+                startDate: '0000,00,00',
+                text: '경험을 추가해주세요',
+            });
+        } else {
+            result.data.forEach(val => {
+                if (val.endDate === '0000,00,00') {
+                    ObjectArray.push({
+                        startDate: `${val.startDate}`,
+                        headline: `${val.headline}`,
+                        classname: `${val.classname}`,
+                        text: `${val.text}`,
+                    });
+                    // eraArray.push({
+                    //     startDate: `${val.startDate}`,
+                    //     headline: `${val.headline}`,
+                    //     text: `${val.text}`,
+                    // });
+                } else {
+                    ObjectArray.push({
+                        startDate: `${val.startDate}`,
+                        endDate: `${val.endDate}`,
+                        headline: `${val.headline}`,
+                        classname: `${val.classname}`,
+                        text: `${val.text}`,
+                    });
+                    // eraArray.push({
+                    //     startDate: `${val.startDate}`,
+                    //     endDate: `${val.endDate}`,
+                    //     headline: `${val.headline}`,
+                    //     text: `${val.text}`,
+                    // });
+                }
+            });
+        }
+
+        console.log(ObjectArray);
         const dataObject = {
             timeline: {
-                headline: 'The Main Timeline Headline Goes here',
+                headline: '표지',
                 type: 'default',
-                date: [
-                    {
-                        startDate: '2011,12,10',
-                        headline: 'Headline Goes Here22',
-                        text: 'Hello EveryOne',
-                        classname: 1,
-                    },
-                ],
-                era: [
-                    {
-                        startDate: '2011,12,10',
-                        endDate: '2011,12,11',
-                        headline: 'Headline Goes Here33',
-                    },
-                ],
+                text: 'hi!',
+                date: ObjectArray,
             },
         };
 
-        const script = document.createElement('script');
-        console.log(script);
-        script.text = `
-      $(document).ready(() => {
-        createStoryJS({
-            type: 'timeline',
-            width: '100%',
-            height: '700',
-            source: ${JSON.stringify(dataObject)},
-            embed_id: 'timeline-embed',
-        });
-      });`;
+        console.log(dataObject);
+        script = document.createElement('script');
 
-        document.body.appendChild(script);
+        console.log(document);
+        script.text = `
+          $(document).ready(() => {
+            createStoryJS({
+                type: 'timeline',
+                width: '100%',
+                height: '700',
+                lang:'ko',
+                font:'PlayfairDisplay-Muli',
+                start_zoom_adjust:'0',	
+                start_at_end: true,
+                source: ${JSON.stringify(dataObject)},
+                embed_id: 'timeline-embed',
+            });
+          });`;
+        if (script !== null) document.body.appendChild(script);
 
         return () => {
             document.body.removeChild(script);
         };
-    }, [experience]);
+    }, []);
 
     return (
         <section className="sections">
