@@ -1228,6 +1228,40 @@ input:-webkit-autofill:active {
     }
 }
 
+.new-pwd-input {
+    background-color: var(--color-input-contrast-bg);
+    border: 1px solid var(--color-e2);
+    width: 180px;
+    height: 30px;
+    border-radius: 5px;
+    margin-top: 5px;
+    line-height: 20px;
+    padding-left: 5px;
+
+    &:focus {
+        background-color: var(--color-main-white);
+        outline: none;
+        box-shadow: 0px 1px 0 rgba(225, 228, 232, 0.2);
+    }
+}
+
+.re-new-pwd-input {
+    background-color: var(--color-input-contrast-bg);
+    border: 1px solid var(--color-e2);
+    width: 180px;
+    height: 30px;
+    border-radius: 5px;
+    margin-top: 5px;
+    line-height: 20px;
+    padding-left: 5px;
+
+    &:focus {
+        background-color: var(--color-main-white);
+        outline: none;
+        box-shadow: 0px 1px 0 rgba(225, 228, 232, 0.2);
+    }
+}
+
 /* err msg */
 
 .err-wrap {
@@ -1253,6 +1287,12 @@ input:-webkit-autofill:active {
     background-color: var(--color-main-white);
     margin: auto 20px 20px auto;
     font-size: 15px;
+
+    &:enabled {
+        transition: 0.3s;
+        color: var(--color-main-white);
+        background-color: var(--color-main-heavy-purple);
+    }
 }
 
 /* MyAnswer - 본문 */
