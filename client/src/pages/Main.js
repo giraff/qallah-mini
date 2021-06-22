@@ -35,12 +35,12 @@ const Main = () => (
                 <nav className="q-nav">
                     <ul>
                         <li>
-                            <Link to="/questiontome">
+                            <Link to="tome">
                                 <img className="q_img" src={q_tome} alt="" />
                             </Link>
                         </li>
                         <li>
-                            <Link to="questionbyothers">
+                            <Link to="byother">
                                 <img className="q_img" src={q_byothers} alt="" />
                             </Link>
                         </li>

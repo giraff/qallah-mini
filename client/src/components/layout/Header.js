@@ -35,9 +35,22 @@ const Header = () => {
                         <Link to="/refl">인생의 성찰</Link>
                     </li>
                     <li className="nav-item-gnb">
+                        <div className="tool-tip-box">
+                            프로필 이미지
+                            <div className="tool-tip-content">
+                                <Link to="/profile">
+                                    <div className="tool-tip-mypage">마이페이지</div>
+                                </Link>
+                                <Link onClick={onLogout} to="/">
+                                    <div className="tool-tip-logout">로그아웃</div>
+                                </Link>
+                            </div>
+                        </div>
+                        {/* <li className="nav-item-gnb">
                         <Link onClick={onLogout} to="/">
                             <div id="nav-logout">logout</div>
                         </Link>
+    </li> */}
                     </li>
                 </ul>
             </nav>

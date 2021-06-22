@@ -158,7 +158,7 @@ const AccountForm = () => {
                             <div className="ab-avatar user-avatar-remove" title="프로필 사진 삭제">
                                 <i className="far fa-trash-alt fa-2x" />
                             </div>
-                            <div className="ab-avatar user-avatar-edit" title="프로필 사진 수정">
+                            <div className="ab-avatar user-avatar-edit" type="file" title="프로필 사진 수정">
                                 <i className="fas fa-pen fa-2x" />
                             </div>
                         </div>
