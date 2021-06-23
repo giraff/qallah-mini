@@ -18,6 +18,8 @@ const ByOtherQuestion = ({ req }) => {
     const [answerContent, setAnswerContent] = useState('');
     // 불러온 이전 답변
     const { answer } = useSelector(state => state.byother);
+    // input 변경 여부
+    const [inputChange, setInputChange] = useState(false);
 
     // 질문 불러오기 API
     const getQuestionAPI = async page => {
@@ -66,21 +68,26 @@ const ByOtherQuestion = ({ req }) => {
         const { value } = e.target;
         // 인풋창의 value 값으로 answerContent state 업데이트
         setAnswerContent(value);
+        setInputChange(true);
     };
 
     // 이전, 다음 버튼 클릭
     const onClickEvent = name => {
         console.log('버튼 Click', name, currentPage);
-        const body = {
-            page: currentPage,
-            answerData: answerContent,
-            token: localStorage.getItem('token'),
-        };
+        // 입력된 답변이 있으면
+        if (answerContent !== '') {
+            const body = {
+                page: currentPage,
+                answerData: answerContent,
+                token: localStorage.getItem('token'),
+            };
 
-        dispatch({
-            type: BYOTHER_UPLOAD_REQUEST,
-            payload: body,
-        });
+            dispatch({
+                type: BYOTHER_UPLOAD_REQUEST,
+                payload: body,
+            });
+        }
+        setInputChange(false);
 
         if (name === 'prev') {
             if (currentPage > 1) {
