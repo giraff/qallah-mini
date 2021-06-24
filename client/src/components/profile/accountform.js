@@ -182,14 +182,14 @@ const AccountForm = () => {
                     <div className="modify-user-info">
                         <div className="info-detail user-name">
                             <div className="info-label user-name-label">이름</div>
-                            <input className="user-name-input" type="text" value={name} onChange={onChange} />
+                            <input className="user-name-input" type="text" value={name || ''} onChange={onChange} />
                             {/* <div className="err-wrap">
                             <div className="err-msg">이름을 반드시 입력해주세요.</div>
                         </div> */}
                         </div>
                         <div className="info-detail user-email">
                             <div className="info-label user-email-label">이메일</div>
-                            <input className="user-email-input" type="text" value={email} onChange={onChange} disabled="disabled" />
+                            <input className="user-email-input" type="text" value={email || ''} onChange={onChange} disabled="disabled" />
                             {/* <div className="err-wrap">
                             <div className="err-msg">이메일 형식에 맞게 작성해주세요</div>
                         </div> */}

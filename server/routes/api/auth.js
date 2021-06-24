@@ -38,8 +38,8 @@ router.post('/', (req, res) => {
               if(!result) return res.status(400).json({msg: "비밀번호 틀림"});
               else {
                 jwt.sign({id: rows[0].email}, JWT_SECRET, {expiresIn: "2 days"}, (err, token) => {
-                  if(err) throw err;
-                  res.json({
+                  if(err) console.log(err);
+                  return res.json({
                     token,
                     user: {
                       email: rows[0].email,
@@ -94,14 +94,14 @@ router.get('/user', auth, (req, res) => {
           console.log('유저 있어')
           res.json(rows[0]);
         } else {
-          throw Error("유저가 존재하지 않습니다.");
+          return res.status(400).json({msg :"유저가 존재하지 않습니다."});
         }
       }
     });
 
   } catch(e) {
     console.log(e);
-    res.status(400).json({msg: e.message});
+    return res.status(400).json({msg: e.message});
     
   }
 })

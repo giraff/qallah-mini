@@ -10,6 +10,9 @@ import {
     BYOTHER_ANSWER_LOADING_REQUEST,
     BYOTHER_ANSWER_LOADING_SUCCESS,
     BYOTHER_ANSWER_LOADING_FAILURE,
+    BYOTHER_DETAIL_DELETE_REQUEST,
+    BYOTHER_DETAIL_DELETE_SUCCESS,
+    BYOTHER_DETAIL_DELETE_FAILURE,
 } from '../../../redux/types';
 
 const loadQuestionsAPI = () => axios.get(`/api/byother/detail`);
@@ -110,6 +113,43 @@ function* watchLoadAnswer() {
     yield takeEvery(BYOTHER_ANSWER_LOADING_REQUEST, loadAnswer);
 }
 
+/** BYOTHER ANSWER DETAIL DELETE  */
+const deleteAnswerDetailAPI = data => {
+    const config = {
+        headers: {
+            'Content-type': 'application/json',
+        },
+    };
+
+    const { token, page } = data;
+
+    console.log(data);
+    if (token) {
+        config.headers['x-auth-token'] = token;
+    }
+
+    return axios.delete(`api/byother/answer/detail/${page}`, config);
+};
+
+function* deleteAnswerDetail(action) {
+    try {
+        const result = yield call(deleteAnswerDetailAPI, action.payload);
+        yield put({
+            type: BYOTHER_DETAIL_DELETE_SUCCESS,
+            payload: result.data,
+        });
+    } catch (e) {
+        yield put({
+            type: BYOTHER_DETAIL_DELETE_FAILURE,
+            payload: e,
+        });
+    }
+}
+
+function* watchDeleteAnswerDetail() {
+    yield takeEvery(BYOTHER_DETAIL_DELETE_REQUEST, deleteAnswerDetail);
+}
+
 export default function* byotherSaga() {
-    yield all([fork(watchUploadAnswer), fork(watchLoadQuestion), fork(watchLoadAnswer)]);
+    yield all([fork(watchUploadAnswer), fork(watchLoadQuestion), fork(watchLoadAnswer), fork(watchDeleteAnswerDetail)]);
 }
