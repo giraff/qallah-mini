@@ -13,30 +13,28 @@ import {
 } from '../../../redux/types';
 
 /** EXPERIENCE LOAD */
-const experienceLoadAPI = token => {
-    const config = {
-        headers: {
-            'Content-type': 'application/json',
-        },
-    };
-    if (token) {
-        config.headers['x-auth-token'] = token;
-    }
-    return axios.get('api/experience', config);
-};
+// const experienceLoadAPI = token => {
+//     const config = {
+//         headers: {
+//             'Content-type': 'application/json',
+//         },
+//     };
+//     if (token) {
+//         config.headers['x-auth-token'] = token;
+//     }
+//     return axios.get('api/experience', config);
+// };
 
 function* experienceLoad(action) {
     try {
-        const result = yield call(experienceLoadAPI, action.payload);
+        // const result = yield call(experienceLoadAPI, action.payload);
 
         yield put({
             type: EXPERIENCE_LOAD_SUCCESS,
-            payload: result.data,
         });
     } catch (e) {
         yield put({
             type: EXPERIENCE_LOAD_FAILURE,
-            payload: e.response,
         });
     }
 }
