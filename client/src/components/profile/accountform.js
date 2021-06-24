@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
@@ -9,6 +10,7 @@ const AccountForm = () => {
     const myaccountSendChk = useSelector(state => state.myac.isMyAccountUpdate);
     const dispatch = useDispatch();
     const history = useHistory();
+    const [profileImage, setProfileImage] = useState({ src: null });
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [prevpw, setPrevPw] = useState('');
@@ -35,6 +37,8 @@ const AccountForm = () => {
     useEffect(() => {
         setName(myaccountObj.user_name);
         setEmail(myaccountObj.email);
+        setProfileImage(myaccountObj.profileImage);
+        console.log('계정정보 >> ', myaccountObj);
     }, [myaccountChk]);
 
     // 이전 비밀번호가 일치한다면, 새로운 이름과 비밀번호로 업데이트 하기
@@ -131,6 +135,8 @@ const AccountForm = () => {
             setNewPw(e.target.value);
         } else if (className === 're-new-pwd-input') {
             setReNewPw(e.target.value);
+        } else if (className === 'file-input') {
+            console.log('이미지 들어옴', e.target.files);
         }
     };
 
@@ -147,6 +153,18 @@ const AccountForm = () => {
         });
     };
 
+    const profileEdit = (
+        <>
+            <div className="ab-avatar user-avatar-remove" title="프로필 사진 삭제">
+                <i className="far fa-trash-alt fa-2x" />
+            </div>
+            <label className="ab-avatar user-avatar-edit" title="프로필 사진 수정" htmlFor="input-file">
+                <i className="fas fa-pen fa-2x" />
+            </label>
+            <input className="file-input" type="file" id="input-file" style={{ display: 'none' }} onChange={onChange} />
+        </>
+    );
+
     return (
         <>
             <div className="acc-title">나의 계정</div>
@@ -154,14 +172,11 @@ const AccountForm = () => {
                 <div className="acc-header">내 프로필</div>
                 <div className="modify-field">
                     <div className="modify-user-img">
-                        <div className="user-avatar-img">
-                            <div className="ab-avatar user-avatar-remove" title="프로필 사진 삭제">
-                                <i className="far fa-trash-alt fa-2x" />
-                            </div>
-                            <div className="ab-avatar user-avatar-edit" type="file" title="프로필 사진 수정">
-                                <i className="fas fa-pen fa-2x" />
-                            </div>
-                        </div>
+                        {profileImage === null ? (
+                            <div className="user-avatar-img">{profileEdit}</div>
+                        ) : (
+                            <img className="user-img" src={profileImage} alt="profile" />
+                        )}
                     </div>
 
                     <div className="modify-user-info">

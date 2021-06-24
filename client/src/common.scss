@@ -1198,6 +1198,15 @@ input:-webkit-autofill:active {
     }
 }
 
+.user-img {
+    border: 1px solid var(--color-e2);
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+    position: relative;
+    margin: 20px 0 0 30px;
+}
+
 .modify-user-info {
     margin: 0px 30px;
 }

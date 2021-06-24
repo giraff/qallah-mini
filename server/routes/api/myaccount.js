@@ -6,7 +6,7 @@ const mdbConn = require("../../database");
 const router = express.Router();
 
 //@routes GET api/myaccount/detail
-//@desc   아이디(이메일), 이름 가져오기
+//@desc   아이디(이메일), 이름, 프로필 이미지 가져오기
 //@access public
 router.get("/detail", auth, (req, res, next) => {
   try {
@@ -15,7 +15,8 @@ router.get("/detail", auth, (req, res, next) => {
       `
             SELECT
                 user_name,
-                email
+                email,
+                profileImage
             FROM
                 user
             WHERE
@@ -30,7 +31,9 @@ router.get("/detail", auth, (req, res, next) => {
       }
     );
   } catch (e) {
-    return res.json({ msg: "아이디(이메일), 이름을 불러오는 도중 에러 " });
+    return res.json({
+      msg: "아이디(이메일), 이름, 프로필 이미지를 불러오는 도중 에러 ",
+    });
   }
 });
 
