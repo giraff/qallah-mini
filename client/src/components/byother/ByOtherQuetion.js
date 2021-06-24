@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
-import { BYOTHER_UPLOAD_REQUEST, BYOTHER_ANSWER_LOADING_REQUEST } from '../../redux/types';
+import { BYOTHER_UPLOAD_REQUEST, BYOTHER_ANSWER_LOADING_REQUEST, BYOTHER_DETAIL_DELETE_REQUEST } from '../../redux/types';
 
 const ByOtherQuestion = ({ req }) => {
     const dispatch = useDispatch();
@@ -37,7 +37,7 @@ const ByOtherQuestion = ({ req }) => {
     };
 
     // 답변 불러오기 API
-    const postAnswer = async page => {
+    const postAnswer = page => {
         console.log('답변 LOAD');
         const token = localStorage.getItem('token');
 
@@ -59,7 +59,6 @@ const ByOtherQuestion = ({ req }) => {
     }, [currentPage]);
 
     useEffect(() => {
-        console.log('답변 변함?=>', answer);
         setAnswerContent(answer);
     }, [answer]);
 
@@ -86,7 +85,18 @@ const ByOtherQuestion = ({ req }) => {
                 type: BYOTHER_UPLOAD_REQUEST,
                 payload: body,
             });
+        } else if (inputChange && answerContent === '') {
+            // 답변을 수정했는데 빈 답변이라면 DB에서 삭제
+            const body = {
+                page: currentPage,
+                token: localStorage.getItem('token'),
+            };
+            dispatch({
+                type: BYOTHER_DETAIL_DELETE_REQUEST,
+                payload: body,
+            });
         }
+
         setInputChange(false);
 
         if (name === 'prev') {

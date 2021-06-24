@@ -17,15 +17,15 @@ router.get("/detail", (req, res, next) => {
             .status(400)
             .json({ msg: "질문 데이터가 존재하지 않습니다." });
         } else {
-          res.json(rows);
+          return res.status(200).json(rows);
         }
       } else {
-        res.send(`error: ${err}`);
+        return res.status(400).json({ msg: err });
       }
     });
   } catch (e) {
     console.log(e);
-    res.status(400).json({ msg: e.message });
+    return res.status(400).json({ msg: e.message });
   }
 });
 //@routes   GET api/byother/detail/:id
@@ -50,7 +50,7 @@ router.get("/detail/:id", (req, res) => {
 
 //@routes   GET api/byother/answer/:id
 //@resc     페이지에 답변 불러오기
-//@access   public
+//@access   auth user
 router.get("/answer/:id", auth, (req, res) => {
   console.log("========answer load========== ");
   try {
@@ -73,9 +73,9 @@ router.get("/answer/:id", auth, (req, res) => {
   }
 });
 
-//@routes GET api/byother/answer
-//@resc   모든 답변 불러오기
-//@access public
+//@routes   GET api/byother/answer
+//@resc     모든 답변 불러오기
+//@access   auth user
 router.get("/answer", auth, (req, res) => {
   console.log("answer 라우터 => ", req.user.id);
   try {
@@ -101,9 +101,9 @@ router.get("/answer", auth, (req, res) => {
   }
 });
 
-//@routes GET api/byother/answer/detail
-//@resc   당일 답변 모두 삭제
-//@access public
+//@routes   DELETE api/byother/answer/detail
+//@resc     당일 답변 모두 삭제
+//@access   auth user
 router.delete("/answer/detail", auth, (req, res) => {
   console.log("delete 라우터 => ", req.user.id);
   try {
@@ -123,9 +123,45 @@ router.delete("/answer/detail", auth, (req, res) => {
   }
 });
 
+//@routes   DELETE api/byother/answer/detail/${currentPage}
+//@desc     당일 답변한 것 중 개별 답변을 delete 하기
+//@access   auth user
+router.delete("/answer/detail/:id", auth, async (req, res) => {
+  try {
+    mdbConn.query(
+      `
+      DELETE 
+      FROM answerbyothers 
+      WHERE 
+        user_seq=(
+                  SELECT user_seq 
+                FROM user 
+                WHERE email="${req.user.id}"
+              ) 
+      AND 
+        DATE_FORMAT(answer_time, '%Y-%m-%d') = DATE_FORMAT(NOW(), '%Y-%m-%d')
+      AND 
+        other_question_seq = ${req.params.id}
+    `,
+      (err) => {
+        if (!err) {
+          console.log("delete 성공 =>=>=>");
+          return res.status(200).json({ msg: "delete 답변 success" });
+        } else {
+          console.log("특정 답변 삭제 불가", err);
+          return res.status(400).json({ msg: err });
+        }
+      }
+    );
+  } catch (e) {
+    console.log(e);
+    return res.status(400).json({ msg: e });
+  }
+});
+
 //@routes   api/byother/detail/answer/${page}
-//@resc     답변 넣을때마다 저장
-//@access   public
+//@desc     답변 넣을때마다 저장
+//@access   auth user
 router.post("/detail/answer/:id", auth, async (req, res) => {
   try {
     console.log("답변 저장", req.params.id);
