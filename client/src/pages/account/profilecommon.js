@@ -1,6 +1,5 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
 
 const profilecommon = () => {
     const myaccountObj = useSelector(state => state.myac.payload);

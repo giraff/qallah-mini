@@ -1,6 +1,5 @@
 /* eslint-disable react/no-unescaped-entities */
 import axios from 'axios';
-import PopUp from 'common/modal/PopUp';
 import React, { useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 

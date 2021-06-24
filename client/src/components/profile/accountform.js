@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { MYAC_RECEIVE_REQUEST, MYAC_SEND_PREVPW_REQUEST, MYAC_UPDATE_REQUEST } from 'redux/types';
 
 const AccountForm = () => {

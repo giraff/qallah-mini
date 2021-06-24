@@ -127,7 +127,7 @@ const ToMeAnswerUploadAPI = ToMeUploadData => {
             'Content-type': 'application/json',
         },
     };
-    const { token, seq } = ToMeUploadData;
+    const { token } = ToMeUploadData;
 
     if (token) {
         config.headers['x-auth-token'] = token;

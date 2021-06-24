@@ -127,7 +127,7 @@ const ReflAnswerUploadAPI = ReflUploadData => {
             'Content-type': 'application/json',
         },
     };
-    const { token, seq } = ReflUploadData;
+    const { token } = ReflUploadData;
 
     if (token) {
         config.headers['x-auth-token'] = token;

@@ -52,7 +52,7 @@ function* watchMyacDetail() {
 const MyacPrevPwAPI = MyacData => {
     console.log('MyacPrevPWAPI 발동 -> axios.post 요청 보냄');
     console.log('Data >> ', MyacData);
-    const { pw, token } = MyacData;
+    const { token } = MyacData;
     const config = {
         headers: {
             'Content-type': 'application/json',

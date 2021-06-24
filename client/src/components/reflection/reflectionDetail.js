@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { REFL_REQUEST, REFL_ANSWER_RECEIVE_REQUEST, REFL_ANSWER_UPLOAD_REQUEST, REFL_INIT } from '../../redux/types';
 
 const ReflectionDetail = () => {
@@ -11,7 +11,6 @@ const ReflectionDetail = () => {
     const history = useHistory();
     // 처음렌더링 됬을때만 state에 질문들을 넣어두고,
     // 다음 렌더링부터는 이전 답변내용을 불러온 값들이 state에 저장되어있어서 Question 객체를 따로 만듬
-    const [QuestionObj, setQuestionValues] = useState();
     const [form, setValues] = useState({
         question_seq: 0,
         question_context: '',
@@ -52,7 +51,6 @@ const ReflectionDetail = () => {
             console.log(ReflChk);
         }
         console.log('질문 불러오기 테스트 >> ', ReflObj);
-        setQuestionValues(ReflObj);
     }, [ReflChk]);
 
     // 세 번째 useEffect는 질문이 바뀔 때 마다, 이전 답변내용들 DB에서 가져오기 위한 것
@@ -100,54 +98,6 @@ const ReflectionDetail = () => {
             question_answer: value,
         });
     };
-    const next_question = e => {
-        e.preventDefault();
-        const body = {
-            question_seq: question_seq + 1,
-            answer_context: form.question_answer,
-            token: localStorage.getItem('token'),
-        };
-        if (body.answer_context !== '') {
-            dispatch({
-                type: REFL_ANSWER_UPLOAD_REQUEST,
-                payload: body,
-            });
-        }
-        console.log('잠깐 확인', QuestionObj.data);
-        setValues({
-            ...form,
-            question_seq: question_seq + 1,
-            question_context: QuestionObj.data[question_seq + 1].refl_content,
-            question_answer: '',
-            next_button: false,
-            prev_button: false,
-        });
-        console.log('다음질문', form);
-    };
-
-    const prev_question = e => {
-        e.preventDefault();
-        const body = {
-            question_seq: question_seq + 1,
-            answer_context: form.question_answer,
-            token: localStorage.getItem('token'),
-        };
-        if (body.answer_context !== '') {
-            dispatch({
-                type: REFL_ANSWER_UPLOAD_REQUEST,
-                payload: body,
-            });
-        }
-        setValues({
-            ...form,
-            question_seq: question_seq - 1,
-            question_context: QuestionObj.data[question_seq - 1].refl_content,
-            question_answer: '',
-            next_button: false,
-            prev_button: question_seq - 1 === 0,
-        });
-        console.log('이전질문', form);
-    };
 
     const done = e => {
         e.preventDefault();
@@ -172,17 +122,6 @@ const ReflectionDetail = () => {
         </button>
     );
 
-    const next_phr = (
-        <button className="move move-next" type="button" onClick={next_question} disabled={form.next_button}>
-            <i className="fas fa-chevron-right fa-3x" />
-        </button>
-    );
-
-    const prev_phr = (
-        <button className="move move-pre" type="button" onClick={prev_question} disabled={form.prev_button}>
-            <i className="fas fa-chevron-left fa-3x" />
-        </button>
-    );
     return (
         <div className="list-container tome-list-container">
             {/* <div>{form.question_seq+1}. {form.question_context}</div><br/> */}

@@ -27,7 +27,6 @@ const experienceMain = () => {
         const result = await axios.get('api/experience', config);
 
         const ObjectArray = [];
-        const eraArray = [];
         if (result.data.length === 0) {
             ObjectArray.push({
                 headline: 'The Main Timeline Headline Goes here',

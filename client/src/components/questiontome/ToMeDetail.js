@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { TOME_REQUEST, TOME_ANSWER_RECEIVE_REQUEST, TOME_ANSWER_UPLOAD_REQUEST, TOME_INIT } from '../../redux/types';
 
 const QuestionToMeDetail = () => {
