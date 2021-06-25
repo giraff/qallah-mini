@@ -10,6 +10,7 @@ const Register = () => {
         userName: '',
         userPassword: '',
     });
+    const [pwCheck, setPwCheck] = useState(false);
     // useSelector : isRegistied 현재 값을 참, 거짓 값으로 가져오기
     const regResult = useSelector(state => state.reg.isRegistied);
 
@@ -44,6 +45,17 @@ const Register = () => {
         if (regResult) history.push('/login');
     }, [regResult]);
 
+    useEffect(() => {
+        const pw = form.userPassword;
+        const exp = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\dd$@$!%*#?&]{8,50}$/.test(pw);
+        if (!exp) {
+            setPwCheck(false);
+        } else {
+            setPwCheck(true);
+        }
+        console.log('현재의 참 거부 값 =>', pwCheck);
+    }, [form.userPassword]);
+
     return (
         <div>
             <form onSubmit={e => onSubmit(e)}>
@@ -76,8 +88,12 @@ const Register = () => {
                     value={form.userPassword}
                     onChange={onChange}
                 />
+                <div className="register-err-field err-wrap">
+                    {/* 이 부분은 비밀번호 입력하는 input 밑에 나오는것이 아니라 홈페이지 밑부분에 출력됩니다. 수정이 필요함. */}
+                    {pwCheck ? null : <div className="err-msg">적절하지 않은 형식입니다(영문+숫자+특수문자 포함 8자리 이상)</div>}
+                </div>
                 <br />
-                <input className="register-button lang-eng" type="submit" value="Sign Up" />
+                <input className="register-button lang-eng" type="submit" value="Sign Up" disabled={!pwCheck} />
             </form>
         </div>
     );
