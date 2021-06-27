@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { MYAC_RECEIVE_REQUEST, MYAC_SEND_PREVPW_REQUEST, MYAC_UPDATE_REQUEST } from 'redux/types';
+import { MYAC_RECEIVE_REQUEST, MYAC_SEND_PREVPW_REQUEST, MYAC_UPDATE_REQUEST, MYAC_INIT } from 'redux/types';
 
 const AccountForm = () => {
     const myaccountObj = useSelector(state => state.myac.payload);
@@ -121,6 +121,9 @@ const AccountForm = () => {
     useEffect(() => {
         if (myaccountSendChk) {
             history.push('/');
+            dispatch({
+                type: MYAC_INIT,
+            });
         }
     }, [myaccountSendChk]);
 
@@ -146,14 +149,17 @@ const AccountForm = () => {
         console.log('이전 비밀번호 일치여부 확인 -> 비밀번호 변경');
         // 저장 버튼 클릭 시, 이전과 새로운 비밀번호가 적절한 형식을 가지고 있는지 비교
         // 그리고 이전 비밀번호와 새로운 비밀번호의 비교, 새로운 비밀번호와 재입력한 새로운 비밀번호를 비교하여 문제가 없으면 저장
-        const body = {
-            pw: prevpw,
-            token: localStorage.getItem('token'),
-        };
-        dispatch({
-            type: MYAC_SEND_PREVPW_REQUEST,
-            payload: body,
-        });
+        setTotalCheck(false);
+        if (regexpNewPwCheck && newrenewPwCheck && !prevnewPwCheck) {
+            const body = {
+                pw: prevpw,
+                token: localStorage.getItem('token'),
+            };
+            dispatch({
+                type: MYAC_SEND_PREVPW_REQUEST,
+                payload: body,
+            });
+        }
     };
 
     const profileEdit = (
@@ -167,15 +173,12 @@ const AccountForm = () => {
             <input className="file-input" type="file" id="input-file" style={{ display: 'none' }} onChange={onChange} />
         </>
     );
+    const compareprevDB = <>{myaccountSendChk ? null : <div className="err-msg">비밀번호를 다시 확인해 주세요.</div>}</>;
 
     const prevpwContent = (
         <>
             <div className="err-wrap">
-                {prevpw !== '' ? (
-                    <div className="err-msg">현재 비밀번호와 맞지 않습니다.</div>
-                ) : (
-                    <div className="err-msg">현재 비밀번호를 입력해 주세요</div>
-                )}
+                {prevpw !== '' ? compareprevDB : <div className="err-msg">비밀번호를 다시 확인해 주세요.</div>}
                 {/* <div className="err-msg">현재 비밀번호와 맞지 않습니다.</div>
                                         <div className="err-msg">새 비밀번호가 서로 일치하지 않습니다.</div>  */}
             </div>
