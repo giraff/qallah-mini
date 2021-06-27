@@ -16,11 +16,10 @@ const AccountForm = () => {
     const [prevpw, setPrevPw] = useState('');
     const [newpw, setNewPw] = useState('');
     const [re_newpw, setReNewPw] = useState('');
-    const [regexpPrevPwCheck, setExpPrevPwCheck] = useState(true);
+    /* const [regexpPrevPwCheck, setExpPrevPwCheck] = useState(true); */
     const [regexpNewPwCheck, setExpNewPwCheck] = useState(true);
     const [prevnewPwCheck, setPrevNewPwCheck] = useState(false);
     const [newrenewPwCheck, setNewRenewPwCheck] = useState(true);
-    const [saveActive, setSaveActive] = useState(false);
     const [totalCheck, setTotalCheck] = useState(true);
     // DB에서 현재 로그인중인 계정정보 불러오기
     useEffect(() => {
@@ -59,7 +58,7 @@ const AccountForm = () => {
     }, [myaccountObj]);
 
     // 이전 비밀번호가 적절한 형식의 비밀번호를 갖추었는지 확인
-    useEffect(() => {
+    /* useEffect(() => {
         const pw = prevpw;
         const exp = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\dd$@$!%*#?&]{8,50}$/.test(pw);
         if (!exp) {
@@ -67,7 +66,7 @@ const AccountForm = () => {
         } else {
             setExpPrevPwCheck(true);
         }
-    }, [prevpw]);
+    }, [prevpw]); */
 
     // 새로운 비밀번호가 적절한 형식의 비밀번호를 갖추었는지 확인
     useEffect(() => {
@@ -99,7 +98,7 @@ const AccountForm = () => {
     });
 
     // 저장버튼 활성화/비활성화 여부 확인
-    useEffect(() => {
+    /* useEffect(() => {
         if (
             regexpPrevPwCheck &&
             regexpNewPwCheck &&
@@ -115,7 +114,7 @@ const AccountForm = () => {
         } else {
             setSaveActive(false);
         }
-    });
+    }); */
 
     // 프로필이 성공적으로 업데이트 되었을 때,
     useEffect(() => {

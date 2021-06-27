@@ -25,7 +25,7 @@ import {
 //     return axios.get('api/experience', config);
 // };
 
-function* experienceLoad(action) {
+function* experienceLoad() {
     try {
         // const result = yield call(experienceLoadAPI, action.payload);
 
