@@ -1350,6 +1350,7 @@ input:-webkit-autofill:active {
     display: flex;
     flex-direction: column;
     width: calc(100% - 230px);
+    overflow: auto;
 }
 
 .user-ans-title {
@@ -1380,7 +1381,13 @@ input:-webkit-autofill:active {
 
 .filter-list {
     display: flex;
-    margin: 20px;
+    margin: 10px;
+}
+
+.year-click-text {
+    font-size: small;
+    margin-left: 20px;
+    color: var(--color-main-red);
 }
 
 .year-link {
@@ -1392,6 +1399,7 @@ input:-webkit-autofill:active {
 }
 
 .year-link:hover {
+    cursor: pointer;
     background-color: var(--color-ee);
 }
 
@@ -1420,7 +1428,7 @@ svg {
 }
 
 .category {
-    padding: 20px 0px 20px 20px;
+    padding: 10px 0px 10px 10px;
 }
 .category-day {
     display: flex;
@@ -1437,11 +1445,11 @@ svg {
 
 .label-year,
 .label-month {
-    border-bottom: 1px solid var(--color-ee);
+    // border-bottom: 1px solid var(--color-ee);
     font-weight: 900;
 }
 
-.my-answer-container {
+.my-answers {
     display: flex;
 }
 
@@ -1456,9 +1464,12 @@ svg {
 .my-answer-elem:hover {
     background-color: var(--color-main-purple);
     color: var(--color-main-white);
+    cursor: pointer;
 }
 
 .my-answer-container {
+    overflow: auto;
+
     display: flex;
     flex-direction: column;
     width: calc(100% - 230px);
