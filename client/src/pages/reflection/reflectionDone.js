@@ -12,12 +12,6 @@ const ReflectionDone = () => (
                     <div>답변이 완료되었습니다.</div>
                 </div>
                 <div className="q-main-nav">
-                    <div className="refl-start">
-                        <Link to="/refl">
-                            <i className="fas fa-play fa-2x" />
-                        </Link>
-                        다시 답변
-                    </div>
                     <div className="refl-history">
                         <Link to="/refl/history">
                             <i className="fas fa-history fa-2x" />
