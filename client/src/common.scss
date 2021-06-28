@@ -18,6 +18,10 @@
     --color-main-heavy-purple: #7b5e9e;
     --color-main-gray: #e2e2e2e7;
     --color-main-heavy-gray: gray;
+    --color-main-blue: #2980b9;
+    --color-main-green: #16a085;
+    --color-main-orange: #f39c12;
+    --color-main-carrot: #e67e22;
     --color-overlay-white: rgba(255, 255, 255, 0.2);
     --color-overlay-black: rgba(0, 0, 0, 0.5);
     --color-main-red: rgb(221, 41, 41);
@@ -746,13 +750,27 @@ input:-webkit-autofill:active {
     width: 30px;
     height: 30px;
     border-radius: 50%;
-
+    cursor: pointer;
     .sub-circle {
-        border: 2px solid var(--color-main-gray);
         width: 20px;
         height: 20px;
         border-radius: 50%;
     }
+}
+
+#tome-purple-circle {
+    border: 2px solid var(--color-main-heavy-purple);
+    background-color: var(--color-main-heavy-purple);
+}
+
+#byothers-blue-circle {
+    border: 2px solid var(--color-main-blue);
+    background-color: var(--color-main-blue);
+}
+
+#refl-orange-circle {
+    border: 2px solid var(--color-main-carrot);
+    background-color: var(--color-main-carrot);
 }
 
 .history-desc {

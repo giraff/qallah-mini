@@ -1,9 +1,10 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router';
 
 const ReflectionHistory = () => {
     const [historydate, setHistoryDate] = useState([]);
-
+    const history = useHistory();
     const loadhistory = async () => {
         const token = localStorage.getItem('token');
         const config = {
@@ -49,43 +50,32 @@ const ReflectionHistory = () => {
                             <div className="star" />
                         </div>
                         {(() =>
+                            historydate &&
                             historydate.map(val => (
                                 <div key={val.seq} className="history-elem">
                                     <div className="bar" />
-                                    <div className="circle">
-                                        <div className="sub-circle" />
-                                    </div>
+                                    <button
+                                        type="button"
+                                        className="circle"
+                                        onClick={() =>
+                                            history.push(`/profile/answer/view?type=answerforrefl&year=${val.YEAR}&month=${val.MONTH}&day=${val.DAY}`)
+                                        }
+                                    >
+                                        <div id="refl-orange-circle" className="sub-circle" />
+                                    </button>
                                     <div className="history-desc">
                                         <div className="history-desc-title">성찰</div>
                                         <div className="history-desc-date">{val.history}</div>
                                     </div>
                                 </div>
                             )))()}
-                        {/* <div className="history-elem">
+                        {/* <div className="history-elem last">
                             <div className="bar" />
                             <div className="circle">
                                 <div className="sub-circle" />
                             </div>
-                        </div>
-                        <div className="history-elem">
                             <div className="bar" />
-                            <div className="circle">
-                                <div className="sub-circle" />
-                            </div>
-                        </div>
-                        <div className="history-elem">
-                            <div className="bar" />
-                            <div className="circle">
-                                <div className="sub-circle" />
-                            </div>
                         </div> */}
-                        <div className="history-elem last">
-                            <div className="bar" />
-                            <div className="circle">
-                                <div className="sub-circle" />
-                            </div>
-                            <div className="bar" />
-                        </div>
                     </div>
                 </div>
             </div>

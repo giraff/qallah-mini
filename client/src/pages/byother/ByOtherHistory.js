@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios';
 
 const ByOtherHistory = () => {
-    const [history, setHistory] = useState([]);
+    const [historydate, setHistoryDate] = useState([]);
+    const history = useHistory();
 
     const getHistoryAPI = async () => {
         try {
@@ -24,7 +25,7 @@ const ByOtherHistory = () => {
         }
     };
     useEffect(() => {
-        getHistoryAPI().then(data => setHistory(data));
+        getHistoryAPI().then(data => setHistoryDate(data));
     }, []);
     return (
         <section className="sections">
@@ -49,15 +50,24 @@ const ByOtherHistory = () => {
                             <div className="star" />
                         </div>
                         {(() =>
-                            history.map(val => (
+                            historydate &&
+                            historydate.map(val => (
                                 <div key={val.seq} className="history-elem">
                                     <div className="bar" />
-                                    <div className="circle">
-                                        <div className="sub-circle" />
-                                    </div>
+                                    <button
+                                        type="button"
+                                        className="circle"
+                                        onClick={() =>
+                                            history.push(
+                                                `/profile/answer/view?type=answerbyothers&year=${val.YEAR}&month=${val.MONTH}&day=${val.DAY}`,
+                                            )
+                                        }
+                                    >
+                                        <div id="byothers-blue-circle" className="sub-circle" />
+                                    </button>
                                     <div className="history-desc">
                                         <div className="history-desc-title lang-kor">남이 보는 나</div>
-                                        <div className="history-desc-date lang-kor">{val.time}</div>
+                                        <div className="history-desc-date lang-kor">{val.history}</div>
                                     </div>
                                 </div>
                             )))()}
