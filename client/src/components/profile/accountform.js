@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { MYAC_RECEIVE_REQUEST, MYAC_SEND_PREVPW_REQUEST, MYAC_UPDATE_REQUEST } from 'redux/types';
+import { MYAC_RECEIVE_REQUEST, MYAC_SEND_PREVPW_REQUEST, MYAC_UPDATE_REQUEST, MYAC_INIT } from 'redux/types';
 
 const AccountForm = () => {
     const myaccountObj = useSelector(state => state.myac.payload);
@@ -16,11 +16,11 @@ const AccountForm = () => {
     const [prevpw, setPrevPw] = useState('');
     const [newpw, setNewPw] = useState('');
     const [re_newpw, setReNewPw] = useState('');
-    const [regexpPrevPwCheck, setExpPrevPwCheck] = useState(true);
+    /* const [regexpPrevPwCheck, setExpPrevPwCheck] = useState(true); */
     const [regexpNewPwCheck, setExpNewPwCheck] = useState(true);
     const [prevnewPwCheck, setPrevNewPwCheck] = useState(false);
     const [newrenewPwCheck, setNewRenewPwCheck] = useState(true);
-    const [saveActive, setSaveActive] = useState(false);
+    const [totalCheck, setTotalCheck] = useState(true);
     // DB에서 현재 로그인중인 계정정보 불러오기
     useEffect(() => {
         console.log('계정정보 불러오기');
@@ -58,7 +58,7 @@ const AccountForm = () => {
     }, [myaccountObj]);
 
     // 이전 비밀번호가 적절한 형식의 비밀번호를 갖추었는지 확인
-    useEffect(() => {
+    /* useEffect(() => {
         const pw = prevpw;
         const exp = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\dd$@$!%*#?&]{8,50}$/.test(pw);
         if (!exp) {
@@ -66,7 +66,7 @@ const AccountForm = () => {
         } else {
             setExpPrevPwCheck(true);
         }
-    }, [prevpw]);
+    }, [prevpw]); */
 
     // 새로운 비밀번호가 적절한 형식의 비밀번호를 갖추었는지 확인
     useEffect(() => {
@@ -98,7 +98,7 @@ const AccountForm = () => {
     });
 
     // 저장버튼 활성화/비활성화 여부 확인
-    useEffect(() => {
+    /* useEffect(() => {
         if (
             regexpPrevPwCheck &&
             regexpNewPwCheck &&
@@ -114,12 +114,15 @@ const AccountForm = () => {
         } else {
             setSaveActive(false);
         }
-    });
+    }); */
 
     // 프로필이 성공적으로 업데이트 되었을 때,
     useEffect(() => {
         if (myaccountSendChk) {
             history.push('/');
+            dispatch({
+                type: MYAC_INIT,
+            });
         }
     }, [myaccountSendChk]);
 
@@ -143,14 +146,19 @@ const AccountForm = () => {
     const onClick = e => {
         e.preventDefault();
         console.log('이전 비밀번호 일치여부 확인 -> 비밀번호 변경');
-        const body = {
-            pw: prevpw,
-            token: localStorage.getItem('token'),
-        };
-        dispatch({
-            type: MYAC_SEND_PREVPW_REQUEST,
-            payload: body,
-        });
+        // 저장 버튼 클릭 시, 이전과 새로운 비밀번호가 적절한 형식을 가지고 있는지 비교
+        // 그리고 이전 비밀번호와 새로운 비밀번호의 비교, 새로운 비밀번호와 재입력한 새로운 비밀번호를 비교하여 문제가 없으면 저장
+        setTotalCheck(false);
+        if (regexpNewPwCheck && newrenewPwCheck && !prevnewPwCheck) {
+            const body = {
+                pw: prevpw,
+                token: localStorage.getItem('token'),
+            };
+            dispatch({
+                type: MYAC_SEND_PREVPW_REQUEST,
+                payload: body,
+            });
+        }
     };
 
     const profileEdit = (
@@ -164,7 +172,42 @@ const AccountForm = () => {
             <input className="file-input" type="file" id="input-file" style={{ display: 'none' }} onChange={onChange} />
         </>
     );
+    const compareprevDB = <>{myaccountSendChk ? null : <div className="err-msg">비밀번호를 다시 확인해 주세요.</div>}</>;
 
+    const prevpwContent = (
+        <>
+            <div className="err-wrap">
+                {prevpw !== '' ? compareprevDB : <div className="err-msg">비밀번호를 다시 확인해 주세요.</div>}
+                {/* <div className="err-msg">현재 비밀번호와 맞지 않습니다.</div>
+                                        <div className="err-msg">새 비밀번호가 서로 일치하지 않습니다.</div>  */}
+            </div>
+        </>
+    );
+
+    const newpwConteht = (
+        <>
+            <div className="err-wrap">
+                {newpw !== '' ? (
+                    <>
+                        {regexpNewPwCheck ? null : <div className="err-msg">적절하지 않은 형식입니다(영문+숫자+특수문자 포함 8자리 이상)</div>}
+                        {prevnewPwCheck ? <div className="err-msg">이전 비밀번호와 동일합니다.</div> : null}
+                    </>
+                ) : (
+                    <div className="err-msg">새로운 비밀번호를 입력해 주세요</div>
+                )}
+            </div>
+        </>
+    );
+
+    const renewpwContent = (
+        <div className="err-wrap">
+            {re_newpw !== '' ? (
+                <>{newrenewPwCheck ? null : <div className="err-msg">새로운 비밀번호와 일치하지 않습니다.</div>}</>
+            ) : (
+                <div className="err-msg">확인을 위해 새로운 비밀번호를 다시 입력해주세요.</div>
+            )}
+        </div>
+    );
     return (
         <>
             <div className="acc-title">나의 계정</div>
@@ -203,39 +246,23 @@ const AccountForm = () => {
                         <div className="info-detail current-pwd">
                             <div className="cnt-pwd-label">현재 비번</div>
                             <input className="pwd-input" type="password" onChange={onChange} />
-
-                            <div className="err-wrap">
-                                {regexpPrevPwCheck ? null : (
-                                    <div className="err-msg">적절하지 않은 형식입니다(영문+숫자+특수문자 포함 8자리 이상)</div>
-                                )}
-                                {/* <div className="err-msg">현재 비밀번호와 맞지 않습니다.</div>
-                                        <div className="err-msg">새 비밀번호가 서로 일치하지 않습니다.</div>  */}
-                            </div>
+                            {totalCheck ? null : prevpwContent}
                         </div>
                         <div className="info-detail new-pwd">
                             <div className="new-pwd-label">새 비번</div>
                             <input className="new-pwd-input" type="password" onChange={onChange} />
-
-                            <div className="err-wrap">
-                                {regexpNewPwCheck ? null : (
-                                    <div className="err-msg">적절하지 않은 형식입니다(영문+숫자+특수문자 포함 8자리 이상)</div>
-                                )}
-                                {prevnewPwCheck ? <div className="err-msg">이전 비밀번호와 동일합니다.</div> : null}
-                            </div>
+                            {totalCheck ? null : newpwConteht}
                         </div>
                         <div className="info-detail retype-pwd">
                             <div className="re-pwd-label">새 비번 (Retype)</div>
                             <input className="re-new-pwd-input" type="password" onChange={onChange} />
                             {/* 해당 부분 에러가 발생 (err-wrap 태그를 삭제하면 정상적으로 err-msg가 나오지만, 그렇지않으면 err-msg가 출력되지 않음) */}
-                            <div className="err-wrap">
-                                {newrenewPwCheck ? null : <div className="err-msg">새 비밀번호가 서로 일치하지 않습니다.</div>}
-                                {}
-                            </div>
+                            {totalCheck ? null : renewpwContent}
                         </div>
                     </div>
                 </div>
                 <div>
-                    <button className="acc-save" type="button" onClick={onClick} disabled={!saveActive}>
+                    <button className="acc-save" type="button" onClick={onClick}>
                         저장
                     </button>
                 </div>

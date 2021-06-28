@@ -8,6 +8,7 @@ import {
     MYAC_UPDATE_REQUEST,
     MYAC_UPDATE_SUCCESS,
     MYAC_UPDATE_FAILURE,
+    MYAC_INIT,
 } from '../../../redux/types';
 
 const initalState = {
@@ -75,6 +76,13 @@ const myacReducer = (state = initalState, action) => {
             return {
                 ...state,
                 isMyAccountUpdate: false,
+            };
+        case MYAC_INIT:
+            return {
+                isMyAccountReceive: false,
+                isMyAccountPrevPwReceive: false,
+                isMyAccountUpdate: false,
+                payload: '',
             };
         default:
             return state;
