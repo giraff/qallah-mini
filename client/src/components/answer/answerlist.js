@@ -1,30 +1,20 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { ANSWER_LOAD_REQUEST } from 'redux/types';
+import AnswerYearList from './answer-year-list';
 
-const AnswerList = () => (
-    <>
-        <div className="category category-year">
-            <div className="label label-year">2020</div>
-            <div className="category category-month">
-                <div className="label label-month">9월</div>
-                <div className="category category-day">
-                    <div className="label label-day">19일</div>
-                    <div className="my-answer-container">
-                        {/* <Link className="my-answer-elem expr-answer">내가 한 경험</Link> */}
-                        <div className="my-answer-elem me-answer">내가 보는 나</div>
-                        {/* <Link className="my-answer-elem reflection-answer">오늘의 성찰</Link> */}
-                    </div>
-                </div>
-                <div className="day-wrap category-day" />
-                <div className="day-wrap category-day" />
-            </div>
-            <div className="category category-month">
-                <div className="label label-month">8월</div>
-            </div>
-            <div className="category category-month">
-                <div className="label label-month">5월</div>
-            </div>
-        </div>
-    </>
-);
+const AnswerList = () => {
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        dispatch({
+            type: ANSWER_LOAD_REQUEST,
+            payload: token,
+        });
+    }, []);
+    return <AnswerYearList />;
+};
 
 export default AnswerList;
