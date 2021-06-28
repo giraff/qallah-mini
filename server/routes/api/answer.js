@@ -16,7 +16,7 @@ router.get("/", auth, (req, res) => {
         A.date
         ,SUM(A.cnt)
         ,A.TYPE
-        ,@ROWNUm := @ROWNUm + 1 AS ROWNUM
+        ,@ROWNUM := @ROWNUM + 1 AS ROWNUM
       FROM
         (
           SELECT 
@@ -87,7 +87,7 @@ router.get("/years", auth, (req, res) => {
       SELECT 
         A.date
         ,SUM(A.cnt)
-        ,@ROWNUM := @ROWNUM + 1 AS ROWNUM
+        ,@ROWNUM2 := @ROWNUM2 + 1 AS ROWNUM
       FROM
         (
           SELECT
@@ -127,9 +127,9 @@ router.get("/years", auth, (req, res) => {
           GROUP BY DATE_FORMAT(refl_answer_time, '%Y')
         ) A
       WHERE
-        (SELECT @ROWNUM:=0)=0
+        (SELECT @ROWNUM2:=0)=0
       GROUP BY DATE
-      ORDER BY ROWNUM;
+      ORDER BY ROWNUM
       `,
       (err, rows) => {
         if (!err) {
@@ -144,4 +144,161 @@ router.get("/years", auth, (req, res) => {
   }
 });
 
+//@routes GET api/answer/answertest
+//현재 auth user가 작성한 모든 답변의 연도, 월, 일, 주제를 한 꺼번에 불러오기
+router.get("/answertest", auth, (req, res) => {
+  try {
+    mdbConn.query(
+      `
+      SELECT
+      A.YEAR
+      ,A.MONTH
+      ,A.DAY
+      ,A.TYPE
+      ,@ROWNUm := @ROWNUm + 1 AS ROWNUM
+    FROM
+    (
+      SELECT 
+          DATE_FORMAT(answer_time, '%Y-%m-%d') AS DATE,
+          DATE_FORMAT(answer_time, '%Y') AS YEAR,
+          DATE_FORMAT(answer_time, '%m') AS MONTH,
+          DATE_FORMAT(answer_time, '%d') AS DAY,
+          'answerbyme' AS TYPE
+      FROM 
+      answerbyme A
+      WHERE user_seq = (
+                  SELECT user_seq
+                  FROM user
+                  WHERE email="${req.user.id}"
+                  )
+      GROUP BY DATE_FORMAT(answer_time, '%Y-%m-%d')
+      UNION
+      SELECT 
+        DATE_FORMAT(answer_time, '%Y-%m-%d') AS DATE,
+        DATE_FORMAT(answer_time, '%Y') AS YEAR,
+        DATE_FORMAT(answer_time, '%m') AS MONTH,
+        DATE_FORMAT(answer_time, '%d') AS DAY,
+        'answerbyothers' AS TYPE
+      FROM 
+        answerbyothers A
+      WHERE user_seq = (
+                  SELECT user_seq
+                  FROM user
+                  WHERE email="${req.user.id}"
+                  )
+      GROUP BY DATE_FORMAT(answer_time, '%Y-%m-%d')
+      UNION
+      SELECT
+        DATE_FORMAT(refl_answer_time, '%Y-%m-%d') AS DATE, 
+        DATE_FORMAT(refl_answer_time, '%Y') AS YEAR,
+        DATE_FORMAT(refl_answer_time, '%m') AS MONTH,
+        DATE_FORMAT(refl_answer_time, '%d') AS DAY,
+        'answerforrefl' AS TYPE
+      FROM 
+        answerforrefl A
+      WHERE user_seq = (
+                  SELECT user_seq
+                  FROM user
+                  WHERE email="${req.user.id}"
+                  )
+      GROUP BY DATE_FORMAT(refl_answer_time, '%Y-%m-%d')
+    )A
+    WHERE
+      (SELECT @ROWNUM:=0)=0
+    GROUP BY A.year, A.MONTH, A.DAY ,A.TYPE
+    ORDER BY ROWNUM
+      `,
+      (err, rows) => {
+        if (!err) {
+          return res.status(200).json(rows);
+        } else {
+          console.log(err);
+          return res.status(400).json({ msg: err });
+        }
+      }
+    );
+  } catch (e) {
+    console.log(e);
+    return res.status(400).json({ msg: e });
+  }
+});
+
+// config의 params에 보낸 object를 꺼내 연도, 월, 일, 주제에 부합하는 답변 상세 내용을 불러오기
+router.get("/detail", auth, (req, res) => {
+  try {
+    const { year, month, day, type } = JSON.parse(req.query.info);
+    let dbquery = "";
+    if (type === "answerbyme") {
+      console.log(".,,,answerbyme ,,, 진입");
+      dbquery = `SELECT
+        A.me_question_seq AS seq
+        , B.question_content AS question
+        , A.answer_content AS answer
+
+      FROM
+        answerbyme AS A
+      INNER JOIN questiontome AS B
+      ON A.me_question_seq = B.me_question_seq
+      WHERE
+        A.user_seq = (
+                SELECT user_seq
+                FROM user
+                WHERE email="${req.user.id}"
+                )
+      AND
+        DATE_FORMAT(A.answer_time, '%Y-%m-%d') = '${year}-${month}-${day}'
+        `;
+    } else if (type === "answerbyothers") {
+      console.log(".,,,answerbyothers ,,, 진입");
+      dbquery = `
+        SELECT
+          A.other_question_seq AS seq
+          , B.other_question_content AS question
+          , A.answer_content AS answer
+
+        FROM
+          answerbyothers AS A
+        INNER JOIN questionbyothers AS B
+        ON A.other_question_seq = B.other_question_seq
+        WHERE
+          A.user_seq = (
+                  SELECT user_seq
+                  FROM user
+                  WHERE email="${req.user.id}"
+                  )
+        AND
+          DATE_FORMAT(A.answer_time, '%Y-%m-%d') = '${year}-${month}-${day}'
+      `;
+    } else if (type === "answerforrefl") {
+      console.log(".,,,answerforrefl ,,, 진입");
+      dbquery = `
+        SELECT
+        A.refl_question_seq AS seq
+          , B.refl_content AS question
+          , A.refl_answer_content AS answer
+
+        FROM
+          answerforrefl AS A
+        INNER JOIN reflection AS B
+        ON A.refl_question_seq = B.refl_question_seq
+        WHERE
+          A.user_seq = (
+                  SELECT user_seq
+                  FROM user
+                  WHERE email="${req.user.id}"
+                  )
+        AND
+          DATE_FORMAT(A.refl_answer_time, '%Y-%m-%d') = '${year}-${month}-${day}'
+      `;
+    }
+
+    mdbConn.query(dbquery, (err, rows) => {
+      if (!err) return res.status(200).json(rows);
+      else return res.status(400).json({ msg: err });
+    });
+  } catch (e) {
+    console.error(e);
+    return res.status(400).json({ msg: e });
+  }
+});
 export default router;
