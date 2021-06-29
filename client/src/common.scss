@@ -1124,8 +1124,19 @@ input:-webkit-autofill:active {
         width: 150px;
         height: 150px;
         border-radius: 50%;
-        border: 1px solid var(--color-e2);
-        background: var(--image-profile) no-repeat center/cover;
+
+        img {
+            border-radius: 50%;
+            width: 150px;
+            height: 150px;
+        }
+        .empty-image {
+            background: var(--image-profile) no-repeat center/cover;
+            width: 150px;
+            height: 150px;
+            border: 1px solid var(--color-e2);
+            border-radius: 50%;
+        }
     }
 
     .profile-infos {

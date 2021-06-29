@@ -1,12 +1,21 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { MYAC_RECEIVE_REQUEST, MYAC_SEND_PREVPW_REQUEST, MYAC_UPDATE_REQUEST, MYAC_INIT } from 'redux/types';
+import {
+    MYAC_RECEIVE_REQUEST,
+    MYAC_SEND_PREVPW_REQUEST,
+    MYAC_UPDATE_REQUEST,
+    MYAC_INIT,
+    MYAC_PROFILE_IMAGE_UPDATE_REQUEST,
+    MYAC_PROFILE_IMAGE_DELETE_REQUEST,
+} from 'redux/types';
 
 const AccountForm = () => {
     const myaccountObj = useSelector(state => state.myac.payload);
     const myaccountChk = useSelector(state => state.myac.isMyAccountReceive);
+    const { profileurl } = useSelector(state => state.myac);
     const myaccountSendChk = useSelector(state => state.myac.isMyAccountUpdate);
     const dispatch = useDispatch();
     const history = useHistory();
@@ -35,11 +44,20 @@ const AccountForm = () => {
 
     // 계정정보를 성공적으로 불러왔다면 이름과 이메일을 Input에 업데이트 하기
     useEffect(() => {
-        setName(myaccountObj.user_name);
-        setEmail(myaccountObj.email);
-        setProfileImage(myaccountObj.profileImage);
-        console.log('계정정보 >> ', myaccountObj);
+        console.log(myaccountObj);
+        if (myaccountChk) {
+            setName(myaccountObj.user_name);
+            setEmail(myaccountObj.email);
+            setProfileImage(myaccountObj.profileImage);
+            console.log('계정정보 >> ', myaccountObj);
+        }
     }, [myaccountChk]);
+
+    useEffect(() => {
+        if (profileurl !== '') {
+            setProfileImage(profileurl);
+        }
+    }, [profileurl]);
 
     // 이전 비밀번호가 일치한다면, 새로운 이름과 비밀번호로 업데이트 하기
     useEffect(() => {
@@ -161,17 +179,58 @@ const AccountForm = () => {
         }
     };
 
-    const profileEdit = (
-        <>
-            <div className="ab-avatar user-avatar-remove" title="프로필 사진 삭제">
-                <i className="far fa-trash-alt fa-2x" />
-            </div>
-            <label className="ab-avatar user-avatar-edit" title="프로필 사진 수정" htmlFor="input-file">
-                <i className="fas fa-pen fa-2x" />
-            </label>
-            <input className="file-input" type="file" id="input-file" style={{ display: 'none' }} onChange={onChange} />
-        </>
-    );
+    const imgRef = useRef();
+    const deleteImgRef = useRef();
+
+    const handleClickUploadImage = () => {
+        imgRef.current.click();
+    };
+    const handleClickDeleteImage = e => {
+        e.preventDefault();
+        deleteImgRef.current.click();
+    };
+    const handleDeleteImage = () => {
+        console.log('delete?');
+        const token = localStorage.getItem('token');
+        dispatch({
+            type: MYAC_PROFILE_IMAGE_DELETE_REQUEST,
+            payload: token,
+        });
+    };
+
+    const handleChangeImage = async e => {
+        console.log('handleChangeImage => ', e.target.value);
+        console.log('file[0]', e.target.files[0]);
+        if (e.target.value !== '' && e.target.files[0].type.match(/image/g)) {
+            if (!e.target.files[0].type.includes('gif')) {
+                if (e.target.files[0].size < 5000000) {
+                    const imageFormData = new FormData();
+                    imageFormData.append('upload', e.target.files[0]);
+
+                    // FormData 객체는 브라우저 정책 때문에 그냥 console.log()로 찍으면 안 보임. 아래 형식으로 확인
+                    // for (const key of imageFormData.keys()) {
+                    //     console.log(key);
+                    // }
+
+                    const token = localStorage.getItem('token');
+
+                    const body = {
+                        imageFormData,
+                        token,
+                    };
+
+                    dispatch({
+                        type: MYAC_PROFILE_IMAGE_UPDATE_REQUEST,
+                        payload: body,
+                    });
+                } else {
+                    console.warn('이미지의 크기는 최대 5MB를 초과할 수 없습니다.다른 이미지를 선택해주세요');
+                }
+            } else {
+                console.warn('이미지는 JPG, JPEG, PNG 확장자만 가능합니다.');
+            }
+        } else console.warn('이미지 파일이 아닙니다.');
+    };
     const compareprevDB = <>{myaccountSendChk ? null : <div className="err-msg">비밀번호를 다시 확인해 주세요.</div>}</>;
 
     const prevpwContent = (
@@ -215,10 +274,36 @@ const AccountForm = () => {
                 <div className="acc-header">내 프로필</div>
                 <div className="modify-field">
                     <div className="modify-user-img">
-                        {profileImage === null ? (
-                            <div className="user-avatar-img">{profileEdit}</div>
+                        {console.log(profileImage)}
+                        {profileurl === '' || profileImage === null ? (
+                            <div className="user-avatar-img">
+                                {/* <button
+                                    type="button"
+                                    className="ab-avatar user-avatar-remove"
+                                    title="프로필 사진 삭제"
+                                    onClick={handleClickDeleteImage}
+                                >
+                                    <i className="far fa-trash-alt fa-2x" />
+                                </button>
+                                <input ref={deleteImgRef} type="file" onClick={handleDeleteImage} /> */}
+
+                                <button type="button" className="ab-avatar user-avatar-edit" onClick={handleClickUploadImage}>
+                                    <i className="fas fa-pen fa-2x" />
+                                </button>
+                                <input ref={imgRef} type="file" hidden onChange={handleChangeImage} />
+                            </div>
                         ) : (
-                            <img className="user-img" src={profileImage} alt="profile" />
+                            <div className="user-avatar">
+                                <img className="user-img" src={profileurl || profileImage || './assets/user2.jpg'} alt="profile" />
+                                {/* <button type="button" className="ab-avatar user-avatar-remove" title="프로필 사진 삭제">
+                                    <i className="far fa-trash-alt fa-2x" />
+                                </button>
+                                <input type="button" hidden /> */}
+                                <button type="button" className="ab-avatar user-avatar-edit" onClick={handleClickUploadImage}>
+                                    <i className="fas fa-pen fa-2x" />
+                                </button>
+                                <input ref={imgRef} type="file" hidden onChange={handleChangeImage} />
+                            </div>
                         )}
                     </div>
 
