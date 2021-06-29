@@ -10,6 +10,12 @@ import {
     MYAC_UPDATE_SUCCESS,
     MYAC_UPDATE_FAILURE,
     MYAC_UPDATE_REQUEST,
+    MYAC_PROFILE_IMAGE_UPDATE_REQUEST,
+    MYAC_PROFILE_IMAGE_UPDATE_SUCCESS,
+    MYAC_PROFILE_IMAGE_UPDATE_FAILURE,
+    MYAC_PROFILE_IMAGE_DELETE_REQUEST,
+    MYAC_PROFILE_IMAGE_DELETE_SUCCESS,
+    MYAC_PROFILE_IMAGE_DELETE_FAILURE,
 } from '../../../redux/types';
 
 const MyacDetailAPI = MyacData => {
@@ -120,6 +126,77 @@ function* watchMyacUpdate() {
     yield takeEvery(MYAC_UPDATE_REQUEST, MyacUpdate);
 }
 
+//
+const MyacProfileUpdateAPI = MyacData => {
+    console.log('MyacUpdateAPI 발동 -> axios.post 요청 보냄');
+    const { token, imageFormData } = MyacData;
+
+    const config = {
+        headers: {
+            'Content-type': 'application/json',
+        },
+        withCredentials: true,
+    };
+
+    if (token) {
+        config.headers['x-auth-token'] = token;
+    }
+
+    return axios.post('/api/myaccount/profile', imageFormData, config);
+};
+
+function* MyacProfileUpdate(action) {
+    console.log('MyacUpdate(action) 발동', action.payload);
+    try {
+        const result = yield call(MyacProfileUpdateAPI, action.payload);
+        console.log('Myac Profile Update 결과 =>', result.data);
+        yield put({
+            type: MYAC_PROFILE_IMAGE_UPDATE_SUCCESS,
+            payload: result.data,
+        });
+    } catch (e) {
+        yield put({
+            type: MYAC_PROFILE_IMAGE_UPDATE_FAILURE,
+            paylaod: e.response,
+        });
+    }
+}
+
+function* watchMyacProfileUpdate() {
+    yield takeEvery(MYAC_PROFILE_IMAGE_UPDATE_REQUEST, MyacProfileUpdate);
+}
+
+const MyacProfileDeleteAPI = token => {
+    const config = {
+        headers: {
+            'Content-type': 'application/json',
+        },
+    };
+
+    if (token) {
+        config.headers['x-auth-token'] = token;
+    }
+
+    return axios.delete('/api/myaccount/profile', config);
+};
+
+function* MyacProfileDelete(action) {
+    try {
+        const result = yield call(MyacProfileDeleteAPI, action.payload);
+        yield put({
+            type: MYAC_PROFILE_IMAGE_DELETE_SUCCESS,
+        });
+    } catch (e) {
+        yield put({
+            type: MYAC_PROFILE_IMAGE_DELETE_FAILURE,
+        });
+    }
+}
+
+function* watchMyacProfileDelete() {
+    yield takeEvery(MYAC_PROFILE_IMAGE_DELETE_REQUEST, MyacProfileDelete);
+}
+
 export default function* MyacDetailSaga() {
-    yield all([fork(watchMyacDetail), fork(watchMyacPrevPw), fork(watchMyacUpdate)]);
+    yield all([fork(watchMyacDetail), fork(watchMyacPrevPw), fork(watchMyacUpdate), fork(watchMyacProfileUpdate), fork(watchMyacProfileDelete)]);
 }

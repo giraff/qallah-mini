@@ -9,6 +9,12 @@ import {
     MYAC_UPDATE_SUCCESS,
     MYAC_UPDATE_FAILURE,
     MYAC_INIT,
+    MYAC_PROFILE_IMAGE_UPDATE_REQUEST,
+    MYAC_PROFILE_IMAGE_DELETE_SUCCESS,
+    MYAC_PROFILE_IMAGE_UPDATE_SUCCESS,
+    MYAC_PROFILE_IMAGE_UPDATE_FAILURE,
+    MYAC_PROFILE_IMAGE_DELETE_REQUEST,
+    MYAC_PROFILE_IMAGE_DELETE_FAILURE,
 } from '../../../redux/types';
 
 const initalState = {
@@ -16,6 +22,9 @@ const initalState = {
     isMyAccountPrevPwReceive: false,
     isMyAccountUpdate: false,
     payload: '',
+    profileurl: '',
+    uploaded: false,
+    deleted: false,
 };
 
 const myacReducer = (state = initalState, action) => {
@@ -27,7 +36,6 @@ const myacReducer = (state = initalState, action) => {
             };
         case MYAC_RECEIVE_SUCCESS:
             console.log(action.payload, 'Myac_Success');
-            console.log('state값: ', state);
             return {
                 ...state,
                 isMyAccountReceive: true,
@@ -83,6 +91,40 @@ const myacReducer = (state = initalState, action) => {
                 isMyAccountPrevPwReceive: false,
                 isMyAccountUpdate: false,
                 payload: '',
+            };
+        case MYAC_PROFILE_IMAGE_UPDATE_REQUEST:
+            return {
+                ...state,
+                uploaded: false,
+            };
+        case MYAC_PROFILE_IMAGE_UPDATE_SUCCESS:
+            console.log('profle', action.payload);
+            return {
+                ...state,
+                uploaded: true,
+                profileurl: action.payload.url,
+            };
+        case MYAC_PROFILE_IMAGE_UPDATE_FAILURE:
+            return {
+                ...state,
+                uploaded: false,
+                profileurl: '',
+            };
+        case MYAC_PROFILE_IMAGE_DELETE_REQUEST:
+            return {
+                ...state,
+                deleted: false,
+            };
+        case MYAC_PROFILE_IMAGE_DELETE_SUCCESS:
+            return {
+                ...state,
+                profileurl: '',
+                deleted: true,
+            };
+        case MYAC_PROFILE_IMAGE_DELETE_FAILURE:
+            return {
+                ...state,
+                deleted: false,
             };
         default:
             return state;
