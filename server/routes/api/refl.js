@@ -242,7 +242,11 @@ router.get("/detail/history", auth, (req, res) => {
   try {
     mdbConn.query(
       `SELECT
-          refl_answer_seq AS seq, DATE_FORMAT(refl_answer_time, '%Y-%m-%d') AS history
+          refl_answer_seq AS seq
+          , DATE_FORMAT(refl_answer_time, '%Y-%m-%d') AS history
+          , DATE_FORMAT(refl_answer_time, '%Y') AS YEAR
+          , DATE_FORMAT(refl_answer_time, '%m') AS MONTH
+          , DATE_FORMAT(refl_answer_time, '%d') AS DAY
         FROM
           answerforrefl
         WHERE

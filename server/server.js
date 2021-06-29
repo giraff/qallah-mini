@@ -24,7 +24,7 @@ const { PORT } = config;
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "..", "public/")));
-app.use(cors()); // 모든 도메인에 대한 request 활성화 -> 좋지 않은 방식
+app.use(cors({ origin: true, credentials: true })); // 모든 도메인에 대한 request 활성화 -> 좋지 않은 방식
 /** ex. products/:id에 대한 url 라우팅, 즉 특정 도메인에만 cors를 허용하는게 이상적
  *
  * app.get('/products/:id', cors(), function(req, res, next) {

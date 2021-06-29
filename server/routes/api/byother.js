@@ -225,11 +225,24 @@ router.get("/history", auth, (req, res) => {
   try {
     mdbConn.query(
       `SELECT 
-        other_answer_seq AS seq, DATE_FORMAT(answer_time, '%Y-%m-%d') AS time
-      FROM 
-        answerbyothers 
-      GROUP BY 
-        DATE_FORMAT(answer_time, '%Y-%m-%d')`,
+          other_answer_seq AS seq
+          , DATE_FORMAT(answer_time, '%Y-%m-%d') AS history
+          , DATE_FORMAT(answer_time, '%Y') AS YEAR
+          , DATE_FORMAT(answer_time, '%m') AS MONTH
+          , DATE_FORMAT(answer_time, '%d') AS DAY
+        FROM 
+          answerbyothers 
+        WHERE
+        user_seq = (
+          SELECT
+            user_seq
+          FROM
+            user
+          WHERE
+            email = "${req.user.id}"
+        )
+        GROUP BY 
+          DATE_FORMAT(answer_time, '%Y-%m-%d')`,
       (err, rows) => {
         if (!err) {
           return res.status(200).json(rows);
