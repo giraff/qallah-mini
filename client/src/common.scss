@@ -1373,6 +1373,63 @@ input:-webkit-autofill:active {
     }
 }
 
+.acc-save-name {
+    display: block;
+    width: 100px;
+    height: 35px;
+    align-items: center;
+    justify-content: center;
+    color: #cecece;
+    border: 1px solid var(--color-e2);
+    background-color: var(--color-main-white);
+    margin: 10px 10px 10px 200px;
+    font-size: 15px;
+
+    &:enabled {
+        transition: 0.3s;
+        color: var(--color-main-white);
+        background-color: var(--color-main-heavy-purple);
+    }
+}
+
+.acc-save-pw {
+    display: flex;
+    width: 100px;
+    height: 35px;
+    align-items: center;
+    justify-content: center;
+    color: #cecece;
+    border: 1px solid var(--color-e2);
+    background-color: var(--color-main-white);
+    margin: auto 10px 10px auto;
+    font-size: 15px;
+
+    &:enabled {
+        transition: 0.3s;
+        color: var(--color-main-white);
+        background-color: var(--color-main-heavy-purple);
+    }
+}
+
+.acc-save-name-pwd {
+    display: flex;
+    width: 100px;
+    height: 35px;
+    align-items: center;
+    justify-content: center;
+    color: #cecece;
+    border: 1px solid var(--color-e2);
+    background-color: var(--color-main-white);
+    margin: auto 10px 10px auto;
+    font-size: 15px;
+
+    &:enabled {
+        transition: 0.3s;
+        color: var(--color-main-white);
+        background-color: var(--color-main-heavy-purple);
+    }
+}
+
 /* MyAnswer - 본문 */
 /* content */
 .answer-content {

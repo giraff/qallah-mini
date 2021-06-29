@@ -64,11 +64,24 @@ const AccountForm = () => {
     // 이전 비밀번호가 일치한다면, 새로운 이름과 비밀번호로 업데이트 하기
     useEffect(() => {
         console.log('myaccountObj 객체의 상태값이 바뀌었습니다');
-        if (myaccountObj === true) {
+        // 이전 비밀번호와 일치하다는 답변을 받으면, myaccountObj는 true/false 값 형태로 바뀜
+        // 비밀번호 변경 요청
+        if (myaccountObj === true && !nameEditOpen) {
             const body = {
                 token: localStorage.getItem('token'),
                 new_name: name,
                 new_pw: newpw,
+            };
+            dispatch({
+                type: MYAC_UPDATE_REQUEST,
+                payload: body,
+            });
+            // 이름 변경 요청
+        } else if (myaccountObj === true && nameEditOpen) {
+            const body = {
+                token: localStorage.getItem('token'),
+                new_name: name,
+                new_pw: prevpw,
             };
             dispatch({
                 type: MYAC_UPDATE_REQUEST,
@@ -168,7 +181,7 @@ const AccountForm = () => {
         console.log('이전 비밀번호 일치여부 확인 -> 비밀번호 변경');
         // 저장 버튼 클릭 시, 이전과 새로운 비밀번호가 적절한 형식을 가지고 있는지 비교
         // 그리고 이전 비밀번호와 새로운 비밀번호의 비교, 새로운 비밀번호와 재입력한 새로운 비밀번호를 비교하여 문제가 없으면 저장
-        if (e.target.className === 'acc-save pw') {
+        if (e.target.className === 'acc-save-pw') {
             setTotalCheck(false);
             if (regexpNewPwCheck && newrenewPwCheck && !prevnewPwCheck) {
                 const body = {
@@ -180,11 +193,20 @@ const AccountForm = () => {
                     payload: body,
                 });
             }
-        } else if (e.target.className === 'acc-save name' && nameContext === '이름 수정') {
+        } else if (e.target.className === 'acc-save-name-pwd') {
+            const body = {
+                pw: prevpw,
+                token: localStorage.getItem('token'),
+            };
+            dispatch({
+                type: MYAC_SEND_PREVPW_REQUEST,
+                payload: body,
+            });
+        } else if (e.target.className === 'acc-save-name' && nameContext === '이름 수정') {
             console.log('이름 수정하기 버튼 클릭');
             setNameContext('취소 하기');
             setNameEditOpen(true);
-        } else if (e.target.className === 'acc-save name' && nameContext === '취소 하기') {
+        } else if (e.target.className === 'acc-save-name' && nameContext === '취소 하기') {
             console.log('취소하기 버튼 클릭');
             setNameContext('이름 수정');
             setNameEditOpen(false);
@@ -286,7 +308,7 @@ const AccountForm = () => {
             <div className="info-detail current-pwd">
                 <div className="info-label user-password-label">현재 비번</div>
                 <input className="pwd-input" type="password" onChange={onChange} />
-                <button className="acc-save name-pwd" type="button" onClick={onClick}>
+                <button className="acc-save-name-pwd" type="button" onClick={onClick}>
                     저장 하기
                 </button>
             </div>
@@ -336,7 +358,7 @@ const AccountForm = () => {
                         <div className="info-detail user-name">
                             <div className="info-label user-name-label">이름</div>
                             <input className="user-name-input" type="text" value={name || ''} onChange={onChange} disabled={!nameEditOpen} />
-                            <button className="acc-save name" type="button" onClick={onClick}>
+                            <button className="acc-save-name" type="button" onClick={onClick}>
                                 {nameContext}
                             </button>
                         </div>
@@ -373,7 +395,7 @@ const AccountForm = () => {
                     </div>
                 </div>
                 <div>
-                    <button className="acc-save pw" type="button" onClick={onClick}>
+                    <button className="acc-save-pw" type="button" onClick={onClick} disabled={nameEditOpen}>
                         비밀번호 변경
                     </button>
                 </div>
