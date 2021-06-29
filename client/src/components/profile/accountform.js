@@ -21,6 +21,8 @@ const AccountForm = () => {
     const [prevnewPwCheck, setPrevNewPwCheck] = useState(false);
     const [newrenewPwCheck, setNewRenewPwCheck] = useState(true);
     const [totalCheck, setTotalCheck] = useState(true);
+    const [nameEditOpen, setNameEditOpen] = useState(false);
+    const [nameContext, setNameContext] = useState('이름 수정');
     // DB에서 현재 로그인중인 계정정보 불러오기
     useEffect(() => {
         console.log('계정정보 불러오기');
@@ -148,16 +150,27 @@ const AccountForm = () => {
         console.log('이전 비밀번호 일치여부 확인 -> 비밀번호 변경');
         // 저장 버튼 클릭 시, 이전과 새로운 비밀번호가 적절한 형식을 가지고 있는지 비교
         // 그리고 이전 비밀번호와 새로운 비밀번호의 비교, 새로운 비밀번호와 재입력한 새로운 비밀번호를 비교하여 문제가 없으면 저장
-        setTotalCheck(false);
-        if (regexpNewPwCheck && newrenewPwCheck && !prevnewPwCheck) {
-            const body = {
-                pw: prevpw,
-                token: localStorage.getItem('token'),
-            };
-            dispatch({
-                type: MYAC_SEND_PREVPW_REQUEST,
-                payload: body,
-            });
+        if (e.target.className === 'acc-save pw') {
+            setTotalCheck(false);
+            if (regexpNewPwCheck && newrenewPwCheck && !prevnewPwCheck) {
+                const body = {
+                    pw: prevpw,
+                    token: localStorage.getItem('token'),
+                };
+                dispatch({
+                    type: MYAC_SEND_PREVPW_REQUEST,
+                    payload: body,
+                });
+            }
+        } else if (e.target.className === 'acc-save name' && nameContext === '이름 수정') {
+            console.log('이름 수정하기 버튼 클릭');
+            setNameContext('취소 하기');
+            setNameEditOpen(true);
+        } else if (e.target.className === 'acc-save name' && nameContext === '취소 하기') {
+            console.log('취소하기 버튼 클릭');
+            setNameContext('이름 수정');
+            setNameEditOpen(false);
+            setName(myaccountObj.user_name);
         }
     };
 
@@ -208,6 +221,18 @@ const AccountForm = () => {
             )}
         </div>
     );
+
+    const nameEditContent = (
+        <>
+            <div className="info-detail current-pwd">
+                <div className="info-label user-password-label">현재 비번</div>
+                <input className="pwd-input" type="password" onChange={onChange} />
+                <button className="acc-save name-pwd" type="button" onClick={onClick}>
+                    저장 하기
+                </button>
+            </div>
+        </>
+    );
     return (
         <>
             <div className="acc-title">나의 계정</div>
@@ -225,18 +250,19 @@ const AccountForm = () => {
                     <div className="modify-user-info">
                         <div className="info-detail user-name">
                             <div className="info-label user-name-label">이름</div>
-                            <input className="user-name-input" type="text" value={name || ''} onChange={onChange} />
-                            {/* <div className="err-wrap">
-                            <div className="err-msg">이름을 반드시 입력해주세요.</div>
-                        </div> */}
+                            <input className="user-name-input" type="text" value={name || ''} onChange={onChange} disabled={!nameEditOpen} />
+                            <button className="acc-save name" type="button" onClick={onClick}>
+                                {nameContext}
+                            </button>
                         </div>
-                        <div className="info-detail user-email">
-                            <div className="info-label user-email-label">이메일</div>
-                            <input className="user-email-input" type="text" value={email || ''} onChange={onChange} disabled="disabled" />
-                            {/* <div className="err-wrap">
-                            <div className="err-msg">이메일 형식에 맞게 작성해주세요</div>
-                        </div> */}
-                        </div>
+                        {nameEditOpen ? (
+                            nameEditContent
+                        ) : (
+                            <div className="info-detail user-email">
+                                <div className="info-label user-email-label">이메일</div>
+                                <input className="user-email-input" type="text" value={email || ''} onChange={onChange} disabled="disabled" />
+                            </div>
+                        )}
                     </div>
                 </div>
 
@@ -262,8 +288,8 @@ const AccountForm = () => {
                     </div>
                 </div>
                 <div>
-                    <button className="acc-save" type="button" onClick={onClick}>
-                        저장
+                    <button className="acc-save pw" type="button" onClick={onClick}>
+                        비밀번호 변경
                     </button>
                 </div>
             </div>
