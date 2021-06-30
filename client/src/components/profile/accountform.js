@@ -322,7 +322,7 @@ const AccountForm = () => {
                 <div className="modify-field">
                     <div className="modify-user-img">
                         {console.log(profileImage)}
-                        {profileurl === '' || profileImage === null ? (
+                        {profileurl === '' && profileImage === null ? (
                             <div className="user-avatar-img">
                                 {/* <button
                                     type="button"
