@@ -10,7 +10,9 @@
 
 - **Qallah팀**<br />
   _아래 참여자 이름을 클릭하면, 팀원 개인 github 페이지로 이동합니다._
-  > [황현정](https://github.com/giraff) <br /> > [서충식](https://github.com/seo-rio) <br /> > [서찬식](https://github.com/coldexpression) <br />
+  > [황현정](https://github.com/giraff) <br /> 
+  > [서충식](https://github.com/seo-rio) <br /> > 
+  > [서찬식](https://github.com/coldexpression) <br />
 
 ---
 
