@@ -21,6 +21,8 @@ const ByOtherQuestion = ({ req }) => {
     // input 변경 여부
     const [inputChange, setInputChange] = useState(false);
 
+    const [inputEmptyError, setInputEmptyError] = useState(false);
+
     // 질문 불러오기 API
     const getQuestionAPI = async page => {
         try {
@@ -67,6 +69,7 @@ const ByOtherQuestion = ({ req }) => {
         const { value } = e.target;
         // 인풋창의 value 값으로 answerContent state 업데이트
         setAnswerContent(value);
+        setInputEmptyError(false);
         setInputChange(true);
     };
 
@@ -74,7 +77,7 @@ const ByOtherQuestion = ({ req }) => {
     const onClickEvent = name => {
         console.log('버튼 Click', name, currentPage);
         // 입력된 답변이 있으면
-        if (answerContent !== '') {
+        if (answerContent.trim() !== '') {
             const body = {
                 page: currentPage,
                 answerData: answerContent,
@@ -85,7 +88,21 @@ const ByOtherQuestion = ({ req }) => {
                 type: BYOTHER_UPLOAD_REQUEST,
                 payload: body,
             });
-        } else if (inputChange && answerContent === '') {
+            if (name === 'prev') {
+                if (currentPage > 1) {
+                    // 이전 페이지로 state 업데이트
+                    setCurrentPage(currentPage - 1);
+                }
+            } else if (name === 'next') {
+                if (currentPage < total) {
+                    console.log('next');
+                    // 다음 페이지 state 업데이트
+                    setCurrentPage(currentPage + 1);
+                }
+            } else if (name === 'finish') {
+                history.push('/byother/done');
+            }
+        } else if (inputChange && (answerContent.trim() === '' || answerContent === null)) {
             // 답변을 수정했는데 빈 답변이라면 DB에서 삭제
             const body = {
                 page: currentPage,
@@ -95,24 +112,13 @@ const ByOtherQuestion = ({ req }) => {
                 type: BYOTHER_DETAIL_DELETE_REQUEST,
                 payload: body,
             });
+            setInputEmptyError(true);
+        } else if (!inputChange && (answerContent.trim() === '' || answerContent === null)) {
+            // 다음 질문으로 넘어간 뒤 (빈칸인 상태) 바로 이전 질문으로 이동할 경우 예외 처리
+            setInputEmptyError(true);
         }
 
         setInputChange(false);
-
-        if (name === 'prev') {
-            if (currentPage > 1) {
-                // 이전 페이지로 state 업데이트
-                setCurrentPage(currentPage - 1);
-            }
-        } else if (name === 'next') {
-            if (currentPage < total) {
-                console.log('next');
-                // 다음 페이지 state 업데이트
-                setCurrentPage(currentPage + 1);
-            }
-        } else if (name === 'finish') {
-            history.push('/byother/done');
-        }
     };
 
     // 이동 버튼
@@ -173,6 +179,11 @@ const ByOtherQuestion = ({ req }) => {
                                     placeholder="답변을 입력해주세요"
                                 />
                             </div>
+                            {inputEmptyError ? (
+                                <div className="err-wrap">
+                                    <div className="err-msg">답변을 빈칸으로 채울 수 없습니다.</div>
+                                </div>
+                            ) : null}
                         </div>
                     </div>
                 ))()}
