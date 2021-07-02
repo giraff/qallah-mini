@@ -8,8 +8,6 @@
 
 ## 참여자
 
-수정수정
-
 - **Qallah팀**<br />
   [황현정](https://github.com/giraff) <br />
   [서충식](https://github.com/seo-rio) <br />
