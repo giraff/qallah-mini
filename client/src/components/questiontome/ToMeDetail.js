@@ -20,7 +20,6 @@ const QuestionToMeDetail = () => {
         prev_button: true,
         question_length: 0,
     });
-    const [errcheck, seterrCheck] = useState(false);
 
     // 첫 번째 useEffect는 DB에서 질문을 조회하기 위한 것
     useEffect(() => {
@@ -91,20 +90,11 @@ const QuestionToMeDetail = () => {
 
     const onChange = e => {
         const { value } = e.target;
-        console.log(value === ' ');
-        if (value === ' ') {
-            seterrCheck(true);
-            setValues({
-                ...form,
-                question_answer: '',
-            });
-        } else {
-            seterrCheck(false);
-            setValues({
-                ...form,
-                question_answer: value,
-            });
-        }
+        console.log(value);
+        setValues({
+            ...form,
+            question_answer: value,
+        });
     };
     const next_question = e => {
         e.preventDefault();
@@ -208,11 +198,6 @@ const QuestionToMeDetail = () => {
                 </div>
                 <div className="tome-answer-field">
                     <input className="answer-input" type="text" onChange={onChange} value={form.question_answer} placeholder="답변을 입력해 주세요" />
-                    {errcheck ? (
-                        <div className="err-wrap">
-                            <div className="err-msg">답변을 빈칸으로 채울 수 없습니다.</div>
-                        </div>
-                    ) : null}
                 </div>
             </div>
         </div>
