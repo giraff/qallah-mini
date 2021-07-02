@@ -52,4 +52,4 @@
 ### 시스템 아키텍처
 
 ### ER 다이어그램
-<p align='middle'><a href='./documentation/ERDiagrm.png'><img src='./documentation/ERDiagram.png' /></a></p>
+<p align='middle'><a href='https://github.com/giraff/qallah-mini/blob/main/documentation/ERDiagram.png'><img src='./documentation/ERDiagram.png' /></a></p>
