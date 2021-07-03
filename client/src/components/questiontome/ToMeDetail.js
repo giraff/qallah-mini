@@ -118,17 +118,20 @@ const QuestionToMeDetail = () => {
                 type: TOME_ANSWER_UPLOAD_REQUEST,
                 payload: body,
             });
+            console.log('잠깐 확인', QuestionObj.data);
+            setValues({
+                ...form,
+                question_seq: question_seq + 1,
+                question_context: QuestionObj.data[question_seq + 1].question_content,
+                question_answer: '',
+                next_button: false,
+                prev_button: false,
+            });
+            seterrCheck(false);
+            console.log('다음질문', form);
+        } else {
+            seterrCheck(true);
         }
-        console.log('잠깐 확인', QuestionObj.data);
-        setValues({
-            ...form,
-            question_seq: question_seq + 1,
-            question_context: QuestionObj.data[question_seq + 1].question_content,
-            question_answer: '',
-            next_button: false,
-            prev_button: false,
-        });
-        console.log('다음질문', form);
     };
 
     const prev_question = e => {
@@ -143,16 +146,19 @@ const QuestionToMeDetail = () => {
                 type: TOME_ANSWER_UPLOAD_REQUEST,
                 payload: body,
             });
+            setValues({
+                ...form,
+                question_seq: question_seq - 1,
+                question_context: QuestionObj.data[question_seq - 1].question_content,
+                question_answer: '',
+                next_button: false,
+                prev_button: question_seq - 1 === 0,
+            });
+            seterrCheck(false);
+            console.log('이전질문', form);
+        } else {
+            seterrCheck(true);
         }
-        setValues({
-            ...form,
-            question_seq: question_seq - 1,
-            question_context: QuestionObj.data[question_seq - 1].question_content,
-            question_answer: '',
-            next_button: false,
-            prev_button: question_seq - 1 === 0,
-        });
-        console.log('이전질문', form);
     };
 
     const done = e => {
@@ -168,8 +174,11 @@ const QuestionToMeDetail = () => {
                 type: TOME_ANSWER_UPLOAD_REQUEST,
                 payload: body,
             });
+            seterrCheck(false);
+            history.push(`/tome/done`);
+        } else {
+            seterrCheck(true);
         }
-        history.push(`/tome/done`);
     };
 
     const done_phr = (
