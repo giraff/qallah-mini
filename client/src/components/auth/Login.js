@@ -59,6 +59,10 @@ const Login = () => {
         });
     };
 
+    const onClick = e => {
+        e.preventDefault();
+        history.push('/register');
+    };
     return (
         <div>
             {localMsg ? <div style={{ color: 'red' }}>{localMsg}</div> : null}
@@ -69,6 +73,7 @@ const Login = () => {
                 <br />
                 <input className="login-button lang-eng" type="submit" value="LogIn" />
             </form>
+            <input className="login-button lang-eng" type="submit" value="Register" onClick={e => onClick(e)} />
         </div>
     );
 };
