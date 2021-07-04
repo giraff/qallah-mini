@@ -455,9 +455,19 @@ img {
     }
 }
 
+.register-err-field {
+    position: static;
+    display: inline-block;
+    height: 100px;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--color-main-white);
+}
+
 .register-button {
     color: var(--color-main-white);
     width: 270px;
+    margin: 17px 0px;
     background-color: var(--color-main-black);
     text-align: center;
     font-size: 20px;

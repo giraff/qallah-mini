@@ -10,7 +10,7 @@ const Register = () => {
         userName: '',
         userPassword: '',
     });
-    const [pwCheck, setPwCheck] = useState(false);
+    const [pwCheck, setPwCheck] = useState(true);
     // useSelector : isRegistied 현재 값을 참, 거짓 값으로 가져오기
     const regResult = useSelector(state => state.reg.isRegistied);
 
@@ -21,12 +21,19 @@ const Register = () => {
 
     const onChange = e => {
         const { name, value } = e.target;
-
+        if (name === 'userPassword') {
+            const pw = value;
+            const exp = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\dd$@$!%*#?&]{8,50}$/.test(pw);
+            if (!exp) {
+                setPwCheck(false);
+            } else {
+                setPwCheck(true);
+            }
+        }
         setValues({
             ...form,
             [name]: value,
         });
-        console.log(form);
     };
 
     const onSubmit = e => {
@@ -44,17 +51,6 @@ const Register = () => {
         console.log('Reg Render', regResult);
         if (regResult) history.push('/login');
     }, [regResult]);
-
-    useEffect(() => {
-        const pw = form.userPassword;
-        const exp = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\dd$@$!%*#?&]{8,50}$/.test(pw);
-        if (!exp) {
-            setPwCheck(false);
-        } else {
-            setPwCheck(true);
-        }
-        console.log('현재의 참 거부 값 =>', pwCheck);
-    }, [form.userPassword]);
 
     return (
         <div>
