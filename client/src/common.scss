@@ -455,10 +455,12 @@ img {
     }
 }
 
+.login-err-field {
+    height: 25px;
+}
+
 .register-err-field {
-    position: static;
-    display: inline-block;
-    height: 100px;
+    height: 20px;
     font-size: 20px;
     font-weight: 700;
     color: var(--color-main-white);
@@ -1356,12 +1358,13 @@ input:-webkit-autofill:active {
     position: absolute;
     bottom: -15px;
     width: 500px;
+}
 
-    .err-msg {
-        color: var(--color-main-red);
-        font-size: 14px;
-        font-weight: 500;
-    }
+.err-msg {
+    color: var(--color-main-red);
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 17px;
 }
 
 .acc-save {
