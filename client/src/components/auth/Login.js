@@ -65,12 +65,12 @@ const Login = () => {
     };
     return (
         <div>
-            {localMsg ? <div style={{ color: 'red' }}>{localMsg}</div> : null}
             <form onSubmit={e => onSubmit(e)}>
                 <input className="login-field" id="email" type="email" name="email" placeholder="email" onChange={e => onChange(e)} />
                 <br />
                 <input className="login-field" id="password" type="password" name="password" placeholder="password" onChange={e => onChange(e)} />
                 <br />
+                <div className="login-err-field">{localMsg ? <div className="err-msg">{localMsg}</div> : null}</div>
                 <input className="login-button lang-eng" type="submit" value="LogIn" />
             </form>
             <input className="login-button lang-eng" type="submit" value="Register" onClick={e => onClick(e)} />

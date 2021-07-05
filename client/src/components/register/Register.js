@@ -84,11 +84,16 @@ const Register = () => {
                     value={form.userPassword}
                     onChange={onChange}
                 />
-                <div className="register-err-field err-wrap">
-                    {/* 이 부분은 비밀번호 입력하는 input 밑에 나오는것이 아니라 홈페이지 밑부분에 출력됩니다. 수정이 필요함. */}
-                    {pwCheck ? null : <div className="err-msg">적절하지 않은 형식입니다(영문+숫자+특수문자 포함 8자리 이상)</div>}
-                </div>
                 <br />
+                <div className="register-err-field">
+                    {pwCheck ? null : (
+                        <div className="err-msg">
+                            적절하지 않은 형식입니다.
+                            <br />
+                            (영문+숫자+특수문자 포함 8~50자)
+                        </div>
+                    )}
+                </div>
                 <input className="register-button lang-eng" type="submit" value="Sign Up" disabled={!pwCheck} />
             </form>
         </div>
