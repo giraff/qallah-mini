@@ -122,9 +122,9 @@ const ByOtherQuestion = ({ req }) => {
     };
 
     // 이동 버튼
-    const bottomNav = (
-        <>
-            {currentPage === total ? (
+    function renderBottomNav() {
+        if (currentPage === total) {
+            return (
                 <>
                     <button className="move move-pre" type="button" onClick={() => onClickEvent('prev')}>
                         <i className="fas fa-chevron-left fa-3x" />
@@ -133,18 +133,28 @@ const ByOtherQuestion = ({ req }) => {
                         <i className="fas fa-check fa-3x" />
                     </button>
                 </>
-            ) : (
+            );
+        }
+        if (currentPage === 1) {
+            return (
                 <>
-                    <button className="move move-pre" type="button" onClick={() => onClickEvent('prev')}>
-                        <i className="fas fa-chevron-left fa-3x" />
-                    </button>
                     <button className="move move-next" type="button" onClick={() => onClickEvent('next')}>
                         <i className="fas fa-chevron-right fa-3x" />
                     </button>
                 </>
-            )}
-        </>
-    );
+            );
+        }
+        return (
+            <>
+                <button className="move move-pre" type="button" onClick={() => onClickEvent('prev')}>
+                    <i className="fas fa-chevron-left fa-3x" />
+                </button>
+                <button className="move move-next" type="button" onClick={() => onClickEvent('next')}>
+                    <i className="fas fa-chevron-right fa-3x" />
+                </button>
+            </>
+        );
+    }
 
     const Body = (
         <>
@@ -155,7 +165,7 @@ const ByOtherQuestion = ({ req }) => {
                             <div className="list-page-count">
                                 {questionContent.other_question_seq}/{total}
                             </div>
-                            {bottomNav}
+                            {renderBottomNav()}
                         </div>
                         <div className="progress-on">
                             <div
