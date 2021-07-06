@@ -94,19 +94,11 @@ const ReflectionDetail = () => {
     const onChange = e => {
         const { value } = e.target;
         console.log(value);
-        if (value === ' ') {
-            seterrCheck(true);
-            setValues({
-                ...form,
-                question_answer: '',
-            });
-        } else {
-            seterrCheck(false);
-            setValues({
-                ...form,
-                question_answer: value,
-            });
-        }
+        seterrCheck(false);
+        setValues({
+            ...form,
+            question_answer: value,
+        });
     };
 
     const done = e => {
@@ -117,7 +109,7 @@ const ReflectionDetail = () => {
             answer_context: form.question_answer,
             token: localStorage.getItem('token'),
         };
-        if (body.answer_context !== '') {
+        if (body.answer_context.trim() !== '') {
             dispatch({
                 type: REFL_ANSWER_UPLOAD_REQUEST,
                 payload: body,

@@ -92,19 +92,11 @@ const QuestionToMeDetail = () => {
     const onChange = e => {
         const { value } = e.target;
         console.log(value === ' ');
-        if (value === ' ') {
-            seterrCheck(true);
-            setValues({
-                ...form,
-                question_answer: '',
-            });
-        } else {
-            seterrCheck(false);
-            setValues({
-                ...form,
-                question_answer: value,
-            });
-        }
+        seterrCheck(false);
+        setValues({
+            ...form,
+            question_answer: value,
+        });
     };
     const next_question = e => {
         e.preventDefault();
@@ -113,7 +105,9 @@ const QuestionToMeDetail = () => {
             answer_context: form.question_answer,
             token: localStorage.getItem('token'),
         };
-        if (body.answer_context !== '') {
+        if (body.answer_context.trim() !== '') {
+            console.log('trim() 테스트 >>', body.answer_context.trim());
+            console.log('trim 비어있는가?? ', body.answer_context.trim() === '');
             dispatch({
                 type: TOME_ANSWER_UPLOAD_REQUEST,
                 payload: body,
@@ -141,7 +135,7 @@ const QuestionToMeDetail = () => {
             answer_context: form.question_answer,
             token: localStorage.getItem('token'),
         };
-        if (body.answer_context !== '') {
+        if (body.answer_context.trim() !== '') {
             dispatch({
                 type: TOME_ANSWER_UPLOAD_REQUEST,
                 payload: body,
@@ -169,7 +163,7 @@ const QuestionToMeDetail = () => {
             answer_context: form.question_answer,
             token: localStorage.getItem('token'),
         };
-        if (body.answer_context !== '') {
+        if (body.answer_context.trim() !== '') {
             dispatch({
                 type: TOME_ANSWER_UPLOAD_REQUEST,
                 payload: body,
