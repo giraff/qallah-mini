@@ -1095,32 +1095,49 @@ input:-webkit-autofill:active {
 
 /* Account 계정 페이지 메인 */
 
-.account-section {
-    color: var(--color-main-black);
+.banner-section {
+    width: 100%;
+    height: 90px;
+    // /    background-color: var(--color-main-heavy-purple);
+    background-color: var(--color-main-black);
 }
 
-.account-logo {
-    color: var(--color-main-black);
+#account-wrap {
+    width: 1200px;
+    margin: 0 auto;
 }
 
-.account-container {
-    margin: 100px auto;
-    min-width: 850px;
-    max-width: 850px;
-    min-height: 700px;
-    border: 1px solid var(--color-e2);
-    display: flex;
-    background-color: var(--color-main-white);
+.account-page-header {
+    width: 100%;
 }
 
-/* MyAccount */
+.acc-title {
+    margin: 10px;
+    font-weight: 900;
+    font-size: 2em;
+}
+
+.acc-header {
+    font-size: large;
+    color: var(--color-main-heavy-gray);
+    font-weight: 900;
+    padding: 15px;
+    border-bottom: 1px solid var(--color-ee);
+    width: 100%;
+}
+
 .sidebar {
-    width: 240px;
+    width: 25%;
+    float: left;
+    min-height: 900px;
     display: flex;
     flex-direction: column;
     border-right: 1px solid var(--color-e2);
+    border-left: 1px solid var(--color-e2);
+    border-bottom: 1px solid var(--color-e2);
 }
 
+// profileCommon 파일
 .profile {
     display: flex;
     flex-direction: column;
@@ -1185,25 +1202,18 @@ input:-webkit-autofill:active {
     align-items: center;
     padding: 30px;
 }
-/* MyAccount-본문 */
 
-.account-wrapper {
-    width: calc(100% - 230px);
-
-    .acc-title {
-        margin: 10px;
-        font-weight: 900;
-        font-size: 2em;
-    }
+.account-form {
+    min-height: 900px;
+    width: 75%;
+    float: left;
 }
 
-.acc-header {
+.modify-profile-header {
+    margin: 20px;
     font-size: large;
     color: var(--color-main-heavy-gray);
     font-weight: 900;
-    padding: 15px;
-    border-bottom: 1px solid var(--color-ee);
-    width: 100%;
 }
 
 .modify-field {
@@ -1441,12 +1451,12 @@ input:-webkit-autofill:active {
 
 /* MyAnswer - 본문 */
 /* content */
-.answer-content {
-    display: flex;
-    flex-direction: column;
-    width: calc(100% - 230px);
-    overflow: auto;
-}
+// .answer-content {
+//     display: flex;
+//     flex-direction: column;
+//     width: calc(100% - 230px);
+//     overflow: auto;
+// }
 
 .user-ans-title {
     margin: 10px;
@@ -1454,16 +1464,16 @@ input:-webkit-autofill:active {
     font-size: 2em;
 }
 
-.answer-content > .content {
-    margin-right: auto;
-    margin-bottom: auto;
-    margin-left: auto;
-    width: 90%;
-    height: 80%;
-    background-color: var(--color-main-white);
-    display: flex;
-    flex-direction: column;
-}
+// .answer-content > .content {
+//     margin-right: auto;
+//     margin-bottom: auto;
+//     margin-left: auto;
+//     width: 90%;
+//     height: 80%;
+//     background-color: var(--color-main-white);
+//     display: flex;
+//     flex-direction: column;
+// }
 
 .content-header {
     font-size: large;
@@ -1564,10 +1574,8 @@ svg {
 
 .my-answer-container {
     overflow: auto;
-
     display: flex;
     flex-direction: column;
-    width: calc(100% - 230px);
 }
 
 .my-answer-title {
@@ -1577,11 +1585,8 @@ svg {
 }
 
 .my-answer-content {
-    margin-bottom: auto;
-    margin-right: auto;
-    margin-left: auto;
+    margin: 5% auto;
     width: 90%;
-    height: 80%;
     background-color: var(--color-main-white);
     display: flex;
     flex-direction: column;
@@ -1597,6 +1602,7 @@ svg {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-bottom: 20px;
 }
 
 .btn-pre {
@@ -1629,7 +1635,7 @@ svg {
 
 .answers {
     background-color: var(--color-input-contrast-bg);
-    width: 90%;
+    width: 100%;
     border-radius: 10px;
     padding: 10px 0 20px 20px;
     margin: 5px 0px;
@@ -1646,6 +1652,12 @@ svg {
     margin: 10px 0px;
 }
 
+@media (max-width: 1240px) {
+    // 나의 계정 페이지
+    #account-wrap {
+        width: 100%;
+    }
+}
 // 화면 영역 너비 0 ~ 960px : 타블렛
 @media (max-width: 960px) {
     // 헤더의 하위 메뉴 숨기기
@@ -1661,6 +1673,16 @@ svg {
         width: 48%;
         height: 200px;
     }
+
+    // 나의 계정 페이지
+    .sidebar {
+        width: 100%;
+        min-height: 300px;
+    }
+
+    .account-form {
+        width: 100%;
+    }
 }
 
 // 화면 영역 너비 0 ~ 560px : 휴대용 기기
@@ -1669,6 +1691,9 @@ svg {
         width: 98%;
         line-height: 200px;
         vertical-align: middle;
+    }
+    .modify-field {
+        flex-direction: column;
     }
 }
 
