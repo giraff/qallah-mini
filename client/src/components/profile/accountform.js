@@ -316,9 +316,8 @@ const AccountForm = () => {
     );
     return (
         <>
-            <div className="acc-title">나의 계정</div>
             <div className="acc-content">
-                <div className="acc-header">내 프로필</div>
+                <div className="modify-profile-header">프로필 수정</div>
                 <div className="modify-field">
                     <div className="modify-user-img">
                         {console.log(profileImage)}

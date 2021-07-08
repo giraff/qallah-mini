@@ -22,7 +22,6 @@ const AnswerDetailComponent = ({ query }) => {
     }, []);
     return (
         <div className="my-answer-container">
-            <div className="my-answer-title">나의 답변</div>
             <div className="my-answer-content">
                 <div className="my-answer-header">
                     <button className="nav-btn btn-pre" type="button" onClick={() => history.goBack()}>
