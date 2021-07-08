@@ -17,7 +17,7 @@ const Header = () => {
         <>
             <nav className="header-nav">
                 <ul>
-                    <li className="nav-item">
+                    <li className="nav-logo">
                         <Link to="/">
                             <h1 className="logo">Qallah</h1>
                         </Link>
@@ -61,7 +61,7 @@ const Header = () => {
         <>
             <nav className="header-nav">
                 <ul>
-                    <li className="nav-item">
+                    <li className="nav-logo">
                         <Link to="/">
                             <h1 className="logo">Qallah</h1>
                         </Link>
