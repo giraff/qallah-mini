@@ -1,11 +1,13 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { LOGOUT_REQUEST } from '../../redux/types';
 
 const Header = () => {
     const dispatch = useDispatch();
+    const history = useHistory();
     const { isAuthenticated } = useSelector(state => state.auth);
+    const [menuOpen, setMenuOpen] = useState(false);
     const onLogout = useCallback(() => {
         // 메모제이션된 콜백을 반환한다.
         dispatch({
@@ -13,10 +15,27 @@ const Header = () => {
         });
     }, [dispatch]);
 
+    const handleClickEvent = () => {
+        setMenuOpen(false);
+    };
+    useEffect(() => {
+        setMenuOpen(false);
+    }, [isAuthenticated, dispatch, history]);
+
     const authLink = (
         <>
             <nav className="header-nav">
                 <ul>
+                    <li className="hidden bars">
+                        <i
+                            aria-label="text"
+                            className="fas fa-bars fa-2x"
+                            onClick={() => setMenuOpen(true)}
+                            role="button"
+                            tabIndex={0}
+                            onKeyDown={() => setMenuOpen(true)}
+                        />
+                    </li>
                     <li className="nav-logo">
                         <Link to="/">
                             <h1 className="logo">Qallah</h1>
@@ -46,11 +65,11 @@ const Header = () => {
                                 </Link>
                             </div>
                         </div>
-                        {/* <li className="nav-item-gnb">
-                        <Link onClick={onLogout} to="/">
-                            <div id="nav-logout">logout</div>
+                    </li>
+                    <li className="hidden nav-logo-q">
+                        <Link to="/" onClick={() => handleClickEvent()}>
+                            <h1 className="logo">Q</h1>
                         </Link>
-    </li> */}
                     </li>
                 </ul>
             </nav>
@@ -61,6 +80,16 @@ const Header = () => {
         <>
             <nav className="header-nav">
                 <ul>
+                    <li className="hidden bars">
+                        <i
+                            aria-label="text"
+                            className="fas fa-bars fa-2x"
+                            onClick={() => setMenuOpen(true)}
+                            role="button"
+                            tabIndex={0}
+                            onKeyDown={() => setMenuOpen(true)}
+                        />
+                    </li>
                     <li className="nav-logo">
                         <Link to="/">
                             <h1 className="logo">Qallah</h1>
@@ -71,11 +100,113 @@ const Header = () => {
                             <div id="nav-login">Login</div>
                         </Link>
                     </li>
+                    <li className="hidden nav-logo-q">
+                        <Link to="/" onClick={() => handleClickEvent()}>
+                            <h1 className="logo">Q</h1>
+                        </Link>
+                    </li>
                 </ul>
             </nav>
         </>
     );
-    return <header id="header">{isAuthenticated ? authLink : guestLink}</header>;
+    return (
+        <header id="header">
+            {isAuthenticated ? authLink : guestLink}
+            <div className={`menu-wrap ${menuOpen ? 'MenuOpen' : ''}`}>
+                <i
+                    aria-label="text"
+                    className="fas fa-bars fa-2x"
+                    onClick={() => {
+                        setMenuOpen(false);
+                        console.log('click');
+                    }}
+                    role="button"
+                    tabIndex={0}
+                    onKeyDown={() => setMenuOpen(false)}
+                />
+                <div className="menu-inner">
+                    {/* 로그아웃 상태 */}
+                    {isAuthenticated ? (
+                        <>
+                            <ul>
+                                <li className="menu-item">
+                                    <Link to="/tome" onClick={() => handleClickEvent()}>
+                                        내가 보는 나
+                                    </Link>
+                                </li>
+                                <li className="menu-item">
+                                    <Link to="/byother" onClick={() => handleClickEvent()}>
+                                        남이 보는 나
+                                    </Link>
+                                </li>
+                                <li className="menu-item">
+                                    <Link to="/experience" onClick={() => handleClickEvent()}>
+                                        내가 한 경험
+                                    </Link>
+                                </li>
+                                <li className="menu-item">
+                                    <Link to="/refl" onClick={() => handleClickEvent()}>
+                                        인생의 성찰
+                                    </Link>
+                                </li>
+                                <li className="menu-item">
+                                    <Link to="/profile" onClick={() => handleClickEvent()}>
+                                        <div className="tool-tip-mypage">마이 페이지</div>
+                                    </Link>
+                                </li>
+                            </ul>
+                            <div className="menu-user-wrap">
+                                <div className="user-name-wrap">
+                                    <Link onClick={onLogout} to="/">
+                                        <span>
+                                            <i className="fas fa-sign-out-alt" />
+                                        </span>
+                                        &nbsp; LOGOUT
+                                    </Link>
+                                </div>
+                            </div>
+                        </>
+                    ) : (
+                        <>
+                            <ul>
+                                <li className="menu-item">
+                                    <Link to="/login" onClick={() => handleClickEvent()}>
+                                        내가 보는 나
+                                    </Link>
+                                </li>
+                                <li className="menu-item">
+                                    <Link to="/login" onClick={() => handleClickEvent()}>
+                                        남이 보는 나
+                                    </Link>
+                                </li>
+                                <li className="menu-item">
+                                    <Link to="/login" onClick={() => handleClickEvent()}>
+                                        내가 한 경험
+                                    </Link>
+                                </li>
+                                <li className="menu-item">
+                                    <Link to="/login" onClick={() => handleClickEvent()}>
+                                        인생의 성찰
+                                    </Link>
+                                </li>
+                            </ul>
+                            <div className="menu-user-wrap">
+                                <div className="user-name-wrap">
+                                    <Link to="/login" onClick={() => handleClickEvent()}>
+                                        <span>
+                                            <i className="fas fa-user" />
+                                        </span>
+                                        &nbsp; Login
+                                    </Link>
+                                </div>
+                            </div>
+                        </>
+                    )}
+                    {/* 로그인 상태 */}
+                </div>
+            </div>
+        </header>
+    );
 };
 
 export default Header;
