@@ -3,17 +3,9 @@ import { all, call, fork, put, takeEvery } from 'redux-saga/effects';
 import axios from 'axios';
 
 /** REGISTER : 서버와 통신 필요함 */
-const regUserAPI = regData => {
-    console.log('regUserAPI 발동 -> axios.post 요청 보냄');
-    console.log(regData, 'regSaga/regData');
-    const config = {
-        headers: {
-            'Content-type': 'application/json',
-        },
-    };
+const regUserAPI = regData =>
     // server측으로 post 요청 (express가 받고 router 처리)
-    return axios.post('/api/user/register', regData, config);
-};
+    axios.post('/api/user/register', regData);
 
 function* regUser(action) {
     console.log('regUser(action) 발동');
