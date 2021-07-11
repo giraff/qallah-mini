@@ -131,13 +131,7 @@ const ReflectionDetail = () => {
         <div className="list-container tome-list-container">
             {/* <div>{form.question_seq+1}. {form.question_context}</div><br/> */}
             {/* <input onChange={onChange}  value={form.question_answer} placeholder="답변을 입력해 주세요"></input> */}
-            <div className="move-wrap">
-                <div className="list-page-count">{`${1}`}/1</div>
-                {done_phr}
-            </div>
-            <div className="progress-on">
-                <div className="progress-bar" style={{ width: `${(1 / 1) * 100}%`, backgroundColor: '#7b5e9e' }} />
-            </div>
+            <div className="move-wrap">{done_phr}</div>
             <div className="tome-qna">
                 <div className="tome-question-field">
                     {/* <div className="tome-question-num">{form.question_seq + 1}.&nbsp;</div> */}
