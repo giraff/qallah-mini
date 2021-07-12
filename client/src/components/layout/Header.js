@@ -1,7 +1,7 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { LOGOUT_REQUEST } from '../../redux/types';
+import { LOGOUT_REQUEST, MYAC_RECEIVE_REQUEST } from '../../redux/types';
 
 const Header = () => {
     const dispatch = useDispatch();
@@ -13,6 +13,17 @@ const Header = () => {
         });
     }, [dispatch]);
 
+    useEffect(() => {
+        const body = {
+            token: localStorage.getItem('token'),
+        };
+        dispatch({
+            type: MYAC_RECEIVE_REQUEST,
+            payload: body,
+        });
+    }, []);
+
+    const myaccountObj = useSelector(state => state.myac.payload);
     const authLink = (
         <>
             <nav className="header-nav">
@@ -36,7 +47,15 @@ const Header = () => {
                     </li>
                     <li className="nav-item-gnb">
                         <div className="tool-tip-box">
-                            프로필 이미지
+                            <div className="nav-profile">
+                                <div className="nav-img-profile">
+                                    {myaccountObj && myaccountObj.profileImage !== null ? (
+                                        <img src={myaccountObj && myaccountObj.profileImage} alt="profile" />
+                                    ) : (
+                                        <div className="empty-image" />
+                                    )}
+                                </div>
+                            </div>
                             <div className="tool-tip-content">
                                 <Link to="/profile">
                                     <div className="tool-tip-mypage">마이페이지</div>
