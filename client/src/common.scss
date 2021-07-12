@@ -47,7 +47,11 @@
     --font-eng: 'Open Sans', sans-serif;
     --font-eng-title: 'Noto Serif', serif;
 }
-
+html,
+body {
+    width: 100%;
+    overflow-x: hidden;
+}
 body {
     margin: 0;
     -webkit-font-smoothing: antialiased;
@@ -127,9 +131,34 @@ img {
         }
 
         .nav-item-gnb {
-            margin: auto 0px auto auto;
+            position: absolute;
+            right: 30px;
+            padding: 20px;
+            // margin: auto 0px auto auto;
         }
     }
+}
+
+.header-nav > ul > .hidden {
+    display: none;
+    cursor: pointer;
+}
+
+.header-nav > ul > .bars {
+    width: 62px;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    text-align: center;
+    padding: 13px;
+}
+
+.header-nav > ul > .nav-logo-q {
+    position: absolute;
+    right: 24px;
+    top: 6px;
+    z-index: 1000;
 }
 
 /* logout 상태 - 로그인 버튼 표시 */
@@ -149,7 +178,56 @@ img {
         transition: 0.1s;
     }
 }
+.menu-wrap {
+    position: fixed;
+    left: 0;
+    top: 0px;
+    right: 0;
+    bottom: 0;
+    display: none;
+    background: rgba(0, 0, 0, 0.8);
+}
 
+.menu-wrap > i {
+    text-align: center;
+    width: 62px;
+    left: 0;
+    top: 0;
+    padding: 13px;
+    cursor: pointer;
+}
+
+.MenuOpen {
+    display: block;
+}
+
+.menu-inner {
+    background-color: var(--color-main-black);
+    width: 100%;
+    max-width: 320px;
+    height: 100%;
+    overflow: hidden;
+}
+
+.menu-item {
+    width: 100%;
+    line-height: 60px;
+    padding-left: 20px;
+    border-bottom: 1px solid black;
+    color: #ccc;
+    cursor: pointer;
+}
+
+.menu-user-wrap {
+    padding: 20px;
+}
+
+.user-name-wrap {
+    color: #bbb;
+    font-size: 16px;
+    margin-bottom: 32px;
+    cursor: pointer;
+}
 /* login 상태 - 프로필 이미지 표시 */
 
 .profile-picture {
@@ -1127,6 +1205,7 @@ input:-webkit-autofill:active {
 }
 
 .sidebar {
+    min-height: 1080px;
     width: 25%;
     float: left;
     min-height: 900px;
@@ -1231,6 +1310,7 @@ input:-webkit-autofill:active {
 }
 
 .account-form {
+    min-height: 1080px;
     min-height: 900px;
     width: 75%;
     float: left;
@@ -1686,19 +1766,43 @@ svg {
     }
 }
 // 화면 영역 너비 0 ~ 960px : 타블렛
+
 @media (max-width: 960px) {
-    // 헤더의 하위 메뉴 숨기기
-    .header-nav > ul > li:nth-child(2),
-    .header-nav > ul > li:nth-child(3),
-    .header-nav > ul > li:nth-child(4),
-    .header-nav > ul > li:nth-child(5) {
-        display: none;
+    .logo {
+        font-size: 2.5em;
+    }
+    .header-nav ul .nav-item {
+        margin: 18px 10px;
+        font-size: 14px;
     }
 
     // 메인의 question list 2개씩 띄우기
     .q-nav > ul > li {
         width: 48%;
         height: 200px;
+    }
+}
+@media (min-width: 768px) {
+    .menu-wrap {
+        display: none;
+    }
+}
+
+// 화면 영역 너비 0 ~ 960px : 타블렛
+@media (max-width: 760px) {
+    // 헤더의 하위 메뉴 숨기기
+    .header-nav > ul > .nav-logo,
+    .header-nav > ul > .nav-item,
+    .header-nav > ul > .nav-item-gnb {
+        display: none;
+    }
+
+    .header-nav > ul > .hidden {
+        display: block;
+    }
+
+    .MenuOpen {
+        display: block;
     }
 
     // 나의 계정 페이지
@@ -1731,10 +1835,9 @@ svg {
     }
 
     // 헤더의 하위 메뉴 숨기기
-    .header-nav > ul > li:nth-child(2),
-    .header-nav > ul > li:nth-child(3),
-    .header-nav > ul > li:nth-child(4),
-    .header-nav > ul > li:nth-child(5) {
+    .header-nav > ul > .nav-logo,
+    .header-nav > ul > .nav-item,
+    .header-nav > ul > .nav-item-gnb {
         display: none;
     }
 
@@ -1744,5 +1847,13 @@ svg {
     .main-question-list {
         width: 90%;
         padding: 5%;
+    }
+
+    .header-nav > ul > .hidden {
+        display: block;
+    }
+
+    .MenuOpen {
+        display: block;
     }
 }
