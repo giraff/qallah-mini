@@ -1001,6 +1001,14 @@ input:-webkit-autofill:active {
     }
 }
 
+.exp-content {
+    height: 600px;
+}
+
+.exp-footer {
+    margin: 10px;
+}
+
 .exp-start {
     display: flex;
     justify-content: center;
@@ -1826,8 +1834,21 @@ svg {
     .modify-field {
         flex-direction: column;
     }
+    // 경험 페이지 제목 설정
+    .exp-header > h1 {
+        font-size: 1.5em;
+    }
 }
 
+@media (max-height: 800px) {
+    .exp-content {
+        height: 400px;
+    }
+    // 경험 페이지 제목 설정
+    .exp-header > h1 {
+        font-size: 2em;
+    }
+}
 @media (max-height: 480px) {
     // 메인 배너 숨기기
     .main > section:nth-child(1) {
