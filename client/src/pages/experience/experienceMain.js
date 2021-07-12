@@ -84,7 +84,7 @@ const experienceMain = () => {
             createStoryJS({
                 type: 'timeline',
                 width: '100%',
-                height: '700',
+                height: '100%',
                 lang:'ko',
                 font:'PlayfairDisplay-Muli',
                 start_zoom_adjust:'0',	
