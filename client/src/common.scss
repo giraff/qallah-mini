@@ -133,7 +133,7 @@ img {
         .nav-item-gnb {
             position: absolute;
             right: 30px;
-            padding: 20px;
+            padding: 0px;
             // margin: auto 0px auto auto;
         }
     }
@@ -228,24 +228,11 @@ img {
     margin-bottom: 32px;
     cursor: pointer;
 }
-/* login 상태 - 프로필 이미지 표시 */
-
-.profile-picture {
-    width: 55px;
-    height: 55px;
-    margin: auto;
-    background: var(--image-profile) no-repeat center/cover;
-    z-index: 10;
-    border-radius: 50%;
-}
-
-.profile-picture:hover {
-    cursor: pointer;
-}
 
 /* tooltip box */
 .tool-tip-box {
     display: inline-block;
+    width: 100px;
     color: white;
     font-family: var(--font-kor);
 }
