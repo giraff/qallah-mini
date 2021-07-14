@@ -96,7 +96,6 @@ img {
 #wrapper {
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
 }
 
 #header {
@@ -133,7 +132,6 @@ img {
         .nav-item-gnb {
             position: absolute;
             right: 30px;
-            padding: 0px;
             // margin: auto 0px auto auto;
         }
     }
@@ -151,18 +149,34 @@ img {
     left: 0;
     top: 0;
     text-align: center;
-    padding: 13px;
+    padding: 30px;
 }
 
 .header-nav > ul > .nav-logo-q {
     position: absolute;
     right: 24px;
-    top: 6px;
+    top: 25px;
     z-index: 1000;
 }
 
 /* logout 상태 - 로그인 버튼 표시 */
-#nav-login,
+#nav-login {
+    display: flex;
+    align-items: center;
+    border: 2px solid var(--color-main-white);
+    border-radius: 10px;
+    min-height: 40px;
+    height: 40px;
+    padding: 0 15px;
+    margin: 10px;
+
+    &:hover {
+        border: 2px solid var(--color-main-gray);
+        color: var(--color-main-gray);
+        transition: 0.1s;
+    }
+}
+
 #nav-logout {
     display: flex;
     align-items: center;
@@ -193,7 +207,7 @@ img {
     width: 62px;
     left: 0;
     top: 0;
-    padding: 13px;
+    padding: 30px;
     cursor: pointer;
 }
 
@@ -240,11 +254,13 @@ img {
 .tool-tip-content {
     display: none;
     position: absolute;
-    max-width: 300px;
+    // 브라우저 최소 크기 고려하여 width값 조정
+    min-width: 100px;
+    right: 0px;
     border-radius: 5px;
     padding: 10px;
     font-family: var(--font-kor);
-    font-size: 1em;
+
     line-height: 25px;
     color: white;
     background: var(--color-overlay-black);
@@ -260,6 +276,10 @@ img {
 
 .tool-tip-box:hover .tool-tip-content {
     display: block;
+}
+
+.tool-tip-content > a > div {
+    text-align: center; // 텍스트 수평 정렬
 }
 /* footer */
 #footer {
@@ -608,7 +628,8 @@ input:-webkit-autofill:active {
     .q-main-content {
         background-color: var(--color-overlay-black);
         padding: 20px;
-        min-width: 300px;
+        // 브라우저 최소 크기 고려하여 조정
+        min-width: 280px;
         text-align: center;
 
         & > div {
@@ -916,7 +937,7 @@ input:-webkit-autofill:active {
     padding: 20px;
     margin: auto;
     width: 500px;
-    min-width: 400px;
+    min-width: 300px;
     max-width: 800px;
     border-radius: 10px;
     box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
@@ -1178,6 +1199,8 @@ input:-webkit-autofill:active {
 #account-wrap {
     width: 1200px;
     margin: 0 auto;
+    // Footer CSS 에러 개선 : account 페이지 최소 크기로 브라우저 화면 폭 설정
+    min-height: 100vh;
 }
 
 .account-page-header {
@@ -1185,16 +1208,16 @@ input:-webkit-autofill:active {
 }
 
 .acc-title {
-    margin: 10px;
     font-weight: 900;
     font-size: 2em;
+    padding: 20px;
 }
 
 .acc-header {
     font-size: large;
     color: var(--color-main-heavy-gray);
     font-weight: 900;
-    padding: 15px;
+    padding: 15px 20px;
     border-bottom: 1px solid var(--color-ee);
     width: 100%;
 }
@@ -1311,6 +1334,67 @@ input:-webkit-autofill:active {
     float: left;
 }
 
+// Account Modal
+// 모달 팝업을 감쌀 오버레이 CSS
+.account-modal-overlay {
+    //배경색과 투명도로 살짝 어둡지만 투명한 배경
+    //허공에 붕 떠있는 느낌을 주고 싶으면 안넣어도 무방
+    background-color: rgba(0, 0, 0, 0.1);
+    justify-content: center; //수평 중앙정렬
+    align-items: center; //수직 중앙정렬
+    position: fixed; // 포지션 픽스, 화면이 스크롤되더라도 고정되기 위함
+    //모든 방향에 0을 주면 화면에 꽉차게 됩니다.
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    // 패딩 값
+    padding-top: 50px;
+    // z 좌표에서 상단으로 띄움 (오버레이 기본 설정)
+    z-index: 10;
+}
+
+// 모달 팝업 몸체 CSS
+.account-modal-wrap {
+    // position: absolute;
+    background-color: white;
+    padding: 20px;
+    margin: auto;
+    width: 100%;
+    // min-width: 320px;
+    max-width: 400px;
+    border-radius: 10px;
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
+    z-index: 999;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: hidden;
+    line-height: 25px;
+}
+
+// 모달 팝업 내 헤더 CSS
+.account-modal-header {
+    font-size: large;
+    font-weight: bold;
+}
+
+// 모달 팝업 내 버튼 CSS
+.account-modal-button {
+    padding: 5px;
+    margin: 30px auto 0px auto;
+    border: #769ea5;
+    border-radius: 5px;
+    font-size: 15px;
+    width: 50%;
+    // 버튼 위에 커서 올릴 때 효과
+    &:hover {
+        background-color: var(--color-main-heavy-gray);
+        transition: 0.3s;
+        color: var(--color-main-white);
+    }
+}
+
 .modify-profile-header {
     margin: 20px;
     font-size: large;
@@ -1320,7 +1404,6 @@ input:-webkit-autofill:active {
 
 .modify-field {
     display: flex;
-    align-items: center;
 }
 
 .user-avatar-img {
@@ -1331,20 +1414,23 @@ input:-webkit-autofill:active {
     height: 200px;
     position: relative;
     margin: 20px 0 0 30px;
+}
 
-    .ab-avatar {
-        position: absolute;
-        bottom: 0px;
-        background-color: var(--color-main-white);
-        border: 1px solid var(--color-e2);
-        border-radius: 50%;
-        padding: 10px;
-        cursor: pointer;
-    }
+.user-avatar {
+    position: relative;
+    width: 200px;
+    margin: 0px 30px;
+}
 
-    .user-avatar-edit {
-        right: 0px;
-    }
+.ab-avatar {
+    position: absolute;
+    bottom: 15px;
+    right: 0px;
+    background-color: var(--color-main-white);
+    border: 1px solid var(--color-e2);
+    border-radius: 50%;
+    padding: 10px;
+    cursor: pointer;
 }
 
 .user-img {
@@ -1353,32 +1439,37 @@ input:-webkit-autofill:active {
     width: 200px;
     height: 200px;
     position: relative;
-    margin: 20px 0 0 30px;
+    // margin: 20px 0 0 30px;
 }
 
 .modify-user-info {
-    margin: 0px 30px;
+    margin: 10px;
 }
 
 .info-detail {
-    margin: 30px 0px;
+    margin: 30px 5px;
     position: relative;
+}
 
-    & > input {
-        background-color: var(--color-input-contrast-bg);
-        border: 1px solid var(--color-e2);
-        width: 200px;
-        height: 30px;
-        border-radius: 5px;
-        font-family: var(--font-kor);
-        line-height: 20px;
-        padding-left: 5px;
+.user-name {
+    min-width: 100px;
+}
 
-        &:focus {
-            background-color: var(--color-main-white);
-            outline: none;
-            box-shadow: 0px 1px 0 rgba(225, 228, 232, 0.2);
-        }
+.user-email-input,
+.user-name-input {
+    background-color: var(--color-input-contrast-bg);
+    border: 1px solid var(--color-e2);
+    width: 200px;
+    height: 30px;
+    border-radius: 5px;
+    font-family: var(--font-kor);
+    line-height: 20px;
+    padding-left: 5px;
+
+    &:focus {
+        background-color: var(--color-main-white);
+        outline: none;
+        box-shadow: 0px 1px 0 rgba(225, 228, 232, 0.2);
     }
 }
 
@@ -1391,7 +1482,6 @@ input:-webkit-autofill:active {
 .modify-pwd {
     border-top: 1px solid var(--color-ee);
     margin: 10px;
-    padding: 10px;
 
     .pwd-title {
         font-size: large;
@@ -1495,16 +1585,11 @@ input:-webkit-autofill:active {
 }
 
 .acc-save-name {
-    display: block;
     width: 100px;
     height: 35px;
-    align-items: center;
-    justify-content: center;
-    color: #cecece;
     border: 1px solid var(--color-e2);
-    background-color: var(--color-main-white);
-    margin: 10px 10px 10px 200px;
     font-size: 15px;
+    margin: 0px 10px;
 
     &:enabled {
         transition: 0.3s;
@@ -1533,15 +1618,12 @@ input:-webkit-autofill:active {
 }
 
 .acc-save-name-pwd {
-    display: flex;
     width: 100px;
     height: 35px;
-    align-items: center;
-    justify-content: center;
     color: #cecece;
     border: 1px solid var(--color-e2);
     background-color: var(--color-main-white);
-    margin: auto 10px 10px auto;
+    margin: 0px 10px;
     font-size: 15px;
 
     &:enabled {
@@ -1715,6 +1797,7 @@ svg {
     width: 40px;
     height: 40px;
     border-radius: 50%;
+    border: outset;
     color: var(--color-main-heavy-gray);
 }
 
@@ -1739,7 +1822,7 @@ svg {
     background-color: var(--color-input-contrast-bg);
     width: 100%;
     border-radius: 10px;
-    padding: 10px 0 20px 20px;
+    padding: 15px;
     margin: 5px 0px;
 }
 
@@ -1750,6 +1833,7 @@ svg {
 }
 
 .answer-elem {
+    line-height: 27px;
     font-size: 17px;
     margin: 10px 0px;
 }
@@ -1775,6 +1859,11 @@ svg {
     .q-nav > ul > li {
         width: 48%;
         height: 200px;
+    }
+
+    // 프로필 이미지 뭉개지는 것 방지
+    .modify-field {
+        flex-direction: column;
     }
 }
 @media (min-width: 768px) {
@@ -1818,12 +1907,37 @@ svg {
         line-height: 200px;
         vertical-align: middle;
     }
-    .modify-field {
-        flex-direction: column;
-    }
     // 경험 페이지 제목 설정
     .exp-header > h1 {
         font-size: 1.5em;
+    }
+
+    // 마이 페이지 edit 버튼
+    .acc-save-pw {
+        width: 94%;
+        margin: 10px;
+        height: 40px;
+        border-radius: 5px;
+    }
+
+    .acc-save-name,
+    .acc-save-name-pwd {
+        border-radius: 5px;
+        margin: 10px auto;
+        width: 100%;
+    }
+
+    .user-avatar {
+        margin: 0 auto;
+    }
+
+    // 마이 페이지 input 창 CSS
+    .user-name-input,
+    .user-email-input,
+    .pwd-input,
+    .new-pwd-input,
+    .re-new-pwd-input {
+        width: 100%;
     }
 }
 

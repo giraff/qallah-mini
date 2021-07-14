@@ -11,6 +11,8 @@ import {
     MYAC_PROFILE_IMAGE_UPDATE_REQUEST,
     MYAC_PROFILE_IMAGE_DELETE_REQUEST,
 } from 'redux/types';
+// 계정 페이지 모달 Import
+import AccountModal from '../../common/modal/AccountModal';
 
 const AccountForm = () => {
     const myaccountObj = useSelector(state => state.myac.payload);
@@ -32,6 +34,10 @@ const AccountForm = () => {
     const [totalCheck, setTotalCheck] = useState(true);
     const [nameEditOpen, setNameEditOpen] = useState(false);
     const [nameContext, setNameContext] = useState('이름 수정');
+    // 계정 페이지 Modal
+    const [showModal, setShowModal] = useState(false);
+    const [modalMsg, setModalMsg] = useState('');
+
     // DB에서 현재 로그인중인 계정정보 불러오기
     useEffect(() => {
         console.log('계정정보 불러오기');
@@ -90,17 +96,6 @@ const AccountForm = () => {
         }
     }, [myaccountObj]);
 
-    // 이전 비밀번호가 적절한 형식의 비밀번호를 갖추었는지 확인
-    /* useEffect(() => {
-        const pw = prevpw;
-        const exp = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\dd$@$!%*#?&]{8,50}$/.test(pw);
-        if (!exp) {
-            setExpPrevPwCheck(false);
-        } else {
-            setExpPrevPwCheck(true);
-        }
-    }, [prevpw]); */
-
     // 새로운 비밀번호가 적절한 형식의 비밀번호를 갖추었는지 확인
     useEffect(() => {
         const pw = newpw;
@@ -129,25 +124,6 @@ const AccountForm = () => {
             setNewRenewPwCheck(false);
         }
     });
-
-    // 저장버튼 활성화/비활성화 여부 확인
-    /* useEffect(() => {
-        if (
-            regexpPrevPwCheck &&
-            regexpNewPwCheck &&
-            !prevnewPwCheck &&
-            newrenewPwCheck &&
-            name !== '' &&
-            email !== '' &&
-            prevpw !== '' &&
-            newpw !== '' &&
-            re_newpw !== ''
-        ) {
-            setSaveActive(true);
-        } else {
-            setSaveActive(false);
-        }
-    }); */
 
     // 프로필이 성공적으로 업데이트 되었을 때,
     useEffect(() => {
@@ -203,11 +179,9 @@ const AccountForm = () => {
                 payload: body,
             });
         } else if (e.target.className === 'acc-save-name' && nameContext === '이름 수정') {
-            console.log('이름 수정하기 버튼 클릭');
             setNameContext('취소 하기');
             setNameEditOpen(true);
         } else if (e.target.className === 'acc-save-name' && nameContext === '취소 하기') {
-            console.log('취소하기 버튼 클릭');
             setNameContext('이름 수정');
             setNameEditOpen(false);
             setName(myaccountObj.user_name);
@@ -215,23 +189,23 @@ const AccountForm = () => {
     };
 
     const imgRef = useRef();
-    const deleteImgRef = useRef();
+    // const deleteImgRef = useRef();
 
     const handleClickUploadImage = () => {
         imgRef.current.click();
     };
-    const handleClickDeleteImage = e => {
-        e.preventDefault();
-        deleteImgRef.current.click();
-    };
-    const handleDeleteImage = () => {
-        console.log('delete?');
-        const token = localStorage.getItem('token');
-        dispatch({
-            type: MYAC_PROFILE_IMAGE_DELETE_REQUEST,
-            payload: token,
-        });
-    };
+    // const handleClickDeleteImage = e => {
+    //     e.preventDefault();
+    //     deleteImgRef.current.click();
+    // };
+    // const handleDeleteImage = () => {
+    //     console.log('delete?');
+    //     const token = localStorage.getItem('token');
+    //     dispatch({
+    //         type: MYAC_PROFILE_IMAGE_DELETE_REQUEST,
+    //         payload: token,
+    //     });
+    // };
 
     const handleChangeImage = async e => {
         console.log('handleChangeImage => ', e.target.value);
@@ -258,13 +232,23 @@ const AccountForm = () => {
                         type: MYAC_PROFILE_IMAGE_UPDATE_REQUEST,
                         payload: body,
                     });
+
+                    setShowModal(true);
                 } else {
                     console.warn('이미지의 크기는 최대 5MB를 초과할 수 없습니다.다른 이미지를 선택해주세요');
+                    setShowModal(true);
+                    setModalMsg('이미지의 크기는 최대 5MB를 초과할 수 없습니다.다른 이미지를 선택해주세요');
                 }
             } else {
                 console.warn('이미지는 JPG, JPEG, PNG 확장자만 가능합니다.');
+                setShowModal(true);
+                setModalMsg('이미지는 JPG, JPEG, PNG 확장자만 가능합니다.');
             }
-        } else console.warn('이미지 파일이 아닙니다.');
+        } else {
+            console.warn('이미지 파일이 아닙니다.');
+            setShowModal(true);
+            setModalMsg('이미지 파일이 아닙니다.');
+        }
     };
     const compareprevDB = <>{myaccountSendChk ? null : <div className="err-msg">비밀번호를 다시 확인해 주세요.</div>}</>;
 
@@ -317,6 +301,8 @@ const AccountForm = () => {
     return (
         <>
             <div className="acc-content">
+                {/* account 페이지 Modal */}
+                {showModal ? <AccountModal modalMsg={modalMsg} setShowModal={setShowModal} setModalMsg={setModalMsg} /> : null}
                 <div className="modify-profile-header">프로필 수정</div>
                 <div className="modify-field">
                     <div className="modify-user-img">
