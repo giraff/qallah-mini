@@ -76,7 +76,7 @@ const Header = () => {
                                     )}
                                 </div>
                             </div>
-                            <div className="tool-tip-content">
+                            <div className="tool-tip-content lang-kor">
                                 <Link to="/profile">
                                     <div className="tool-tip-mypage">마이페이지</div>
                                 </Link>
@@ -149,29 +149,29 @@ const Header = () => {
                     {isAuthenticated ? (
                         <>
                             <ul>
-                                <li className="menu-item">
+                                <li>
                                     <Link to="/tome" onClick={() => handleClickEvent()}>
-                                        내가 보는 나
+                                        <div className="menu-item">내가 보는 나</div>
                                     </Link>
                                 </li>
-                                <li className="menu-item">
+                                <li>
                                     <Link to="/byother" onClick={() => handleClickEvent()}>
-                                        남이 보는 나
+                                        <div className="menu-item">남이 보는 나</div>
                                     </Link>
                                 </li>
-                                <li className="menu-item">
+                                <l>
                                     <Link to="/experience" onClick={() => handleClickEvent()}>
-                                        내가 한 경험
+                                        <div className="menu-item">내가 한 경험</div>
                                     </Link>
-                                </li>
-                                <li className="menu-item">
+                                </l>
+                                <li>
                                     <Link to="/refl" onClick={() => handleClickEvent()}>
-                                        인생의 성찰
+                                        <div className="menu-item">인생의 성찰</div>
                                     </Link>
                                 </li>
-                                <li className="menu-item">
+                                <li>
                                     <Link to="/profile" onClick={() => handleClickEvent()}>
-                                        <div className="tool-tip-mypage">마이 페이지</div>
+                                        <div className="menu-item">마이 페이지</div>
                                     </Link>
                                 </li>
                             </ul>
