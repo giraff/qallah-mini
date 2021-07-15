@@ -87,10 +87,7 @@ const myacReducer = (state = initalState, action) => {
             };
         case MYAC_INIT:
             return {
-                isMyAccountReceive: false,
-                isMyAccountPrevPwReceive: false,
-                isMyAccountUpdate: false,
-                payload: '',
+                ...initalState,
             };
         case MYAC_PROFILE_IMAGE_UPDATE_REQUEST:
             return {

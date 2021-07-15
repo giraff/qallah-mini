@@ -58,10 +58,14 @@ const AccountForm = () => {
             setEmail(myaccountObj.email);
             setProfileImage(myaccountObj.profileImage);
             console.log('계정정보 >> ', myaccountObj);
+            console.log('여기서 이미지 ==> ', myaccountObj.profileImage);
         }
     }, [myaccountChk]);
 
     useEffect(() => {
+        console.log('접근하냐?');
+        console.log('profileuri ==> ', profileurl);
+        console.log('profileImg ==> ', profileImage);
         if (profileurl !== '') {
             setProfileImage(profileurl);
         }
@@ -307,7 +311,7 @@ const AccountForm = () => {
                 <div className="modify-field">
                     <div className="modify-user-img">
                         {console.log(profileImage)}
-                        {profileurl === '' && profileImage === null ? (
+                        {profileImage === null ? (
                             <div className="user-avatar-img">
                                 {/* <button
                                     type="button"

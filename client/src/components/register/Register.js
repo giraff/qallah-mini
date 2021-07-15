@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
-import { REGISTER_REQUEST } from 'redux/types';
+import { REGISTER_FAILURE, REGISTER_REQUEST } from 'redux/types';
 
 const Register = () => {
     const [form, setValues] = useState({
@@ -49,7 +49,12 @@ const Register = () => {
 
     useEffect(() => {
         console.log('Reg Render', regResult);
-        if (regResult) history.push('/login');
+        if (regResult) {
+            history.push('/login');
+            dispatch({
+                type: REGISTER_FAILURE,
+            });
+        }
     }, [regResult]);
 
     return (
