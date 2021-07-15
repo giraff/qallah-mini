@@ -1,17 +1,23 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
-import { LOGOUT_REQUEST, MYAC_RECEIVE_REQUEST } from '../../redux/types';
+import { LOGOUT_REQUEST, MYAC_RECEIVE_REQUEST, MYAC_INIT } from '../../redux/types';
 
 const Header = () => {
     const dispatch = useDispatch();
     const history = useHistory();
     const { isAuthenticated } = useSelector(state => state.auth);
     const [menuOpen, setMenuOpen] = useState(false);
+    const [profileImage, setProfileImage] = useState({ src: null });
+    const myaccountObj = useSelector(state => state.myac.payload);
+
     const onLogout = useCallback(() => {
         // 메모제이션된 콜백을 반환한다.
         dispatch({
             type: LOGOUT_REQUEST,
+        });
+        dispatch({
+            type: MYAC_INIT,
         });
     }, [dispatch]);
 
@@ -30,9 +36,17 @@ const Header = () => {
             type: MYAC_RECEIVE_REQUEST,
             payload: body,
         });
-    }, []);
+    }, [isAuthenticated]);
 
-    const myaccountObj = useSelector(state => state.myac.payload);
+    useEffect(() => {
+        console.log('지금의 객체 >>', myaccountObj);
+        if (myaccountObj.profileImage !== null) {
+            setProfileImage(myaccountObj.profileImage);
+        } else {
+            setProfileImage(null);
+        }
+        console.log('지금의 이미지 >>', profileImage);
+    }, [myaccountObj]);
 
     const authLink = (
         <>
@@ -69,11 +83,7 @@ const Header = () => {
                         <div className="tool-tip-box">
                             <div className="nav-profile">
                                 <div className="nav-img-profile">
-                                    {myaccountObj && myaccountObj.profileImage !== null ? (
-                                        <img src={myaccountObj && myaccountObj.profileImage} alt="profile" />
-                                    ) : (
-                                        <div className="empty-image" />
-                                    )}
+                                    {profileImage !== null ? <img src={profileImage} alt="profile" /> : <div className="empty-image" />}
                                 </div>
                             </div>
                             <div className="tool-tip-content lang-kor">
