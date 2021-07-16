@@ -170,7 +170,7 @@ const ByOtherQuestion = ({ req }) => {
                         <div className="progress-on">
                             <div
                                 className="progress-bar"
-                                style={{ width: `${(questionContent.other_question_seq / total) * 100}%`, backgroundColor: '#9e8d5e' }}
+                                style={{ width: `${(questionContent.other_question_seq / total) * 100}%`, backgroundColor: 'var(--color-main-blue)' }}
                             />
                         </div>
                         <div className="byother-qna">

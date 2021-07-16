@@ -46,29 +46,33 @@ const ByOtherMain = () => {
                     <div className="q-main-title">
                         <h1>남이 보는 나</h1>
                     </div>
-                    <div className="q-main-content">
-                        <div>예상 소요 시간 : 20분 ~ 1시간</div>
-                        <div>질문 수 : 15</div>
-                        <div>지금 곁에 있는 다른 이에게 나에 대해 질문하세요.</div>
+                    <div className="q-main-content byother-main">
+                        <div className="q-byother-description lang-kor">지금 곁에 있는 다른 이에게 질문하세요.</div>
+                        <div className="q-byother-time lang-kor">
+                            예상 소요 시간 <p className="font-description byother-time">5분+</p>
+                        </div>
+                        <div className="q-byother-count lang-kor">
+                            질문 수 <p className="font-description byother-count">15</p>
+                        </div>
                     </div>
                     <div className="q-main-nav">
                         <div className="link-start">
-                            <div onClick={clickEvent} role="button" tabIndex={0} onKeyDown={clickEvent}>
+                            <div className="byother-nav-item" onClick={clickEvent} role="button" tabIndex={0} onKeyDown={clickEvent}>
                                 <i className="fas fa-play fa-2x" />
                             </div>
-                            시작하기
+                            <div className="byother-nav-label">START</div>
                         </div>
                         <div className="link-history">
-                            <Link to="/byother/history">
+                            <Link className="byother-nav-item" to="/byother/history">
                                 <i className="fas fa-history fa-2x" />
                             </Link>
-                            이전답변
+                            <div className="byother-nav-label">HISTORY</div>
                         </div>
                         <div className="link-home">
-                            <Link to="/">
+                            <Link className="byother-nav-item" to="/">
                                 <i className="fas fa-home fa-2x" />
                             </Link>
-                            메인홈
+                            <div className="byother-nav-label">HOME</div>
                         </div>
                     </div>
                 </div>
