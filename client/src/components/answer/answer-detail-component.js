@@ -39,7 +39,7 @@ const AnswerDetailComponent = ({ query }) => {
                         answerDetail !== '' &&
                         answerDetail.map(detail => (
                             <div key={detail.seq} className="answers">
-                                <div className="question-field">{`Q${detail.seq}. ${detail.question}`} </div>
+                                <div className="question-field">{`${detail.question}`} </div>
                                 <div className="answer-field">
                                     <div className="answer-elem">{`${detail.answer}`}</div>
                                 </div>

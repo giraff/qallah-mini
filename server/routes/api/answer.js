@@ -61,7 +61,7 @@ router.get("/", auth, (req, res) => {
       WHERE
         (SELECT @ROWNUM:=0)=0
       GROUP BY A.date,A.TYPE
-      ORDER BY ROWNUM
+      ORDER BY A.date
     `,
       (err, rows) => {
         if (!err) {
@@ -151,7 +151,8 @@ router.get("/answertest", auth, (req, res) => {
     mdbConn.query(
       `
       SELECT
-      A.YEAR
+      A.DATE
+      ,A.YEAR
       ,A.MONTH
       ,A.DAY
       ,A.TYPE
@@ -206,7 +207,7 @@ router.get("/answertest", auth, (req, res) => {
     WHERE
       (SELECT @ROWNUM:=0)=0
     GROUP BY A.year, A.MONTH, A.DAY ,A.TYPE
-    ORDER BY ROWNUM
+    ORDER BY A.DATE
       `,
       (err, rows) => {
         if (!err) {
