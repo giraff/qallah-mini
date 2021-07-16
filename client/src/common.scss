@@ -15,12 +15,12 @@
     --color-main-white: #ffffff;
     --color-main-black: #24292e;
     --color-main-purple: #9e89b8;
-    --color-main-heavy-purple: #7b5e9e;
+    --color-main-heavy-purple: #7b5e9e; // 내가 보는 나 테마 색상
     --color-main-gray: #e2e2e2e7;
     --color-main-heavy-gray: gray;
-    --color-main-blue: #2980b9;
+    --color-main-blue: #2980b9; //남이 보는 나 테마 색상
     --color-main-green: #16a085;
-    --color-main-orange: #f39c12;
+    --color-main-orange: #f2b633; // 오늘의 성찰 테마 색상
     --color-main-carrot: #e67e22;
     --color-overlay-white: rgba(255, 255, 255, 0.2);
     --color-overlay-black: rgba(0, 0, 0, 0.5);
@@ -46,6 +46,7 @@
     --font-kor: 'Noto Sans KR', sans-serif;
     --font-eng: 'Open Sans', sans-serif;
     --font-eng-title: 'Noto Serif', serif;
+    --font-description: 'Jua', sans-serif;
 }
 html,
 body {
@@ -72,6 +73,10 @@ body {
 
 .eng-title {
     font-family: var(--font-eng-title);
+}
+
+.font-description {
+    font-family: var(--font-description);
 }
 
 h1 {
@@ -619,36 +624,107 @@ input:-webkit-autofill:active {
     & > div {
         margin: 20px 0px;
     }
-    .q-main-title {
+}
+
+.q-main-title {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.q-main-content {
+    background-color: var(--color-overlay-black);
+    padding: 20px;
+    // 브라우저 최소 크기 고려하여 조정
+    min-width: 280px;
+    text-align: center;
+
+    & > div {
+        line-height: 30px;
+    }
+}
+
+.byother-main {
+    background-color: transparent;
+    padding: 0px;
+    margin: 20px;
+    // 브라우저 최소 크기 고려하여 조정
+    width: 280px;
+    height: 130px;
+
+    & > div {
+        line-height: 20px;
+    }
+}
+
+.q-byother-description {
+    height: 24%;
+    font-size: 15px;
+}
+
+.q-byother-time,
+.q-byother-count {
+    width: 48%;
+    margin: 1%;
+    height: 62%;
+    background-color: #dfe6e9;
+    color: black;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    border-radius: 20px;
+    float: left;
+    // box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.3);
+}
+
+.q-byother-warning {
+    font-size: 12px;
+    height: 10%;
+    margin: 1%;
+    color: var(--color-e2);
+}
+
+.byother-time,
+.byother-count {
+    padding: 15px;
+    font-size: x-large;
+}
+
+.q-byother-description {
+    clear: both;
+}
+
+.q-main-nav {
+    width: 300px;
+    /* space-between 값이 적용되려면 width가 필요했다. */
+    display: flex;
+    justify-content: space-between;
+
+    & > div {
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        min-width: 65px;
     }
-    .q-main-content {
-        background-color: var(--color-overlay-black);
-        padding: 20px;
-        // 브라우저 최소 크기 고려하여 조정
-        min-width: 280px;
-        text-align: center;
+}
 
-        & > div {
-            line-height: 30px;
-        }
-    }
-    .q-main-nav {
-        width: 300px;
-        /* space-between 값이 적용되려면 width가 필요했다. */
-        display: flex;
-        justify-content: space-between;
+// 남이 보는 나 버튼 효과
+.byother-nav-item > i {
+    display: block;
+    color: var(--color-main-white);
+    transition: box-shadow 0.3s ease, color 0.3s ease;
 
-        & > div {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
+    &:hover {
+        color: #82ccdd;
     }
+}
+
+.byother-nav-label {
+    font-size: small;
+    height: 19px;
+    padding: 5px;
 }
 
 /* question Detail 페이지 틀*/
@@ -723,6 +799,7 @@ input:-webkit-autofill:active {
 }
 
 .tome-question-title {
+    line-height: 30px;
     font-weight: 900;
     font-size: x-large;
 }
@@ -733,47 +810,62 @@ input:-webkit-autofill:active {
 
 /* 과거 답변 페이지 History */
 
-.history-container {
-    width: 90%;
-    max-width: 800px;
+#history-wrap {
+    width: 1200px;
+    margin: 0 auto;
+    min-height: 100vh;
 }
 
-.history-overlay {
-    position: absolute;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
+.history-container {
     width: 100%;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background-color: rgb(80, 80, 80);
-    z-index: 10;
-    font-size: x-large;
-    font-weight: 900;
-
-    .history-overlay-inner {
-        color: var(--color-main-white);
-    }
+    display: flex;
+    justify-content: center; // 가운데 정렬 (수평 정렬)
 }
 
 .history-header {
-    width: 95%;
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    margin-bottom: 5px;
+    width: 95%; // 부모 기준 width 95%만 설정
+    display: flex; // 자식 수평으로 놓기 (row)
+    align-items: center; // 위아래 정렬 (수직 정렬)
+    margin: 10px;
 
     .history-home {
         margin: 5px auto 10px 0px;
-        z-index: 10;
+        padding: 5px;
+    }
+
+    .history-home:after {
+        display: none;
+    }
+
+    .history-home:hover:after {
+        // right: -420px;
+        content: '';
+        top: 117px;
+        width: 100%;
+        height: 4px;
+        display: block;
+        position: absolute;
+        animation-name: historyPreBtn;
+        animation-duration: 0.5s;
+        animation-iteration-count: 1;
+        animation-timing-function: ease;
+        animation-direction: normal;
+        animation-fill-mode: forwards;
+        animation-play-state: running;
+        animation-delay: 0s;
     }
 }
 
-.history-pre-btn > i {
-    color: var(--color-main-white);
+@keyframes historyPreBtn {
+    0% {
+        content: 'Back';
+        right: -410px;
+        color: var(--color-main-gray);
+    }
+    100% {
+        content: 'Back';
+        right: -415px;
+    }
 }
 
 .history-elem-container {
@@ -790,6 +882,14 @@ input:-webkit-autofill:active {
     }
 }
 
+// 히스토리 저장된 답변 없을때 띄우는 메시지
+.history-err-wrap {
+    position: absolute;
+    bottom: -50px;
+    left: -40px;
+    width: 155px;
+}
+
 .star {
     margin: 50px 2.5px 0 0;
     position: relative;
@@ -797,12 +897,12 @@ input:-webkit-autofill:active {
     width: 0px;
     height: 0px;
     border-right: 30px solid transparent;
-    border-bottom: 20px solid var(--color-main-white);
+    border-bottom: 20px solid var(--color-main-black);
     border-left: 30px solid transparent;
     transform: rotate(35deg);
 
     &:before {
-        border-bottom: 24px solid var(--color-main-white);
+        border-bottom: 24px solid var(--color-main-black);
         border-left: 9px solid transparent;
         border-right: 9px solid transparent;
         position: absolute;
@@ -823,7 +923,7 @@ input:-webkit-autofill:active {
         width: 0px;
         height: 0px;
         border-right: 30px solid transparent;
-        border-bottom: 20px solid var(--color-main-white);
+        border-bottom: 20px solid var(--color-main-black);
         border-left: 30px solid transparent;
         transform: rotate(-70deg);
         content: '';
@@ -831,7 +931,7 @@ input:-webkit-autofill:active {
 }
 
 .bar {
-    border-right: 2px solid var(--color-main-white);
+    border-right: 2px solid var(--color-main-black);
     width: 15px;
     height: 80px;
 }
@@ -840,31 +940,55 @@ input:-webkit-autofill:active {
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 2px solid var(--color-main-white);
+    border: 2px solid var(--color-main-black);
     width: 30px;
     height: 30px;
     border-radius: 50%;
     cursor: pointer;
     .sub-circle {
-        width: 20px;
-        height: 20px;
+        width: 18px;
+        height: 18px;
         border-radius: 50%;
+    }
+    .sub-circle:hover {
+        animation-name: circleSpread;
+        animation-duration: 0.01s;
+        animation-iteration-count: 1;
+        animation-timing-function: ease;
+        animation-direction: normal;
+        animation-fill-mode: forwards;
+        animation-play-state: running;
+        animation-delay: 0s;
     }
 }
 
+@keyframes circleSpread {
+    0% {
+        width: 18px;
+        height: 18px;
+    }
+    50% {
+        width: 19px;
+        height: 19px;
+    }
+    100% {
+        width: 20px;
+        height: 20px;
+    }
+}
 #tome-purple-circle {
     border: 2px solid var(--color-main-heavy-purple);
     background-color: var(--color-main-heavy-purple);
 }
 
 #byothers-blue-circle {
-    border: 2px solid var(--color-main-blue);
+    border-color: var(--color-main-blue);
     background-color: var(--color-main-blue);
 }
 
 #refl-orange-circle {
-    border: 2px solid var(--color-main-carrot);
-    background-color: var(--color-main-carrot);
+    border: 2px solid var(--color-main-orange);
+    background-color: var(--color-main-orange);
 }
 
 .history-desc {
@@ -882,8 +1006,8 @@ input:-webkit-autofill:active {
     }
 
     .history-desc-date {
-        font-size: 16px;
-        color: var(--color-main-gray);
+        font-size: 15px;
+        color: var(--color-main-heavy-gray);
     }
 }
 
@@ -911,6 +1035,7 @@ input:-webkit-autofill:active {
     }
 
     .byother-question-title {
+        line-height: 30px;
         font-weight: 900;
         font-size: x-large;
     }
@@ -1199,7 +1324,6 @@ input:-webkit-autofill:active {
 #account-wrap {
     width: 1200px;
     margin: 0 auto;
-    // Footer CSS 에러 개선 : account 페이지 최소 크기로 브라우저 화면 폭 설정
     min-height: 100vh;
 }
 
@@ -1843,6 +1967,10 @@ svg {
     #account-wrap {
         width: 100%;
     }
+
+    #history-wrap {
+        width: 100%;
+    }
 }
 // 화면 영역 너비 0 ~ 960px : 타블렛
 
@@ -1938,6 +2066,11 @@ svg {
     .new-pwd-input,
     .re-new-pwd-input {
         width: 100%;
+    }
+
+    .q-main-content {
+        width: 98%;
+        margin: 1%;
     }
 }
 
