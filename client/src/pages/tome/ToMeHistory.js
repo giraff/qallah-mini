@@ -25,61 +25,51 @@ const ToMeHistory = () => {
         loadhistory().then(data => setHistoryDate(data));
     }, []);
     return (
-        <section className="sections answer-section">
-            <div className="sections-overlay">
-                <div className="history-container tome-history-container">
-                    {/* 아무 히스토리도 없을 때  */}
-                    {/* <div className="history-overlay">
-                        <div className="history-overlay-inner">
-                            아직 작성된 답변이 없습니다.
-                        </div>
-                    </div>  */}
+        <>
+            <section className="banner-section" />
+            <div id="history-wrap" className="lang-kor">
+                <section className="history-container">
                     <div className="history-header">
                         <div className="history-home">
                             <a className="history-pre-btn" href="/tome">
-                                <i style={{ color: 'white' }} className="fas fa-chevron-left fa-2x" />
+                                <i style={{ color: 'black' }} className="fas fa-chevron-left fa-2x" />
                             </a>
                         </div>
                         <div className="history-label">내가 보는 나</div>
                     </div>
-                    {/* <div className="scroll-on">
-                        <div className="scroll-bar" style={{width:"50%"}} />
-                    </div> */}
-                    <div className="history-elem-container">
-                        <div className="history-elem">
-                            <div className="star" />
-                        </div>
-                        {(() =>
-                            historydate.map(val => (
-                                <div key={val.seq} className="history-elem">
-                                    <div className="bar" />
-                                    <button
-                                        type="button"
-                                        className="circle"
-                                        onClick={() =>
-                                            history.push(`/profile/answer/view?type=answerbyme&year=${val.YEAR}&month=${val.MONTH}&day=${val.DAY}`)
-                                        }
-                                    >
-                                        <div id="tome-purple-circle" className="sub-circle" />
-                                    </button>
-                                    <div className="history-desc">
-                                        <div className="history-desc-title">내가 보는 나</div>
-                                        <div className="history-desc-date">{val.history}</div>
-                                    </div>
-                                </div>
-                            )))()}
-
-                        {/* <div className="history-elem last">
-                            <div className="bar" />
-                            <div className="circle">
-                                <div className="sub-circle" />
+                </section>
+                <section className="history-elem-container">
+                    <div className="history-elem">
+                        <div className="star" />
+                        {historydate.length === 0 ? (
+                            <div className="history-err-wrap">
+                                <div className="err-msg">저장한 답변이 없습니다</div>
                             </div>
-                            <div className="bar" />
-                        </div> */}
+                        ) : null}
                     </div>
-                </div>
+                    {(() =>
+                        historydate &&
+                        historydate.map(val => (
+                            <div key={val.seq} className="history-elem">
+                                <div className="bar" />
+                                <button
+                                    type="button"
+                                    className="circle"
+                                    onClick={() =>
+                                        history.push(`/profile/answer/view?type=answerbyme&year=${val.YEAR}&month=${val.MONTH}&day=${val.DAY}`)
+                                    }
+                                >
+                                    <div id="tome-purple-circle" className="sub-circle" />
+                                </button>
+                                <div className="history-desc">
+                                    <div className="history-desc-title">내가 보는 나</div>
+                                    <div className="history-desc-date">{val.history}</div>
+                                </div>
+                            </div>
+                        )))()}
+                </section>
             </div>
-        </section>
+        </>
     );
 };
 export default ToMeHistory;
