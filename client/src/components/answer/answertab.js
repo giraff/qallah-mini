@@ -26,6 +26,7 @@ const AnswerTab = () => {
         <>
             <div className="content-header">연도별</div>
             <ul className="filter-list">
+                {yearTab.length === 0 ? <div className="year-click-text">※&nbsp;작성한 답변이 없습니다. 답변을 저장해주세요.</div> : null}
                 {yearTab &&
                     yearTab.map(year => (
                         <li key={year}>
@@ -35,7 +36,7 @@ const AnswerTab = () => {
                         </li>
                     ))}
             </ul>
-            {currentYear === '' ? <div className="year-click-text">※&nbsp;연도에 해당하는 탭을 눌러주세요</div> : null}
+            {yearTab.length !== 0 && currentYear === '' ? <div className="year-click-text">※&nbsp;연도에 해당하는 탭을 눌러주세요</div> : null}
         </>
     );
 };
