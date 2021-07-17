@@ -169,11 +169,11 @@ const Header = () => {
                                         <div className="menu-item">남이 보는 나</div>
                                     </Link>
                                 </li>
-                                <l>
+                                <li>
                                     <Link to="/experience" onClick={() => handleClickEvent()}>
                                         <div className="menu-item">내가 한 경험</div>
                                     </Link>
-                                </l>
+                                </li>
                                 <li>
                                     <Link to="/refl" onClick={() => handleClickEvent()}>
                                         <div className="menu-item">인생의 성찰</div>

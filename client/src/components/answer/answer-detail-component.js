@@ -1,9 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import { Link, useHistory } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { ANSWER_DETAIL_LOAD_REQUEST } from 'redux/types';
-import AnswerDayList from './answer-day-list';
 
 const AnswerDetailComponent = ({ query }) => {
     const { year, month, day, type } = query;

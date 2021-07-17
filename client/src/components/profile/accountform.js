@@ -1,16 +1,8 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import axios from 'axios';
 import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import {
-    MYAC_RECEIVE_REQUEST,
-    MYAC_SEND_PREVPW_REQUEST,
-    MYAC_UPDATE_REQUEST,
-    MYAC_INIT,
-    MYAC_PROFILE_IMAGE_UPDATE_REQUEST,
-    MYAC_PROFILE_IMAGE_DELETE_REQUEST,
-} from 'redux/types';
+import { MYAC_RECEIVE_REQUEST, MYAC_SEND_PREVPW_REQUEST, MYAC_UPDATE_REQUEST, MYAC_INIT, MYAC_PROFILE_IMAGE_UPDATE_REQUEST } from 'redux/types';
 // 계정 페이지 모달 Import
 import AccountModal from '../../common/modal/AccountModal';
 
