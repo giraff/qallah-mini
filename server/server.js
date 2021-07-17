@@ -20,6 +20,7 @@ const app = express();
 // env에 저장한 PORT 정보 가져오기
 import config from "./config/index";
 const { PORT } = config;
+const prod = process.env.NODE_ENV === "production"; //참 아님 거짓
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
@@ -44,6 +45,15 @@ app.use("/api/myaccount", myaccountRoutes);
 app.use("/api/experience", exprRoutes);
 app.use("/api/answer", answerRoutes);
 
+if (prod) {
+  // prod가 참이면
+  // 이미 빌드 완료된 정적 파일을 사용
+  app.use(express.state(path.join(__dirname, "../client/build")));
+  //
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "../client/build", "index.html"));
+  });
+}
 //7000번 서버 포트로 서버 요청 받는다.
 app.listen(PORT, () => {
   console.log(`Check out the app at http://localhost:${PORT}`);

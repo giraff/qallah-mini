@@ -4,7 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon ./server.js --exec babel-node"
+    "dev": "nodemon ./server.js --exec babel-node",
+    "prebuild": "cd .. && cd client && npm run build",
+    "build": "babel ../server --out-dir build --ignore node_modules/**/*.js",
+    "build:server": "babel server --out-dir build"
   },
   "keywords": [],
   "author": "",
