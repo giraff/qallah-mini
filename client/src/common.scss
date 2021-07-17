@@ -711,6 +711,10 @@ input:-webkit-autofill:active {
 }
 
 // 남이 보는 나 버튼 효과
+
+.byother-nav-item {
+    cursor: pointer;
+}
 .byother-nav-item > i {
     display: block;
     color: var(--color-main-white);
