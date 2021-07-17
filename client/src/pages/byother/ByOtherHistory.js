@@ -34,8 +34,9 @@ const ByOtherHistory = () => {
                 <section className="history-container">
                     <div className="history-header">
                         <div className="history-home">
-                            <Link className="history-pre-btn" to="/byother">
+                            <Link className="history-back-btn" to="/byother">
                                 <i style={{ color: 'black' }} className="fas fa-chevron-left fa-2x" />
+                                <div className="back-label">Back</div>
                             </Link>
                         </div>
                         <div className="history-label lang-kor">남이 보는 나</div>
