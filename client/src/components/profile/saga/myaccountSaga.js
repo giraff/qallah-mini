@@ -166,23 +166,23 @@ function* watchMyacProfileUpdate() {
     yield takeEvery(MYAC_PROFILE_IMAGE_UPDATE_REQUEST, MyacProfileUpdate);
 }
 
-const MyacProfileDeleteAPI = token => {
-    const config = {
-        headers: {
-            'Content-type': 'application/json',
-        },
-    };
+// const MyacProfileDeleteAPI = token => {
+//     const config = {
+//         headers: {
+//             'Content-type': 'application/json',
+//         },
+//     };
 
-    if (token) {
-        config.headers['x-auth-token'] = token;
-    }
+//     if (token) {
+//         config.headers['x-auth-token'] = token;
+//     }
 
-    return axios.delete('/api/myaccount/profile', config);
-};
+//     return axios.delete('/api/myaccount/profile', config);
+// };
 
-function* MyacProfileDelete(action) {
+function* MyacProfileDelete() {
     try {
-        const result = yield call(MyacProfileDeleteAPI, action.payload);
+        // const result = yield call(MyacProfileDeleteAPI, action.payload);
         yield put({
             type: MYAC_PROFILE_IMAGE_DELETE_SUCCESS,
         });
