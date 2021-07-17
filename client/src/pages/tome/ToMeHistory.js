@@ -31,8 +31,9 @@ const ToMeHistory = () => {
                 <section className="history-container">
                     <div className="history-header">
                         <div className="history-home">
-                            <a className="history-pre-btn" href="/tome">
+                            <a className="history-back-btn" href="/tome">
                                 <i style={{ color: 'black' }} className="fas fa-chevron-left fa-2x" />
+                                <div className="back-label">Back</div>
                             </a>
                         </div>
                         <div className="history-label">내가 보는 나</div>

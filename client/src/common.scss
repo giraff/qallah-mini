@@ -827,24 +827,25 @@ input:-webkit-autofill:active {
     display: flex; // 자식 수평으로 놓기 (row)
     align-items: center; // 위아래 정렬 (수직 정렬)
     margin: 10px;
+}
+.history-home {
+    margin: 5px auto 5px 0px;
+    padding: 5px;
+}
 
-    .history-home {
-        margin: 5px auto 10px 0px;
-        padding: 5px;
-    }
+.history-back-btn {
+    position: relative;
+}
 
-    .history-home:after {
-        display: none;
-    }
+.back-label {
+    display: none;
+}
 
-    .history-home:hover:after {
-        // right: -420px;
-        content: '';
-        top: 117px;
-        width: 100%;
-        height: 4px;
+.history-back-btn:hover {
+    .back-label {
         display: block;
         position: absolute;
+        top: -2px;
         animation-name: historyPreBtn;
         animation-duration: 0.5s;
         animation-iteration-count: 1;
@@ -858,13 +859,11 @@ input:-webkit-autofill:active {
 
 @keyframes historyPreBtn {
     0% {
-        content: 'Back';
-        right: -410px;
+        left: 20px;
         color: var(--color-main-gray);
     }
     100% {
-        content: 'Back';
-        right: -415px;
+        left: 30px;
     }
 }
 

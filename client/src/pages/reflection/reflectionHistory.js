@@ -31,8 +31,9 @@ const ReflectionHistory = () => {
                 <section className="history-container ">
                     <div className="history-header">
                         <div className="history-home">
-                            <a className="history-pre-btn" href="/refl">
+                            <a className="history-back-btn" href="/refl">
                                 <i style={{ color: 'black' }} className="fas fa-chevron-left fa-2x" />
+                                <div className="back-label">Back</div>
                             </a>
                         </div>
                         <div className="history-label">인생의 성찰</div>
