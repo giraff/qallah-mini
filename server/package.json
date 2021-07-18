@@ -7,7 +7,7 @@
     "dev": "nodemon ./server.js --exec babel-node",
     "prebuild": "cd .. && cd client && npm run build",
     "build": "babel ../server --out-dir build --ignore node_modules/**/*.js",
-    "build:server": "sudo ../server --out-dir build"
+    "build:server": "babel ../server --out-dir build --ignore node_modules/**/*.js"
   },
   "keywords": [],
   "author": "",
