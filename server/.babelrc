@@ -1,5 +1,6 @@
 {
   "presets": ["@babel/preset-env"],
-  "ignore": ["/node_modules/"]
+  "ignore": ["/node_modules/"],
+  "plugins": ["@babel/plugin-transform-runtime"]
 }
 // babel 환경 설정, 이때 설치한 라이브러리를 통해서 preset(환경)을 설정.
