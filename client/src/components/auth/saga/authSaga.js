@@ -21,7 +21,7 @@ const loginUserAPI = loginData => {
     console.log(loginData, 'authSaga/loginData');
 
     // server측으로 post 요청 (express가 받고 router 처리)
-    return axios.post('api/auth', loginData);
+    return axios.post('/api/auth', loginData);
 };
 
 function* loginUser(action) {
@@ -79,7 +79,7 @@ const userLoadingAPI = token => {
         config.headers['x-auth-token'] = token;
     }
 
-    return axios.get('api/auth/user', config);
+    return axios.get('/api/auth/user', config);
 };
 
 function* userLoading(action) {

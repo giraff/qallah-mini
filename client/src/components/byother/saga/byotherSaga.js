@@ -128,7 +128,7 @@ const deleteAnswerDetailAPI = data => {
         config.headers['x-auth-token'] = token;
     }
 
-    return axios.delete(`api/byother/answer/detail/${page}`, config);
+    return axios.delete(`/api/byother/answer/detail/${page}`, config);
 };
 
 function* deleteAnswerDetail(action) {

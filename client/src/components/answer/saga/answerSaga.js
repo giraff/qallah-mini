@@ -24,7 +24,7 @@ const answerLoadingAPI = token => {
         config.headers['x-auth-token'] = token;
     }
 
-    return axios.get('api/answer/answertest', config);
+    return axios.get('/api/answer/answertest', config);
 };
 
 function* answerLoading(action) {

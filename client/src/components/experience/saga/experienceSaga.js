@@ -58,7 +58,7 @@ const experienceUploadAPI = data => {
     if (token) {
         config.headers['x-auth-token'] = token;
     }
-    return axios.post('api/experience/upload', data, config);
+    return axios.post('/api/experience/upload', data, config);
 };
 
 function* experienceUpload(action) {

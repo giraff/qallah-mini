@@ -28,10 +28,10 @@ const ByOtherQuestion = ({ req }) => {
         try {
             console.log('질문 LOAD');
             // 질문 총 개수 가져와서 state 업데이트
-            const questionTotal = await axios.get(`api/byother/detail`);
+            const questionTotal = await axios.get(`/api/byother/detail`);
             setTotal(questionTotal.data.length);
             // 표시할 질문 가져와서 return
-            const res = await axios.get(`api/byother/detail/${page}`);
+            const res = await axios.get(`/api/byother/detail/${page}`);
             return res.status === 200 ? res.data : 'error';
         } catch (err) {
             return err;
