@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "nodemon ./server.js --exec babel-node",
     "prebuild": "cd .. && cd client && npm run build",
-    "build": "rimraf build/ && babel . --out-dir build --ignore node_modules",
+    "build": "cross-env NODE_ENV=production rimraf build/ && babel . --out-dir build --ignore node_modules",
     "build:server": "rimraf build/ && --out-dir build"
   },
   "keywords": [],
@@ -18,9 +18,12 @@
     "axios": "^0.21.1",
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
+    "cross-env": "^7.0.3",
     "dotenv": "^8.6.0",
     "express": "^4.17.1",
+    "express-csp-header": "^5.0.0",
     "helmet": "^4.6.0",
+    "helmet-csp": "^3.4.0",
     "hpp": "^0.2.3",
     "jsonwebtoken": "^8.5.1",
     "mariadb": "^2.5.3",
