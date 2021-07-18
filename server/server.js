@@ -53,10 +53,10 @@ app.use("/api/answer", answerRoutes);
 
 if (prod) {
   //7000번 서버 포트로 서버 요청 받는다.
-  app.use(express.static(path.join(__dirname, "../../client/build")));
+  app.use(express.static(path.join(__dirname, "../client/build")));
   //
   app.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "../../client/build", "index.html"));
+    res.sendFile(path.resolve(__dirname, "../client/build", "index.html"));
   });
 }
 

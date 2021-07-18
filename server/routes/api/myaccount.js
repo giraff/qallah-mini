@@ -39,16 +39,7 @@ router.get("/detail", auth, (req, res, next) => {
   try {
     console.log("/myaccount/detail 도착");
     mdbConn.query(
-      `
-            SELECT
-                user_name,
-                email,
-                profileImage
-            FROM
-                user
-            WHERE
-                email = "${req.user.id}"
-        `,
+      `SELECT user_name, email, profileImage FROM user WHERE email = "${req.user.id}"`,
       (err, rows) => {
         if (!err) {
           return res.status(200).json(rows[0]);
@@ -73,14 +64,7 @@ router.post("/pw", auth, (req, res, next) => {
     console.log("/myaccount/pw 도착");
     console.log("password >> ", req.body);
     mdbConn.query(
-      `
-            SELECT
-              pwd
-            FROM
-              user
-            WHERE
-              email = "${req.user.id}"
-      `,
+      `SELECT pwd FROM user WHERE email = "${req.user.id}"`,
       (err, rows) => {
         console.log("rows >>", rows[0]);
         if (!err) {
@@ -119,15 +103,7 @@ router.post("/update", auth, (req, res, next) => {
           const password = hash;
           console.log("password hashing >> ", password);
           mdbConn.query(
-            `
-                      UPDATE
-                          user
-                      SET
-                          user_name = "${new_name}",
-                          pwd = "${password}"
-                      WHERE
-                          email = "${req.user.id}"
-                          `,
+            `UPDATE user SET user_name = "${new_name}", pwd = "${password}" WHERE email = "${req.user.id}"`,
             (err, rows) => {
               if (!err) {
                 return res.status(200).json({ msg: "Update Succress" });
@@ -149,14 +125,7 @@ router.post("/profile", auth, uploadS3.single("upload"), (req, res, next) => {
   console.log("프로필 이미지 수정하자!");
   try {
     mdbConn.query(
-      `
-      UPDATE 
-        user
-      SET 
-        profileImage='${req.file.location}'
-      WHERE 
-        email="${req.user.id}"
-    `,
+      `UPDATE user SET profileImage='${req.file.location}' WHERE email="${req.user.id}"`,
       (err) => {
         if (!err) {
           console.log(req.file.location);
@@ -178,14 +147,7 @@ router.delete("/profile", auth, (req, res, next) => {
   console.log("프로필 이미지 삭제하자!");
   try {
     mdbConn.query(
-      `
-      UPDATE
-        user
-      SET
-        profileImage=NULL
-      WHERE
-        email="${req.user.id}"
-    `,
+      `UPDATE user SET profileImage=NULL WHERE email="${req.user.id}"`,
       (err) => {
         if (!err) {
           return res.status(200).json({ deleted: true });

@@ -11,20 +11,7 @@ export default router;
 // @access  Auth user
 router.get("/", auth, (req, res) => {
   mdbConn.query(
-    `
-  SELECT 
-    experience_seq AS classname
-    ,experience_headline AS headline
-    ,DATE_FORMAT(experience_startdate, '%Y,%m,%d') AS startDate 
-    ,DATE_FORMAT(experience_enddate, '%Y,%m,%d') AS endDate
-    ,experience_text AS text
-  FROM experience
-  WHERE user_seq = (
-    SELECT user_seq 
-    FROM user
-    WHERE email="${req.user.id}"
-    )ORDER BY experience_startdate ASC;
-  `,
+    `SELECT experience_seq AS classname ,experience_headline AS headline ,DATE_FORMAT(experience_startdate, '%Y,%m,%d') AS startDate ,DATE_FORMAT(experience_enddate, '%Y,%m,%d') AS endDate ,experience_text AS text FROM experience WHERE user_seq = ( SELECT user_seq FROM user WHERE email="${req.user.id}") ORDER BY experience_startdate ASC;`,
     (err, rows) => {
       if (!err) {
         console.log(rows);
@@ -51,29 +38,7 @@ router.post("/upload", auth, (req, res) => {
 
   try {
     mdbConn.query(
-      `
-      INSERT
-      INTO experience
-      (
-        experience_headline
-        ,experience_text
-        ,experience_startdate
-        ,experience_enddate
-        ,user_seq
-      )
-      VALUES
-      (
-        "${req.body.headline}"
-        ,"${req.body.text}"
-        ,"${req.body.startDate}"
-        ,"${req.body.endDate}"
-        ,(
-          SELECT A.user_seq
-          FROM user A
-          WHERE A.email="${req.user.id}"
-          )
-      );
-      `,
+      `INSERT INTO experience (experience_headline,experience_text,experience_startdate,experience_enddate,user_seq) VALUES ("${req.body.headline}","${req.body.text}","${req.body.startDate}","${req.body.endDate}",(SELECT A.user_seq FROM user A WHERE A.email="${req.user.id}"));`,
       (err, rows) => {
         if (!err) {
           console.log("experience 추가 완료===>");

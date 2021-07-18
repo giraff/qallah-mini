@@ -55,10 +55,7 @@ router.get("/answer/:id", auth, (req, res) => {
   console.log("========answer load========== ");
   try {
     mdbConn.query(
-      `SELECT answer_content FROM answerbyothers 
-      WHERE other_question_seq=${req.params.id}
-      AND user_seq=(SELECT user_seq FROM user WHERE email="${req.user.id}")
-      AND date(answerbyothers.answer_time)=DATE(NOW())`,
+      `SELECT answer_content FROM answerbyothers WHERE other_question_seq=${req.params.id} AND user_seq=(SELECT user_seq FROM user WHERE email="${req.user.id}") AND date(answerbyothers.answer_time)=DATE(NOW())`,
       (err, rows) => {
         if (!err) {
           console.log("rows=>", rows[0]);
@@ -80,14 +77,7 @@ router.get("/answer", auth, (req, res) => {
   console.log("answer 라우터 => ", req.user.id);
   try {
     mdbConn.query(
-      `SELECT
-      *
-      FROM
-        answerbyothers
-      WHERE
-        DATE_FORMAT(answer_time, '%Y-%m-%d') = DATE_FORMAT(NOW(), '%Y-%m-%d')
-      AND
-        user_seq=(SELECT user_seq FROM user WHERE email="${req.user.id}")`,
+      `SELECT * FROM answerbyothers WHERE DATE_FORMAT(answer_time, '%Y-%m-%d') = DATE_FORMAT(NOW(), '%Y-%m-%d') AND user_seq=(SELECT user_seq FROM user WHERE email="${req.user.id}")`,
       (err, rows) => {
         if (!err) {
           return res.status(200).json(rows);
@@ -108,8 +98,7 @@ router.delete("/answer/detail", auth, (req, res) => {
   console.log("delete 라우터 => ", req.user.id);
   try {
     mdbConn.query(
-      `DELETE FROM answerbyothers WHERE user_seq=(
-      SELECT user_seq FROM user WHERE email="${req.user.id}") AND DATE_FORMAT(answer_time, '%Y-%m-%d') = DATE_FORMAT(NOW(), '%Y-%m-%d')`,
+      `DELETE FROM answerbyothers WHERE user_seq=(SELECT user_seq FROM user WHERE email="${req.user.id}") AND DATE_FORMAT(answer_time, '%Y-%m-%d') = DATE_FORMAT(NOW(), '%Y-%m-%d')`,
       (err) => {
         if (!err) {
           return res.status(200).json({ msg: "답변 detail 삭제 완료" });
@@ -129,20 +118,7 @@ router.delete("/answer/detail", auth, (req, res) => {
 router.delete("/answer/detail/:id", auth, async (req, res) => {
   try {
     mdbConn.query(
-      `
-      DELETE 
-      FROM answerbyothers 
-      WHERE 
-        user_seq=(
-                  SELECT user_seq 
-                FROM user 
-                WHERE email="${req.user.id}"
-              ) 
-      AND 
-        DATE_FORMAT(answer_time, '%Y-%m-%d') = DATE_FORMAT(NOW(), '%Y-%m-%d')
-      AND 
-        other_question_seq = ${req.params.id}
-    `,
+      `DELETE FROM answerbyothers WHERE user_seq=(SELECT user_seq FROM user WHERE email="${req.user.id}") AND DATE_FORMAT(answer_time, '%Y-%m-%d') = DATE_FORMAT(NOW(), '%Y-%m-%d') AND other_question_seq = ${req.params.id}`,
       (err) => {
         if (!err) {
           console.log("delete 성공 =>=>=>");
@@ -167,44 +143,7 @@ router.post("/detail/answer/:id", auth, async (req, res) => {
     console.log("답변 저장", req.params.id);
 
     mdbConn.query(
-      `INSERT 
-                    INTO answerbyothers
-                        (
-                          OTHER_ANSWER_SEQ
-                      , answer_content
-                      , answer_time
-                      , user_seq
-                      , other_question_seq
-                      )
-                  VALUES (
-                        (
-                        SELECT
-                          A.other_answer_seq
-                        FROM
-                          answerbyothers A
-                        WHERE
-                          A.USER_SEQ = (
-                                    SELECT B.USER_SEQ 
-                                    FROM user B
-                                    WHERE B.EMAIL='${req.user.id}'
-                                    )
-                        AND	
-                          DATE_FORMAT(A.answer_time, '%Y-%m-%d') = DATE_FORMAT(NOW(), '%Y-%m-%d')
-                        AND
-                          A.OTHER_QUESTION_SEQ = ${req.params.id}
-                        )
-                        ,'${req.body.answerData}'
-                      , NOW()
-                      , (
-                          SELECT B.USER_SEQ 
-                          FROM user B
-                          WHERE B.EMAIL='${req.user.id}'
-                        )
-                      , ${req.params.id}
-                      )
-                  ON DUPLICATE KEY UPDATE
-                      answer_content = '${req.body.answerData}'
-                      , answer_time = NOW()`,
+      `INSERT INTO answerbyothers (OTHER_ANSWER_SEQ, answer_content, answer_time, user_seq, other_question_seq) VALUES ((SELECT A.other_answer_seq FROM answerbyothers A WHERE A.USER_SEQ = (SELECT B.USER_SEQ FROM user B WHERE B.EMAIL='${req.user.id}') AND	DATE_FORMAT(A.answer_time, '%Y-%m-%d') = DATE_FORMAT(NOW(), '%Y-%m-%d') AND A.OTHER_QUESTION_SEQ = ${req.params.id} ) ,'${req.body.answerData}' , NOW() , (SELECT B.USER_SEQ FROM user B WHERE B.EMAIL='${req.user.id}' ) , ${req.params.id} ) ON DUPLICATE KEY UPDATE answer_content = '${req.body.answerData}' , answer_time = NOW()`,
       (err, rows) => {
         if (!err) {
           return res.status(200).json({ msg: "success" });
@@ -224,25 +163,7 @@ router.post("/detail/answer/:id", auth, async (req, res) => {
 router.get("/history", auth, (req, res) => {
   try {
     mdbConn.query(
-      `SELECT 
-          other_answer_seq AS seq
-          , DATE_FORMAT(answer_time, '%Y-%m-%d') AS history
-          , DATE_FORMAT(answer_time, '%Y') AS YEAR
-          , DATE_FORMAT(answer_time, '%m') AS MONTH
-          , DATE_FORMAT(answer_time, '%d') AS DAY
-        FROM 
-          answerbyothers 
-        WHERE
-        user_seq = (
-          SELECT
-            user_seq
-          FROM
-            user
-          WHERE
-            email = "${req.user.id}"
-        )
-        GROUP BY 
-          DATE_FORMAT(answer_time, '%Y-%m-%d')`,
+      `SELECT other_answer_seq AS seq, DATE_FORMAT(answer_time, '%Y-%m-%d') AS history, DATE_FORMAT(answer_time, '%Y') AS YEAR , DATE_FORMAT(answer_time, '%m') AS MONTH, DATE_FORMAT(answer_time, '%d') AS DAY FROM answerbyothers WHERE user_seq = (SELECT user_seq FROM user WHERE email = "${req.user.id}") GROUP BY DATE_FORMAT(answer_time, '%Y-%m-%d')`,
       (err, rows) => {
         if (!err) {
           return res.status(200).json(rows);
