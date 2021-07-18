@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "nodemon ./server.js --exec babel-node",
     "prebuild": "cd .. && cd client && npm run build",
-    "build": "babel . --out-dir build --ignore node_modules",
+    "build": "rimraf build/ && babel . --out-dir build --ignore node_modules",
     "build:server": "rimraf build/ && --out-dir build"
   },
   "keywords": [],
