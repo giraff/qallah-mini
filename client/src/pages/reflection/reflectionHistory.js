@@ -42,6 +42,11 @@ const ReflectionHistory = () => {
                 <section className="history-elem-container">
                     <div className="history-elem">
                         <div className="star" />
+                        {historydate.length === 0 ? (
+                            <div className="history-err-wrap">
+                                <div className="err-msg">저장한 답변이 없습니다</div>
+                            </div>
+                        ) : null}
                     </div>
                     {(() =>
                         historydate &&
