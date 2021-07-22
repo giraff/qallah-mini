@@ -46,6 +46,76 @@
 
 <table>
   <tr>
+    <th align='middle'><img alt="메인" src="./documentation/main-banner.png"></th>
+  </tr>
+  <tr>
+    <td align='middle'><strong>메인 배너</strong></td>
+  </tr>
+  <tr>
+    <td align='middle'><img alt="메인컨텐츠" src="./documentation/main-content.png"></th>
+  </tr>
+  <tr>
+    <td align='middle'><strong>메인 컨텐츠</strong> </td>
+  </tr>
+  <tr>
+    <td align='middle'><img alt="로그인" src="./documentation/login.png"></td>
+  </tr>
+  <tr>
+    <td align='middle'><strong>로그인 페이지</strong></td>
+  </tr>
+  <tr>
+    <td align='middle'><img alt="회원가입" src="./documentation/signup.png"></td>
+  </tr>
+  <tr>
+    <td align='middle'><strong>회원가입 페이지</strong></td>
+  </tr>
+  <tr>
+    <td align='middle'><img alt="질문 컴포넌트 시작 페이지" src="./documentation/question-main.png"></td>
+  </tr>
+  <tr>
+    <td align='middle'><strong>내가 보는 나/ 남이 보는 나/ 인생의 성찰 질문 컴포넌트 시작 페이지</strong></td>
+  </tr>
+  <tr>
+    <td align='middle'><img alt="질문 컴포넌트 디테일" src="./documentation/answer-main.png"></td>
+  </tr>
+  <tr>
+    <td align='middle'><strong>질문/답변 컴포넌트</strong></td>
+  </tr>
+  <tr>
+    <td align='middle'><img alt="질문/답변 히스토리" src="./documentation/history.png"></td>
+  </tr>
+  <tr>
+    <td align='middle'><strong>질문/답변 히스토리</strong></td>
+  </tr>
+  <tr>
+    <td align='middle'><img alt="내가 한 경험 메인 페이지" src="./documentation/experience-main.png"></td>
+  </tr>
+  <tr>
+    <td align='middle'><strong>내가 한 경험 메인 페이지</strong></td>
+  </tr>
+  <tr>    
+    <td align='middle'><img alt="내가 한 경험 작성 페이지" src="./documentation/experience-form.png"></td>
+  </tr>
+  <tr>
+    <td align='middle'><strong>내가 한 경험 작성 페이지</strong></td>
+  </tr>
+  <tr>
+    <td align='middle'><img alt="계정페이지" src="./documentation/account.png"></td>
+  </tr>
+  <tr>
+    <td align='middle'><strong>나의 계정 페이지</strong></td>
+  </tr>
+  <tr>
+    <td align='middle'><img alt="나의 답변" src="./documentation/answers.png"></td>
+  </tr>
+  <tr>
+    <td align='middle'><strong>나의 답변 메인 페이지</strong></td>
+  </tr>
+  <tr>
+    <td align='middle'><center><img alt="상세 답변" src="./documentation/answer-detail.png"></center></td>
+  </tr>
+  <tr>
+    <td align='middle'><strong>나의 답변 > 상세 답변 </strong></td>
   </tr>
 </table>
 
