@@ -1,35 +1,24 @@
-<h3 align='middle'> 질문과 답변 성찰 페이지 Qallah</h3>
-                 
-<p align='middle'>
 
-</p>
 
----
 
-## 참여자
+# Qallah
 
-- **기간 : 2개월**
-- **팀원 : 황현정, 서충식, 서찬식**
-
-- **Qallah팀**<br />
-  [황현정](https://github.com/giraff) <br />
-  [서충식](https://github.com/seo-rio) <br />
-  [서찬식](https://github.com/coldexpression) <br />
-
----
-
-## 시스템 소개
-
-### Qallah
 > 주어진 질문에 답변을 하면서 내 자신을 성찰하는 질문 & 답변 사이트
 
 😃 *React 및 프론트엔드 공부* 
 
 😃 *순수 CSS로 레이아웃, 반응형, Modal, hamburger menu 등 UI/UX 구현 (No Bootstrap)* 
 
-*😃 주어진 질문에 답변을 하면서 내 자신을 성찰하는 질문 & 답변 사이트* 
+😃 *Question + allah (너 자신을 알라 ) :* 질문을 통해 '내 자신을 알아가자'는 의미를 담아았습니다.*
 
-*😃 Question + allah (너 자신을 알라 ) :* 질문을 통해 '내 자신을 알아가자'는 의미를 담아았습니다.
+
+## 팀 프로젝트
+
+- **기간 : 2개월** 
+
+  👩 [황현정](https://github.com/giraff) <br />
+  👦 [서충식](https://github.com/seo-rio) <br />
+  👦 [서찬식](https://github.com/coldexpression) <br />
 
 ## 사용 방법
 
@@ -38,7 +27,7 @@
 - 내가 한 경험 페이지에 timeline.JS를 도입해 경험을 작성하면 타임 라인 형태로 확인할 수 있습니다
 - 현재 질문 생성은 관리자만 할 수 있습니다.
 
-### 사용기술 (수정 예정)
+### 사용기술
 
 - View : React
 - Data-binding: redux
@@ -49,6 +38,7 @@
 - hosting: Naver Cloud platform
 - Storage: AWS S3
 - DB : MariaDB
+
 - 개발 환경
   - Source Tree: Git GUI tool
   - Heidi SQL : DB GUI tool
