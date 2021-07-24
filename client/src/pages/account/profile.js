@@ -8,7 +8,7 @@ const Profile = () => (
     <>
         {/* baneer */}
         <section className="banner-section" />
-        <div id="account-wrap">
+        <div id="account-wrap" className="lang-kor">
             {/* section1 - 페이지 설명 */}
             <section className="account-page-header">
                 <div className="acc-title">나의 계정</div>
@@ -20,7 +20,7 @@ const Profile = () => (
                     <Link className="profile-tab answer-tab" to="/profile/answer">
                         나의 답변
                     </Link>
-                    <Link className="profile-tab account-tab" to="/profile">
+                    <Link className="profile-tab account-tab select-tab" to="/profile">
                         나의 계정
                     </Link>
                 </div>

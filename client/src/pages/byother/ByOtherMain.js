@@ -46,12 +46,12 @@ const ByOtherMain = () => {
                     <div className="q-main-title">
                         <h1>남이 보는 나</h1>
                     </div>
-                    <div className="q-main-content byother-main">
-                        <div className="q-byother-description lang-kor">지금 곁에 있는 다른 이에게 질문하세요.</div>
-                        <div className="q-byother-time lang-kor">
+                    <div className="q-main-content">
+                        <div className="question-description lang-kor">지금 곁에 있는 다른 이에게 질문하세요.</div>
+                        <div className="question-time lang-kor">
                             예상 소요 시간 <p className="font-description byother-time">5분+</p>
                         </div>
-                        <div className="q-byother-count lang-kor">
+                        <div className="question-count lang-kor">
                             질문 수 <p className="font-description byother-count">15</p>
                         </div>
                     </div>
@@ -60,19 +60,19 @@ const ByOtherMain = () => {
                             <div className="byother-nav-item" onClick={clickEvent} role="button" tabIndex={0} onKeyDown={clickEvent}>
                                 <i className="fas fa-play fa-2x" />
                             </div>
-                            <div className="byother-nav-label">START</div>
+                            <div className="nav-label">시작하기</div>
                         </div>
                         <div className="link-history">
                             <Link className="byother-nav-item" to="/byother/history">
                                 <i className="fas fa-history fa-2x" />
                             </Link>
-                            <div className="byother-nav-label">HISTORY</div>
+                            <div className="nav-label">이전답변</div>
                         </div>
                         <div className="link-home">
                             <Link className="byother-nav-item" to="/">
                                 <i className="fas fa-home fa-2x" />
                             </Link>
-                            <div className="byother-nav-label">HOME</div>
+                            <div className="nav-label">메인홈</div>
                         </div>
                     </div>
                 </div>

@@ -40,30 +40,32 @@ const QuestiontomeMain = () => {
                         <h1>내가 보는 나</h1>
                     </div>
                     <div className="q-main-content">
-                        <div>예상 소요 시간 : 20분 ~ 1시간</div>
-                        <div>질문 수 : 20</div>
-                        <div>나 자신에게 질문하는 시간을 가져보세요.</div>
+                        <div className="question-description lang-kor">나 자신에게 질문하는 시간을 가져보세요.</div>
+                        <div className="question-time lang-kor">
+                            예상 소요 시간 <p className="font-description tome-time">5분+</p>
+                        </div>
+                        <div className="question-count lang-kor">
+                            질문 수 <p className="font-description tome-count">20</p>
+                        </div>
                     </div>
                     <div className="q-main-nav">
                         <div className="link-start">
-                            <div onClick={clickEvent} role="button" tabIndex={0} onKeyDown={clickEvent}>
+                            <div className="tome-nav-item" onClick={clickEvent} role="button" tabIndex={0} onKeyDown={clickEvent}>
                                 <i className="fas fa-play fa-2x" />
                             </div>
-                            시작하기
+                            <p className="nav-label">시작하기</p>
                         </div>
                         <div className="link-history">
-                            <Link to="/tome/history">
+                            <Link className="tome-nav-item" to="/tome/history">
                                 <i className="fas fa-history fa-2x" />
-                                {/* <button>이전 답변보기</button> */}
                             </Link>
-                            이전답변
+                            <p className="nav-label">이전답변</p>
                         </div>
                         <div className="link-home">
-                            <Link to="../">
+                            <Link className="tome-nav-item" to="../">
                                 <i className="fas fa-home fa-2x" />
-                                {/* <button>홈으로 돌아가기</button> */}
                             </Link>
-                            메인홈
+                            <p className="nav-label">메인홈</p>
                         </div>
                     </div>
                 </div>

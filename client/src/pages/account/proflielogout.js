@@ -16,7 +16,7 @@ const profilelogout = () => {
     }, [dispatch]);
     return (
         <Link onClick={onLogout} to="/">
-            로그아웃
+            &nbsp;로그아웃
         </Link>
     );
 };

@@ -41,35 +41,32 @@ const ReflectionMain = () => {
                         <h1>성찰</h1>
                     </div>
                     <div className="q-main-content">
-                        <div>- 하루에 최대 1 질문</div>
-                        <div>- 이 페이지의 핵심은 사람이 살아가면서 마주하는 결정적 질문들을 모아둔 것, 그 질문에 대한 답변들을 '쌓는 것'</div>
-                        <div>- 이전 답변들을 기록해놓고 시간의 흐름대로 나의 변화를 볼 수 있는 것</div>
-                        <div>- 그러기 위해선 사용자의 꾸준한 참여와 진실 어린 답변이 필요하다</div>
-                        <div>- &#x26A0; 하루에 단 하나의 질문만 답변이 가능합니다.</div>
-                        <div>- &#x26A0; 답변 작성 시, 수정이 불가능하니 신중하게 답변해주세요.</div>
+                        <div className="question-description lang-kor">살아가면서 마주할 질문에 답해보세요</div>
+                        <div className="reflection-description lang-kor">하루에 단 1개의 질문만 답변 가능합니다</div>
+                        <div className="reflection-description lang-kor">답변 작성 후, 수정은 불가능하니 신중하게 답변해주세요</div>
                     </div>
-                    <div className="q-main-nav">
+                    <div className="q-main-nav reflection-nav">
                         {reflcheck ? null : (
                             <div className="link-start">
-                                <div onClick={clickEvent} role="button" tabIndex={0} onKeyDown={clickEvent}>
+                                <div className="refl-nav-item" onClick={clickEvent} role="button" tabIndex={0} onKeyDown={clickEvent}>
                                     <i className="fas fa-play fa-2x" />
                                 </div>
-                                시작하기
+                                <p className="nav-label">시작하기</p>
                             </div>
                         )}
                         <div className="link-history">
-                            <Link to="/refl/history">
+                            <Link className="refl-nav-item" to="/refl/history">
                                 <i className="fas fa-history fa-2x" />
                                 {/* <button>이전 답변보기</button> */}
                             </Link>
-                            이전답변
+                            <p className="nav-label">이전답변</p>
                         </div>
                         <div className="link-home">
-                            <Link to="../">
+                            <Link className="refl-nav-item" to="../">
                                 <i className="fas fa-home fa-2x" />
                                 {/* <button>홈으로 돌아가기</button> */}
                             </Link>
-                            메인홈
+                            <p className="nav-label">메인홈</p>
                         </div>
                     </div>
                 </div>

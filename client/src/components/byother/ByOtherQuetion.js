@@ -127,9 +127,11 @@ const ByOtherQuestion = ({ req }) => {
             return (
                 <>
                     <button className="move move-pre" type="button" onClick={() => onClickEvent('prev')}>
+                        {/* <p className="move-prev-label lang-kor" /> */}
                         <i className="fas fa-chevron-left fa-3x" />
                     </button>
-                    <button className="move move-next" type="button" onClick={() => onClickEvent('finish')}>
+                    <button className="move move-finish" type="button" onClick={() => onClickEvent('finish')}>
+                        {/* <p className="move-finish-label lang-kor" /> */}
                         <i className="fas fa-check fa-3x" />
                     </button>
                 </>
@@ -139,6 +141,7 @@ const ByOtherQuestion = ({ req }) => {
             return (
                 <>
                     <button className="move move-next" type="button" onClick={() => onClickEvent('next')}>
+                        {/* <p className="move-next-label lang-kor" /> */}
                         <i className="fas fa-chevron-right fa-3x" />
                     </button>
                 </>
@@ -147,9 +150,11 @@ const ByOtherQuestion = ({ req }) => {
         return (
             <>
                 <button className="move move-pre" type="button" onClick={() => onClickEvent('prev')}>
+                    {/* <p className="move-prev-label lang-kor" /> */}
                     <i className="fas fa-chevron-left fa-3x" />
                 </button>
                 <button className="move move-next" type="button" onClick={() => onClickEvent('next')}>
+                    {/* <p className="move-next-label lang-kor" /> */}
                     <i className="fas fa-chevron-right fa-3x" />
                 </button>
             </>

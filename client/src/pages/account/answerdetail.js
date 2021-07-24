@@ -11,7 +11,7 @@ const AnswerDetail = ({ location }) => {
     return (
         <>
             <section className="banner-section" />
-            <div id="account-wrap">
+            <div id="account-wrap" className="lang-kor">
                 <section className="account-page-header">
                     <div className="acc-title">나의 답변</div>
                     <div className="acc-header">상세 답변</div>
@@ -19,7 +19,7 @@ const AnswerDetail = ({ location }) => {
                 <aside className="sidebar">
                     <ProfileCommon />
                     <div className="profile-tabs">
-                        <Link className="profile-tab answer-tab" to="/profile/answer">
+                        <Link className="profile-tab answer-tab select-tab" to="/profile/answer">
                             나의 답변
                         </Link>
                         <Link className="profile-tab account-tab" to="/profile">
