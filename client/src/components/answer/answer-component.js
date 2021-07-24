@@ -26,7 +26,7 @@ const AnswerComponent = ({ currentMonth, currentDay }) => {
                 types !== [] &&
                 types.map(type => (
                     <Link to={`/profile/answer/view?type=${type}&year=${currentYear}&month=${currentMonth}&day=${currentDay}`} key={type}>
-                        <button type="button" className={`my-answer-elem ${type}-btn`}>
+                        <button type="button" className={`my-answer-elem ${type}-btn lang-kor`}>
                             {type === 'answerbyme' ? '내가 보는 나' : ''}
                             {type === 'answerbyothers' ? '남이 보는 나' : ''}
                             {type === 'answerforrefl' ? '오늘의 성찰' : ''}

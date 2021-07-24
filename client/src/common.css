@@ -1867,28 +1867,30 @@ svg {
 }
 
 .my-answer-elem {
-    color: var(--color-main-white);
+    color: var(--color-main-black);
+    /* background-color: var(--color-e2); */
     margin: 0px 10px;
     padding: 10px;
     border-radius: 10px;
-    border: 1px solid var(--color-ee);
+    /* border: 1px solid var(--color-e2); */
+    border: none;
 }
 
 .my-answer-elem:hover {
-    color: var(--color-main-white);
+    color: var(--color-main-black);
     cursor: pointer;
 }
 
 .answerbyme-btn {
-    background-color: var(--color-main-purple);
+    background-color: #fde2e4;
 }
 
 .answerbyothers-btn {
-    background-color: var(--color-main-blue);
+    background-color: #d6e2e9;
 }
 
 .answerforrefl-btn {
-    background-color: var(--color-main-orange);
+    background-color: #fff1e6;
 }
 .my-answer-container {
     overflow: auto;
