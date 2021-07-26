@@ -135,12 +135,9 @@ const ReflectionDetail = () => {
 
     return (
         <div className="list-container tome-list-container lang-kor">
-            {/* <div>{form.question_seq+1}. {form.question_context}</div><br/> */}
-            {/* <input onChange={onChange}  value={form.question_answer} placeholder="답변을 입력해 주세요"></input> */}
             <div className="move-wrap">{done_phr}</div>
             <div className="tome-qna">
                 <div className="tome-question-field">
-                    {/* <div className="tome-question-num">{form.question_seq + 1}.&nbsp;</div> */}
                     <div className="tome-question-title">{form.question_context}</div>
                 </div>
                 <div className="tome-answer-field">

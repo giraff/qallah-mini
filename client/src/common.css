@@ -389,10 +389,10 @@ img {
 }
 .main-answer-container > *:after {
     content: '»';
-    font-size: 45px;
+    font-size: 30px;
     position: absolute;
     opacity: 0;
-    top: 0px;
+    top: 10px;
     right: -30px;
     transition: 0.5s;
 }
@@ -2129,9 +2129,10 @@ svg {
         margin: 1%;
     }
 
-    .list-container > .move-wrap {
+    .list-container > .move-wrap > button {
         display: none;
     }
+
     .move-hidden {
         display: block;
     }
