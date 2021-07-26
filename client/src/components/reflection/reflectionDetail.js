@@ -127,8 +127,14 @@ const ReflectionDetail = () => {
         </button>
     );
 
+    const done_hidden_btn = (
+        <button className="done-hidden" type="button" onClick={done} disabled={form.next_button}>
+            작성 완료
+        </button>
+    );
+
     return (
-        <div className="list-container tome-list-container">
+        <div className="list-container tome-list-container lang-kor">
             {/* <div>{form.question_seq+1}. {form.question_context}</div><br/> */}
             {/* <input onChange={onChange}  value={form.question_answer} placeholder="답변을 입력해 주세요"></input> */}
             <div className="move-wrap">{done_phr}</div>
@@ -146,6 +152,7 @@ const ReflectionDetail = () => {
                     ) : null}
                 </div>
             </div>
+            <div className="refl-move-hidden move-hidden">{done_hidden_btn}</div>
         </div>
     );
 };

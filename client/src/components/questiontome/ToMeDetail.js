@@ -192,6 +192,25 @@ const QuestionToMeDetail = () => {
             <i className="fas fa-chevron-left fa-3x" />
         </button>
     );
+
+    const done_hidden_btn = (
+        <button className="done-hidden lang-kor" type="button" onClick={done} disabled={form.next_button}>
+            완료
+        </button>
+    );
+    const next_hidden_btn = (
+        <button className="next-hidden lang-kor" type="button" onClick={next_question} disabled={form.next_button}>
+            다음&nbsp;&nbsp;
+            <i className="fas fa-long-arrow-alt-right" />
+        </button>
+    );
+    const prev_hidden_btn = (
+        <button className="prev-hidden lang-kor" type="button" onClick={prev_question} disabled={form.next_button}>
+            <i className="fas fa-long-arrow-alt-left" />
+            &nbsp;&nbsp;이전
+        </button>
+    );
+
     return (
         <div className="list-container tome-list-container">
             {/* <div>{form.question_seq+1}. {form.question_context}</div><br/> */}
@@ -217,6 +236,10 @@ const QuestionToMeDetail = () => {
                         </div>
                     ) : null}
                 </div>
+            </div>
+            <div className="tome-move-hidden move-hidden">
+                {form.question_seq + 1 === 1 ? null : prev_hidden_btn}
+                {form.question_seq + 1 === form.question_length ? done_hidden_btn : next_hidden_btn}
             </div>
         </div>
     );

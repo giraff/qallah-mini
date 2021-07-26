@@ -127,11 +127,9 @@ const ByOtherQuestion = ({ req }) => {
             return (
                 <>
                     <button className="move move-pre" type="button" onClick={() => onClickEvent('prev')}>
-                        {/* <p className="move-prev-label lang-kor" /> */}
                         <i className="fas fa-chevron-left fa-3x" />
                     </button>
                     <button className="move move-finish" type="button" onClick={() => onClickEvent('finish')}>
-                        {/* <p className="move-finish-label lang-kor" /> */}
                         <i className="fas fa-check fa-3x" />
                     </button>
                 </>
@@ -141,7 +139,6 @@ const ByOtherQuestion = ({ req }) => {
             return (
                 <>
                     <button className="move move-next" type="button" onClick={() => onClickEvent('next')}>
-                        {/* <p className="move-next-label lang-kor" /> */}
                         <i className="fas fa-chevron-right fa-3x" />
                     </button>
                 </>
@@ -150,12 +147,48 @@ const ByOtherQuestion = ({ req }) => {
         return (
             <>
                 <button className="move move-pre" type="button" onClick={() => onClickEvent('prev')}>
-                    {/* <p className="move-prev-label lang-kor" /> */}
                     <i className="fas fa-chevron-left fa-3x" />
                 </button>
                 <button className="move move-next" type="button" onClick={() => onClickEvent('next')}>
-                    {/* <p className="move-next-label lang-kor" /> */}
                     <i className="fas fa-chevron-right fa-3x" />
+                </button>
+            </>
+        );
+    }
+
+    function renderResponsiveNav() {
+        if (currentPage === total) {
+            return (
+                <>
+                    <button className="prev-hidden" type="button" onClick={() => onClickEvent('prev')}>
+                        <i className="fas fa-long-arrow-alt-left" />
+                        &nbsp;&nbsp;이전
+                    </button>
+                    <button className="done-hidden" type="button" onClick={() => onClickEvent('finish')}>
+                        완료
+                    </button>
+                </>
+            );
+        }
+        if (currentPage === 1) {
+            return (
+                <>
+                    <button className="next-hidden" type="button" onClick={() => onClickEvent('next')}>
+                        다음&nbsp;&nbsp;
+                        <i className="fas fa-long-arrow-alt-right" />
+                    </button>
+                </>
+            );
+        }
+        return (
+            <>
+                <button className="prev-hidden" type="button" onClick={() => onClickEvent('prev')}>
+                    <i className="fas fa-long-arrow-alt-left" />
+                    &nbsp;&nbsp;이전
+                </button>
+                <button className="next-hidden" type="button" onClick={() => onClickEvent('next')}>
+                    다음&nbsp;&nbsp;
+                    <i className="fas fa-long-arrow-alt-right" />
                 </button>
             </>
         );
@@ -163,50 +196,47 @@ const ByOtherQuestion = ({ req }) => {
 
     const Body = (
         <>
-            <div>
-                {(() => (
-                    <div className="list-container byother-list-container">
-                        <div className="move-wrap">
-                            <div className="list-page-count">
-                                {questionContent.other_question_seq}/{total}
-                            </div>
-                            {renderBottomNav()}
+            {(() => (
+                <div className="list-container byother-list-container">
+                    <div className="move-wrap">
+                        <div className="list-page-count">
+                            {questionContent.other_question_seq}/{total}
                         </div>
-                        <div className="progress-on">
-                            <div
-                                className="progress-bar"
-                                style={{ width: `${(questionContent.other_question_seq / total) * 100}%`, backgroundColor: 'var(--color-main-blue)' }}
+                        {renderBottomNav()}
+                    </div>
+                    <div className="progress-on">
+                        <div
+                            className="progress-bar"
+                            style={{ width: `${(questionContent.other_question_seq / total) * 100}%`, backgroundColor: 'var(--color-main-blue)' }}
+                        />
+                    </div>
+                    <div className="byother-qna">
+                        <div className="byother-question-field">
+                            <div className="byother-question-num">{questionContent !== '' && questionContent.other_question_seq}.&nbsp;</div>
+                            <div className="byother-question-title lang-kor">{questionContent !== '' && questionContent.other_question_content}</div>
+                        </div>
+                        <div className="byother-answer-field">
+                            <input
+                                className="answer-input lang-kor"
+                                type="text"
+                                value={answerContent}
+                                onChange={onChange}
+                                placeholder="답변을 입력해주세요"
                             />
                         </div>
-                        <div className="byother-qna">
-                            <div className="byother-question-field">
-                                <div className="byother-question-num">{questionContent !== '' && questionContent.other_question_seq}.&nbsp;</div>
-                                <div className="byother-question-title lang-kor">
-                                    {questionContent !== '' && questionContent.other_question_content}
-                                </div>
+                        {inputEmptyError ? (
+                            <div className="err-wrap">
+                                <div className="err-msg">답변을 빈칸으로 채울 수 없습니다.</div>
                             </div>
-                            <div className="byother-answer-field">
-                                <input
-                                    className="answer-input lang-kor"
-                                    type="text"
-                                    value={answerContent}
-                                    onChange={onChange}
-                                    placeholder="답변을 입력해주세요"
-                                />
-                            </div>
-                            {inputEmptyError ? (
-                                <div className="err-wrap">
-                                    <div className="err-msg">답변을 빈칸으로 채울 수 없습니다.</div>
-                                </div>
-                            ) : null}
-                        </div>
+                        ) : null}
                     </div>
-                ))()}
-            </div>
+                    <div className="byother-move-hidden move-hidden">{renderResponsiveNav()}</div>
+                </div>
+            ))()}
         </>
     );
 
-    return <div>{Body}</div>;
+    return <>{Body}</>;
 };
 
 export default ByOtherQuestion;

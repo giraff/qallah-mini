@@ -122,16 +122,19 @@ img {
 .header-nav ul {
     display: flex;
 }
+
 .header-nav ul .nav-item {
     flex: none;
     margin: 15px 30px;
     font-size: 16px;
     padding: 3px;
 }
+
 .header-nav ul .nav-item:hover {
     transition: 0.1s;
     color: var(--color-main-gray);
 }
+
 .header-nav ul .nav-item-gnb {
     position: absolute;
     right: 30px;
@@ -374,11 +377,29 @@ img {
 .main-question-container,
 .main-answer-container {
     margin: 0;
-    padding: 150px 0;
+    padding: 250px 0;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+.main-answer-container > * {
+    position: relative;
+}
+.main-answer-container > *:after {
+    content: '»';
+    font-size: 45px;
+    position: absolute;
+    opacity: 0;
+    top: 0px;
+    right: -30px;
+    transition: 0.5s;
+}
+
+.main-answer-container > *:hover:after {
+    opacity: 1;
+    right: -40px;
 }
 
 .main-question-container {
@@ -413,6 +434,14 @@ img {
     height: 168.78px;
 }
 
+.q_img {
+    transition: all 0.5s;
+}
+
+.q_img:hover {
+    transform: rotate(-15deg);
+}
+
 /* login */
 .login-section {
     display: flex;
@@ -421,7 +450,7 @@ img {
     flex-grow: 1;
     z-index: 0;
     position: relative;
-    min-height: 350px;
+    min-height: 650px;
     width: 100%;
     height: 100vh;
     background: var(--image-bg) no-repeat center/cover;
@@ -432,7 +461,7 @@ img {
     flex-direction: column;
     justify-content: center;
     width: 100%;
-    height: 100vh;
+    height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 100;
 }
@@ -448,6 +477,49 @@ img {
 .login-section .login-overlay .login-container .login-tab-wrapper {
     line-height: 50px;
 }
+
+.register-tab,
+.login-tab {
+    margin: 10px 0;
+}
+.sub-tab {
+    font-size: 23px;
+    position: relative;
+}
+
+.sub-tab:before {
+    content: '»';
+    position: absolute;
+    opacity: 0;
+    top: -10px;
+    right: -10px;
+    transition: 0.5s;
+}
+
+.sub-tab:hover:before {
+    opacity: 1;
+    right: -20px;
+}
+
+/* .sub-tab:after {
+    position: absolute;
+    top: 40px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: 0%;
+    content: '';
+    color: transparent;
+    background: #aaa;
+    height: 2px;
+    transition: all 0.5s;
+}
+
+.sub-tab:hover:after {
+    width: 100%;
+    color: #555;
+} */
 
 .login-field {
     width: 100%;
@@ -488,7 +560,7 @@ img {
     flex-grow: 1;
     z-index: 0;
     position: relative;
-    min-height: 350px;
+    min-height: 650px;
     width: 100%;
     height: 100vh;
     background: var(--image-bg) no-repeat center/cover;
@@ -499,7 +571,7 @@ img {
     flex-direction: column;
     justify-content: center;
     width: 100%;
-    height: 100vh;
+    height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 100;
 }
@@ -585,7 +657,7 @@ input:-webkit-autofill:active {
     flex-grow: 1;
     z-index: 0;
     position: relative;
-    min-height: 350px;
+    min-height: 650px;
     width: 100%;
     height: 100vh;
     background: var(--image-bg) no-repeat center/cover;
@@ -705,16 +777,13 @@ input:-webkit-autofill:active {
     min-width: 65px;
 }
 
-.q-main-nav > div > div {
-    cursor: pointer;
-}
-
 .byother-nav-item > i,
 .tome-nav-item > i,
 .refl-nav-item > i {
     display: block;
     color: var(--color-main-white);
     transition: box-shadow 0.3s ease, color 0.3s ease;
+    cursor: pointer;
 }
 
 .byother-nav-item > i:hover {
@@ -775,35 +844,6 @@ input:-webkit-autofill:active {
     right: -80px;
 }
 
-/* .move-prev-label {
-    width: 40px;
-    display: none;
-    position: absolute;
-    top: 5px;
-    left: 25px;
-    font-size: large;
-    color: white;
-}
-.move-next-label {
-    width: 40px;
-    display: none;
-    position: absolute;
-    top: 5px;
-    right: 25px;
-    font-size: large;
-    color: white;
-}
-
-.move-finish-label {
-    width: 40px;
-    display: none;
-    position: absolute;
-    top: 30px;
-    right: 0px;
-    font-size: large;
-    color: white;
-} */
-
 .move i {
     text-align: center;
     color: white;
@@ -838,12 +878,6 @@ input:-webkit-autofill:active {
     -o-transform: translateY(-5px);
     transform: translateY(-5px);
 }
-
-/* .move-next:hover .move-next-label,
-.move-pre:hover .move-prev-label,
-.move-finish:hover .move-finish-label {
-    display: block;
-} */
 
 /* 답변 input design */
 .answer-input {
@@ -883,6 +917,33 @@ input:-webkit-autofill:active {
 
 .tome-answer-field > i {
     margin-left: 10px;
+}
+
+.move-hidden {
+    display: none;
+}
+
+.move-hidden > * {
+    height: 45px;
+    width: 100%;
+    margin: 1% 0;
+    float: left;
+    border-radius: 10px;
+    border: none;
+    font-size: 15px;
+    font-weight: bold;
+    -webkit-transition: all 0.15s linear;
+    transition: all 0.15s linear;
+}
+
+.tome-move-hidden > .prev-hidden {
+    background: #bab8cc;
+    color: var(--color-main-black);
+}
+.tome-move-hidden > .done-hidden,
+.tome-move-hidden > .next-hidden {
+    background: #7d769e;
+    color: whitesmoke;
 }
 
 /* 과거 답변 페이지 History */
@@ -945,10 +1006,8 @@ input:-webkit-autofill:active {
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* min-height: 400px;
-    max-height: 650px; */
-    /* overflow: auto; */
     width: 100%;
+    margin: 0 0 100px 0;
 }
 .history-elem-container .history-elem {
     position: relative;
@@ -1180,6 +1239,17 @@ input:-webkit-autofill:active {
     border: 1px solid var(--color-main-black);
 }
 
+.byother-move-hidden > .prev-hidden {
+    background-color: #a8c1d1;
+    color: var(--color-main-black);
+}
+
+.byother-move-hidden > .next-hidden,
+.byother-move-hidden > .done-hidden {
+    background-color: #2980b9;
+    color: whitesmoke;
+}
+
 /* Experience Main 페이지 */
 .exp-container {
     margin-top: 40px;
@@ -1212,7 +1282,8 @@ input:-webkit-autofill:active {
     background-color: var(--exp-btn-tarquoise);
     border-radius: 30px;
     padding: 15px;
-    width: 500px;
+    width: 100%;
+    max-width: 1000px;
     font-size: 20px;
 }
 .exp-button:hover {
@@ -1350,6 +1421,10 @@ input:-webkit-autofill:active {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+/* reflection Detail 페이지 */
+.refl-move-hidden > * {
+    background-color: wheat;
 }
 
 /* Account 계정 페이지 메인 */
@@ -1868,16 +1943,13 @@ svg {
 
 .my-answer-elem {
     color: var(--color-main-black);
-    /* background-color: var(--color-e2); */
     margin: 0px 10px;
     padding: 10px;
     border-radius: 10px;
-    /* border: 1px solid var(--color-e2); */
     border: none;
 }
 
 .my-answer-elem:hover {
-    color: var(--color-main-black);
     cursor: pointer;
 }
 
@@ -2002,12 +2074,11 @@ svg {
     .modify-field {
         flex-direction: column;
     }
-}
-@media (min-width: 768px) {
-    .menu-wrap {
-        display: none;
+    .list-container {
+        width: 600px;
     }
 }
+
 @media (max-width: 760px) {
     .header-nav > ul > .nav-logo,
     .header-nav > ul > .nav-item,
@@ -2030,6 +2101,17 @@ svg {
 
     .account-form {
         width: 100%;
+    }
+    .list-container {
+        width: 98%;
+        margin: 1%;
+    }
+
+    .list-container > .move-wrap {
+        display: none;
+    }
+    .move-hidden {
+        display: block;
     }
 }
 @media (max-width: 560px) {
@@ -2072,7 +2154,30 @@ svg {
     .reflection-description {
         width: 100%;
     }
+
+    .date-input {
+        display: inline-block;
+    }
+
+    .sub-tab:before {
+        opacity: 1;
+        right: -20px;
+    }
+
+    .main-answer-container > *:after {
+        opacity: 1;
+        right: -40px;
+    }
 }
+
+/* 햄버거 메뉴 */
+@media (min-width: 768px) {
+    .menu-wrap {
+        display: none;
+    }
+}
+
+/* 높이에 따른 반응형 */
 @media (max-height: 800px) {
     .exp-content {
         height: 400px;
@@ -2108,5 +2213,20 @@ svg {
 
     .MenuOpen {
         display: block;
+    }
+
+    .menu-inner {
+        overflow: auto;
+    }
+    /* LOGIN, REGISTER  */
+    .sub-tab:before {
+        opacity: 1;
+        right: -20px;
+    }
+
+    /* Main Answer 아이콘 effect */
+    .main-answer-container > *:after {
+        opacity: 1;
+        right: -40px;
     }
 }

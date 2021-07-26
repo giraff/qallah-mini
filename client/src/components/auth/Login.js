@@ -66,14 +66,14 @@ const Login = () => {
     return (
         <div>
             <form onSubmit={e => onSubmit(e)}>
-                <input className="login-field" id="email" type="email" name="email" placeholder="email" onChange={e => onChange(e)} />
+                <input className="login-field" id="email" type="email" name="email" placeholder="이메일" onChange={e => onChange(e)} />
                 <br />
-                <input className="login-field" id="password" type="password" name="password" placeholder="password" onChange={e => onChange(e)} />
+                <input className="login-field" id="password" type="password" name="password" placeholder="비밀번호" onChange={e => onChange(e)} />
                 <br />
                 <div className="login-err-field">{localMsg ? <div className="err-msg">{localMsg}</div> : null}</div>
                 <input className="login-button lang-eng" type="submit" value="LogIn" />
             </form>
-            <input className="login-button lang-eng" type="submit" value="Register" onClick={e => onClick(e)} />
+            {/* <input className="login-button lang-eng" type="submit" value="Register" onClick={e => onClick(e)} /> */}
         </div>
     );
 };

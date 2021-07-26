@@ -85,14 +85,18 @@ const ExperienceForm = () => {
             <div className="expr-date">
                 <i className="fas fa-bars" /> 날짜*
                 <div className="input-field date-input">
-                    <input type="date" name="startDate" id="startDate" onChange={handleChange} />
+                    <div>
+                        <input type="date" name="startDate" id="startDate" onChange={handleChange} />
+                    </div>
                     {isChecked ? (
                         <div>
                             ~
                             <input type="date" name="endDate" id="endDate" onChange={handleChange} />
                         </div>
                     ) : null}
-                    <input type="checkbox" checked={isChecked} onChange={handleChecked} /> 기간
+                    <div>
+                        <input type="checkbox" checked={isChecked} onChange={handleChecked} /> 기간
+                    </div>
                 </div>
             </div>
             {/* <div className="expr-theme">

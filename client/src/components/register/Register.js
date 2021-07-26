@@ -65,7 +65,7 @@ const Register = () => {
                     id="email"
                     type="email"
                     name="userEmail"
-                    placeholder="email"
+                    placeholder="이메일"
                     value={form.userEmail}
                     onChange={onChange}
                 />
@@ -75,7 +75,7 @@ const Register = () => {
                     id="name"
                     type="name"
                     name="userName"
-                    placeholder="name"
+                    placeholder="별명"
                     value={form.userName}
                     onChange={onChange}
                 />
@@ -85,7 +85,7 @@ const Register = () => {
                     id="password"
                     type="password"
                     name="userPassword"
-                    placeholder="password"
+                    placeholder="비밀번호"
                     value={form.userPassword}
                     onChange={onChange}
                 />
@@ -99,7 +99,7 @@ const Register = () => {
                         </div>
                     )}
                 </div>
-                <input className="register-button lang-eng" type="submit" value="Sign Up" disabled={!pwCheck} />
+                <input className="register-button lang-eng" type="submit" value="Register" disabled={!pwCheck} />
             </form>
         </div>
     );
