@@ -14,13 +14,13 @@ const ByOtherDone = () => (
                 </div>
                 <div className="q-main-nav byother-footer">
                     <div className="byother-history">
-                        <Link to="/byother/history">
+                        <Link className="byother-nav-item" to="/byother/history">
                             <i className="fas fa-history fa-2x" />
                         </Link>
                         <div className="nav-label">이전 답변</div>
                     </div>
                     <div className="byother-home">
-                        <Link to="/">
+                        <Link className="byother-nav-item" to="/">
                             <i className="fas fa-home fa-2x" />
                         </Link>
                         <div className="nav-label">메인홈</div>

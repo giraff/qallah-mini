@@ -13,13 +13,13 @@ const ReflectionDone = () => (
                 </div>
                 <div className="q-main-nav">
                     <div className="refl-history">
-                        <Link to="/refl/history">
+                        <Link className="refl-nav-item" to="/refl/history">
                             <i className="fas fa-history fa-2x" />
                         </Link>
                         <p className="nav-label">이전답변</p>
                     </div>
                     <div className="refl-home">
-                        <Link to="/">
+                        <Link className="refl-nav-item" to="/">
                             <i className="fas fa-home fa-2x" />
                         </Link>
                         <div className="nav-label">메인홈</div>

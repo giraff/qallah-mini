@@ -779,7 +779,8 @@ input:-webkit-autofill:active {
 
 .byother-nav-item > i,
 .tome-nav-item > i,
-.refl-nav-item > i {
+.refl-nav-item > i,
+.expr-nav-item > i {
     display: block;
     color: var(--color-main-white);
     transition: box-shadow 0.3s ease, color 0.3s ease;
@@ -798,6 +799,9 @@ input:-webkit-autofill:active {
     color: var(--color-main-orange);
 }
 
+.expr-nav-item > i:hover {
+    color: var(--color-main-gray);
+}
 .nav-label {
     font-size: small;
     height: 19px;
@@ -1221,8 +1225,8 @@ input:-webkit-autofill:active {
 .popup-button-wrap button {
     display: inline-block;
     text-align: center;
-    width: 100px;
-    height: 35px;
+    width: 145px;
+    height: 40px;
     padding: 0 14px 0;
     border: 1px solid #555;
     border-radius: 3px;
@@ -1230,7 +1234,7 @@ input:-webkit-autofill:active {
     font-size: 15px;
     color: #fff;
     line-height: 25px;
-    margin: 3px;
+    margin: 5px;
     cursor: pointer;
 }
 .popup-button-wrap button:hover {
@@ -1781,6 +1785,10 @@ input:-webkit-autofill:active {
     line-height: 17px;
 }
 
+.info-detail > .err-wrap {
+    margin: -5px 0;
+}
+
 .acc-save {
     display: flex;
     width: 100px;
@@ -1793,6 +1801,7 @@ input:-webkit-autofill:active {
     margin: auto 20px 20px auto;
     font-size: 15px;
     border-radius: 5px;
+    cursor: pointer;
 }
 .acc-save:enabled {
     transition: 0.3s;
@@ -1800,6 +1809,7 @@ input:-webkit-autofill:active {
     background-color: var(--color-main-heavy-purple);
 }
 
+/* 취소하기 & 이름 수정 */
 .acc-save-name {
     width: 100px;
     height: 35px;
@@ -1807,6 +1817,7 @@ input:-webkit-autofill:active {
     font-size: 15px;
     margin: 0px 10px;
     border-radius: 5px;
+    cursor: pointer;
 }
 .acc-save-name:enabled {
     transition: 0.3s;
@@ -1827,6 +1838,7 @@ input:-webkit-autofill:active {
     font-size: 15px;
     border-radius: 5px;
     padding: 5px;
+    cursor: pointer;
 }
 .acc-save-pw:enabled {
     transition: 0.3s;
@@ -1834,6 +1846,11 @@ input:-webkit-autofill:active {
     background-color: var(--color-main-heavy-purple);
 }
 
+.acc-save-pw:disabled {
+    cursor: default;
+}
+
+/* 이름 수정 시 생기는 '저장하기' 버튼 */
 .acc-save-name-pwd {
     width: 100px;
     height: 35px;
@@ -1843,6 +1860,7 @@ input:-webkit-autofill:active {
     margin: 0px 10px;
     font-size: 15px;
     border-radius: 5px;
+    cursor: pointer;
 }
 .acc-save-name-pwd:enabled {
     transition: 0.3s;
@@ -1925,7 +1943,7 @@ svg {
 
 .label {
     padding: 10px;
-    cursor: pointer;
+    cursor: default;
 }
 
 .label:hover {
@@ -1996,6 +2014,10 @@ svg {
     justify-content: center;
     align-items: center;
     margin-bottom: 20px;
+}
+
+.nav-btn {
+    cursor: pointer;
 }
 
 .btn-pre {

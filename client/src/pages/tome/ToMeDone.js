@@ -13,13 +13,13 @@ const ToMeDone = () => (
                 </div>
                 <div className="q-main-nav">
                     <div className="tome-history">
-                        <Link to="/tome/history">
+                        <Link className="tome-nav-item" to="/tome/history">
                             <i className="fas fa-history fa-2x" />
                         </Link>
                         <p className="nav-label">이전 답변</p>
                     </div>
                     <div className="tome-home">
-                        <Link to="/">
+                        <Link className="tome-nav-item" to="/">
                             <i className="fas fa-home fa-2x" />
                         </Link>
                         <p className="nav-label">메인 홈</p>
