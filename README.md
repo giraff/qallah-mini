@@ -132,7 +132,7 @@
 <p align='middle'><a href='https://github.com/giraff/qallah-mini/blob/main/documentation/ERDiagram.png'><img src='./documentation/ERDiagram.png' /></a></p>
 
 ### 앞으로 남은 과제및 고려하는 부분
-1. 반응형 웹페이지 완수
+1. 반응형 웹페이지 완수 ✔️
 2. 도메인 (option)
 3. 기능 추가 & 개선
   1. 주제별 답변 보기 (연도별 답변만 볼 수 있는데 주제별, 질문별 추가. 답변 View 선택 사항 늘리기)
@@ -142,4 +142,3 @@
   4. 회원 탈퇴 기능 (DB에서 정보 완전히 제거)
   5. 이메일 인증 기능 및 보안 강화
 4. 페이지 헤더 수정 (favicon)
-5. gpdl
