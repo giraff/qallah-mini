@@ -389,10 +389,10 @@ img {
 }
 .main-answer-container > *:after {
     content: '»';
-    font-size: 30px;
+    font-size: 45px;
     position: absolute;
     opacity: 0;
-    top: 10px;
+    top: 0px;
     right: -30px;
     transition: 0.5s;
 }
@@ -2186,11 +2186,6 @@ svg {
         opacity: 1;
         right: -20px;
     }
-
-    .main-answer-container > *:after {
-        opacity: 1;
-        right: -40px;
-    }
 }
 
 /* 햄버거 메뉴 */
@@ -2245,11 +2240,5 @@ svg {
     .sub-tab:before {
         opacity: 1;
         right: -20px;
-    }
-
-    /* Main Answer 아이콘 effect */
-    .main-answer-container > *:after {
-        opacity: 1;
-        right: -40px;
     }
 }
