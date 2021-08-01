@@ -910,6 +910,7 @@ input:-webkit-autofill:active {
 }
 
 .tome-question-num {
+    line-height: 30px;
     font-size: x-large;
 }
 
@@ -1160,6 +1161,7 @@ input:-webkit-autofill:active {
     display: flex;
 }
 .byother-question-field .byother-question-num {
+    line-height: 30px;
     font-size: x-large;
 }
 .byother-question-field .byother-question-title {
@@ -1546,7 +1548,7 @@ input:-webkit-autofill:active {
 .profile-tabs .profile-tab {
     padding: 10px;
     border-bottom: 1px solid var(--color-e2);
-    height: 50px;
+    height: 60px;
     display: flex;
     align-items: center;
 }
@@ -1685,7 +1687,7 @@ input:-webkit-autofill:active {
     background-color: var(--color-input-contrast-bg);
     border: 1px solid var(--color-e2);
     width: 200px;
-    height: 30px;
+    height: 35px;
     border-radius: 5px;
     font-family: var(--font-kor);
     line-height: 20px;
@@ -1727,7 +1729,7 @@ input:-webkit-autofill:active {
     background-color: var(--color-input-contrast-bg);
     border: 1px solid var(--color-e2);
     width: 180px;
-    height: 30px;
+    height: 35px;
     border-radius: 5px;
     margin-top: 5px;
     line-height: 20px;
@@ -1743,7 +1745,7 @@ input:-webkit-autofill:active {
     background-color: var(--color-input-contrast-bg);
     border: 1px solid var(--color-e2);
     width: 180px;
-    height: 30px;
+    height: 35px;
     border-radius: 5px;
     margin-top: 5px;
     line-height: 20px;
@@ -1759,7 +1761,7 @@ input:-webkit-autofill:active {
     background-color: var(--color-input-contrast-bg);
     border: 1px solid var(--color-e2);
     width: 180px;
-    height: 30px;
+    height: 35px;
     border-radius: 5px;
     margin-top: 5px;
     line-height: 20px;
@@ -2160,10 +2162,11 @@ svg {
         border-radius: 5px;
         margin: 10px auto;
         width: 100%;
+        height: 50px;
     }
 
-    .user-avatar {
-        margin: 0 auto;
+    .acc-save-pw {
+        height: 50px;
     }
 
     .user-name-input,
@@ -2172,6 +2175,10 @@ svg {
     .new-pwd-input,
     .re-new-pwd-input {
         width: 100%;
+        height: 40px;
+    }
+    .user-avatar {
+        margin: 0 auto;
     }
 
     .reflection-description {

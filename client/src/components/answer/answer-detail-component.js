@@ -9,6 +9,12 @@ const AnswerDetailComponent = ({ query }) => {
     const history = useHistory();
     const { answerDetail } = useSelector(state => state.answer);
 
+    const handleDelete = () => {
+        // 삭제
+
+        // 새로고침
+        history.goBack();
+    };
     useEffect(() => {
         const token = localStorage.getItem('token');
         const body = { year, month, day, type, token };
@@ -29,6 +35,17 @@ const AnswerDetailComponent = ({ query }) => {
                         {type === 'answerbyme' ? '내가 보는 나' : ''}
                         {type === 'answerbyothers' ? '남이 보는 나' : ''}
                         {type === 'answerforrefl' ? '오늘의 성찰' : ''}
+                    </div>
+                    <div>
+                        <button
+                            className="answer-delete-btn"
+                            type="button"
+                            onClick={() => {
+                                handleDelete();
+                            }}
+                        >
+                            삭제
+                        </button>
                     </div>
                     <div className="date-text">{`${year}/${month}/${day}`}</div>
                 </div>
