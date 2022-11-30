@@ -1,0 +1,27 @@
+{
+  "files": {
+    "main.css": "/qallah-mini/static/css/main.aab14127.chunk.css",
+    "main.js": "/qallah-mini/static/js/main.17695b2e.chunk.js",
+    "main.js.map": "/qallah-mini/static/js/main.17695b2e.chunk.js.map",
+    "runtime-main.js": "/qallah-mini/static/js/runtime-main.049c20cd.js",
+    "runtime-main.js.map": "/qallah-mini/static/js/runtime-main.049c20cd.js.map",
+    "static/js/2.a4c3cb66.chunk.js": "/qallah-mini/static/js/2.a4c3cb66.chunk.js",
+    "static/js/2.a4c3cb66.chunk.js.map": "/qallah-mini/static/js/2.a4c3cb66.chunk.js.map",
+    "index.html": "/qallah-mini/index.html",
+    "static/css/main.aab14127.chunk.css.map": "/qallah-mini/static/css/main.aab14127.chunk.css.map",
+    "static/js/2.a4c3cb66.chunk.js.LICENSE.txt": "/qallah-mini/static/js/2.a4c3cb66.chunk.js.LICENSE.txt",
+    "static/media/common.css": "/qallah-mini/static/media/user2.ee50b307.jpg",
+    "static/media/double-quotation.00adc518.png": "/qallah-mini/static/media/double-quotation.00adc518.png",
+    "static/media/double-quotation2.28a0ce14.png": "/qallah-mini/static/media/double-quotation2.28a0ce14.png",
+    "static/media/경험-icon.0753f7fa.png": "/qallah-mini/static/media/경험-icon.0753f7fa.png",
+    "static/media/나-icon.61cd37eb.png": "/qallah-mini/static/media/나-icon.61cd37eb.png",
+    "static/media/남-icon.48403e40.png": "/qallah-mini/static/media/남-icon.48403e40.png",
+    "static/media/성찰-icon.5348365b.png": "/qallah-mini/static/media/성찰-icon.5348365b.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.049c20cd.js",
+    "static/js/2.a4c3cb66.chunk.js",
+    "static/css/main.aab14127.chunk.css",
+    "static/js/main.17695b2e.chunk.js"
+  ]
+}
